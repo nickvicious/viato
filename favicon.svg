@@ -1,11 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="1024" height="1024">
-  <!-- Viato: voice + tasks (sound bars, plus, checklist) -->
-  <rect width="120" height="120" rx="26" fill="#123B3A"/>
-  <rect x="22" y="48" width="7" height="24" rx="3.5" fill="#5FE0C8"/>
-  <rect x="34" y="38" width="7" height="44" rx="3.5" fill="#5FE0C8"/>
-  <rect x="46" y="52" width="7" height="16" rx="3.5" fill="#5FE0C8"/>
-  <path d="M66 53 v14 M59 60 h14" stroke="#5FE0C8" stroke-width="4.5" stroke-linecap="round"/>
-  <path d="M82 42 l4 4 l7 -8" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M82 62 l4 4 l7 -8" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M82 82 h11" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" opacity="0.6"/>
+  <!-- Viato ("Graphite"): voice turns into a task - sound bars and a check mark -->
+  <rect width="120" height="120" rx="28" fill="#1D1E21"/>
+  <rect x="22" y="50" width="8" height="20" rx="4" fill="#ECECEE"/>
+  <rect x="35" y="40" width="8" height="40" rx="4" fill="#ECECEE"/>
+  <rect x="48" y="47" width="8" height="26" rx="4" fill="#ECECEE"/>
+  <path d="M64 60 l10 10 l24 -26" fill="none" stroke="#A5ABFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
