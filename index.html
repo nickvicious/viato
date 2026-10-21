@@ -223,6 +223,10 @@
   details.g-prov { border-bottom: 1px solid var(--line); }
   .aiguide summary { font-weight: 400; font-size: inherit; justify-content: flex-start; }
   .g-prov > summary::after { content: none !important; }
+  .card.hl { border-color: #1f4c49; background: linear-gradient(160deg, rgba(18,59,58,.5), var(--card)); }
+  #server-setup { margin-top: 28px; }
+  .g-prov > .g-inner { padding: 0 16px 14px; }
+  pre.g-code { margin: 10px 0 4px; padding: 12px 14px; background: #0a0f10; border: 1px solid var(--line); border-radius: 10px; font-size: 13px; line-height: 1.6; overflow-x: auto; white-space: pre; color: #cfe9e4; }
 </style>
 </head>
 <body>
@@ -232,6 +236,7 @@
     <a class="brand" href="#"><img src="favicon.svg" alt="">Viato</a>
     <nav class="menu">
       <a href="#features"><span class="ru">Возможности</span><span class="en">Features</span></a>
+      <a href="#team"><span class="ru">Команда</span><span class="en">Team</span></a>
       <a href="#privacy"><span class="ru">Приватность</span><span class="en">Privacy</span></a>
       <a href="#pricing"><span class="ru">Лицензия</span><span class="en">Pricing</span></a>
       <a href="#download"><span class="ru">Скачать</span><span class="en">Download</span></a>
@@ -508,6 +513,136 @@
       <span class="ru">Протокол звонка</span><span class="en">Call minutes</span>
       <span class="ru">Протокол встречи</span><span class="en">Meeting minutes</span>
     </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="team">
+  <div class="wrap">
+    <div class="kicker"><span class="ru">Работа в команде</span><span class="en">Teamwork</span></div>
+    <h2><span class="ru">Задачи, чаты и созвоны команды — на вашем сервере</span><span class="en">Your team’s tasks, chats and calls — on your own server</span></h2>
+    <p class="lead"><span class="ru">Сотрудники работают в привычном Viato, а общие проекты, задачи и переписка синхронизируются через сервер компании. Сервер ваш: администратор ставит его прямо из приложения — без программиста и без привязки к разработчику Viato.</span><span class="en">Everyone works in the same familiar Viato, while shared projects, tasks and chats sync through your company server. The server is yours: an admin installs it right from the app — no IT person needed and no dependence on the Viato developer.</span></p>
+
+    <div class="grid g3" style="margin-top:32px">
+      <div class="card"><h3><span class="ru">Общие проекты и задачи</span><span class="en">Shared projects and tasks</span></h3><p class="muted"><span class="ru">Исполнитель, соисполнитель, наблюдатель. Задачу можно дать целой группе («Дизайн», «Разработка») — каждый отмечает «сделал свою часть». Зависимости, чек-листы и понятные права: кто меняет сроки и закрывает задачи.</span><span class="en">Assignee, co-assignee, observer. Give a task to a whole group (“Design”, “Development”) — each person marks “done on my side”. Dependencies, checklists and clear rights: who may change deadlines and close tasks.</span></p></div>
+      <div class="card"><h3><span class="ru">Чаты рядом с работой</span><span class="en">Chats next to the work</span></h3><p class="muted"><span class="ru">Личные и групповые чаты, общий чат и новости компании, комментарии внутри задачи, файлы и отметки прочтения. Из любого сообщения — задача, пункт списка или письмо.</span><span class="en">Direct and group chats, a general chat and company news, comments inside a task, files and read marks. Any message can become a task, a list item or an email.</span></p></div>
+      <div class="card"><h3><span class="ru">Созвоны всей командой</span><span class="en">Calls for the whole team</span></h3><p class="muted"><span class="ru">Планирование в часовом поясе каждого, приглашения, проверка занятости, напоминания за 15 и 2 минуты. Протокол созвона отправляется коллеге или группе вместе с расшифровкой.</span><span class="en">Scheduling in everyone’s time zone, invitations, busy checks, reminders 15 and 2 minutes before. Call minutes go to a colleague or a group together with the transcript.</span></p></div>
+      <div class="card"><h3><span class="ru">ИИ для всех без раздачи ключей</span><span class="en">AI for everyone, no key sharing</span></h3><p class="muted"><span class="ru">Администратор подключает облачный ИИ на сервере: сотрудники пользуются им, не видя ключа, с дневным лимитом на человека. Или ставит локальный ИИ прямо на сервер — тогда записи не покидают компанию.</span><span class="en">The admin connects cloud AI on the server: people use it without ever seeing the key, with a daily limit per person. Or installs local AI right on the server — then recordings never leave the company.</span></p></div>
+      <div class="card"><h3><span class="ru">Офлайн и с телефона</span><span class="en">Offline and on the phone</span></h3><p class="muted"><span class="ru">Каждый работает и без связи: изменения уйдут на сервер, когда он снова доступен. Сотрудники подключаются и с Android-телефона.</span><span class="en">Everyone keeps working without a connection: changes go to the server once it’s reachable again. People can join from an Android phone too.</span></p></div>
+      <div class="card"><h3><span class="ru">Контроль доступа</span><span class="en">Access control</span></h3><p class="muted"><span class="ru">Вход только по личному приглашению с подтверждением администратора. Отключили сотрудника — данные компании удаляются с его компьютера. Личные заметки и списки на сервер не попадают никогда.</span><span class="en">Access only by personal invitation approved by an admin. Disable a person and the company data is removed from their computer. Personal notes and lists never go to the server.</span></p></div>
+    </div>
+
+    <div class="grid g3" style="margin-top:20px">
+      <div class="card hl">
+        <div class="g-step"><span class="ru">БЕЗ СИСАДМИНА</span><span class="en">NO IT PERSON NEEDED</span></div>
+        <h3><span class="ru">Сервер — за 5 минут из приложения</span><span class="en">A server in 5 minutes, from the app</span></h3>
+        <p class="muted"><span class="ru">Нужны только адрес сервера и пароль. Установку, шифрование, автозапуск и первую учётную запись Viato сделает сам — командная строка не понадобится. Обновления сервера — тоже одной кнопкой.</span><span class="en">All you need is the server address and a password. Viato does the installation, encryption, autostart and the first account itself — no command line. Server updates are one click too.</span></p>
+      </div>
+      <div class="card hl">
+        <div class="g-step"><span class="ru">НЕЗАВИСИМО ОТ НАС</span><span class="en">INDEPENDENT OF US</span></div>
+        <h3><span class="ru">Любой VPS/VDS или компьютер в офисе</span><span class="en">Any VPS/VDS or an office computer</span></h3>
+        <p class="muted"><span class="ru">Подходит любой хостинг с Ubuntu или Debian. Всё нужное для установки уже внутри приложения, лицензию не нужно подтверждать, сервер не обращается к разработчику. Данные компании хранятся только у вас и зашифрованы.</span><span class="en">Any hosting with Ubuntu or Debian works. Everything needed for setup is inside the app, the license never needs re-checking, and the server never contacts the developer. Company data lives only with you, encrypted.</span></p>
+      </div>
+      <div class="card hl">
+        <div class="g-step"><span class="ru">БЭКАПЫ У ВАС</span><span class="en">BACKUPS WITH YOU</span></div>
+        <h3><span class="ru">Копии на компьютере администратора</span><span class="en">Copies on the admin’s computer</span></h3>
+        <p class="muted"><span class="ru">По расписанию — от каждых 6 часов до раза в неделю — все данные компании сохраняются на ПК администратора: в любую папку, хоть на облачный диск или флешку. Файлы зашифрованы паролем администратора. Откат к любой копии — одной кнопкой в панели администратора.</span><span class="en">On a schedule — from every 6 hours to once a week — all company data is saved to the admin’s PC: any folder, even a cloud drive or a USB stick. Files are encrypted with the admin’s password. Rolling back to any copy is one click in the admin panel.</span></p>
+      </div>
+    </div>
+
+    <details class="aiguide" id="server-setup">
+      <summary>
+        <span class="g-icon">🖥️</span>
+        <span class="g-head">
+          <b><span class="ru">Как запустить сервер для команды</span><span class="en">How to launch a server for your team</span></b>
+          <small><span class="ru">Один администратор и 15 минут: заказать сервер, вставить адрес и пароль в Viato, пригласить людей</span><span class="en">One admin and 15 minutes: order a server, paste its address and password into Viato, invite people</span></small>
+        </span>
+      </summary>
+      <div class="g-body">
+
+        <h3 style="margin:6px 0 10px"><span class="ru">Шаг 1. Выберите сервер</span><span class="en">Step 1. Choose a server</span></h3>
+        <div class="grid g2">
+          <div class="card g-card">
+            <div class="g-step"><span class="ru">БАЗОВЫЙ</span><span class="en">BASIC</span></div>
+            <h3><span class="ru">Без ИИ на сервере</span><span class="en">No AI on the server</span></h3>
+            <ul class="ticks">
+              <li><span class="ru">1–2 ядра, 2–4 ГБ памяти, 10–20 ГБ диска</span><span class="en">1–2 cores, 2–4 GB RAM, 10–20 GB disk</span></li>
+              <li><span class="ru">Ubuntu 22.04 / 24.04 или Debian 12 / 13, процессор x86 или ARM</span><span class="en">Ubuntu 22.04 / 24.04 or Debian 12 / 13, x86 or ARM CPU</span></li>
+              <li><span class="ru">Обычно несколько евро в месяц</span><span class="en">Usually a few euros a month</span></li>
+            </ul>
+            <p class="muted g-small"><span class="ru">Достаточно для задач, чатов и созвонов команды. ИИ работает на компьютерах сотрудников или в облаке.</span><span class="en">Enough for the team’s tasks, chats and calls. AI runs on people’s computers or in the cloud.</span></p>
+          </div>
+          <div class="card g-card">
+            <div class="g-step"><span class="ru">С ЛОКАЛЬНЫМ ИИ</span><span class="en">WITH LOCAL AI</span></div>
+            <h3><span class="ru">ИИ для всей команды на сервере</span><span class="en">AI for the whole team on the server</span></h3>
+            <ul class="ticks">
+              <li><span class="ru">От 4 ядер (лучше 8), от 8 ГБ памяти (лучше 16 ГБ), от 30 ГБ диска</span><span class="en">4+ cores (8 is better), 8+ GB RAM (16 GB is better), 30+ GB disk</span></li>
+              <li><span class="ru">Та же ОС: Ubuntu или Debian. Видеокарта не нужна — ИИ на сервере работает на процессоре</span><span class="en">Same OS: Ubuntu or Debian. No graphics card needed — server AI runs on the CPU</span></li>
+            </ul>
+            <p class="muted g-small"><span class="ru">Сервер сам расшифровывает речь и разбирает записи для всех: ничего не уходит в облако, личные ноутбуки не нагружаются. Viato проверит сервер и предложит модель по силам.</span><span class="en">The server transcribes and analyses recordings for everyone: nothing goes to the cloud, laptops stay free. Viato checks the server and suggests a model that fits.</span></p>
+          </div>
+        </div>
+        <ol class="g-steps" style="margin-top:16px">
+          <li><span class="ru">Зарегистрируйтесь у любого хостинга с VPS/VDS (например, Hetzner, DigitalOcean, Timeweb Cloud, Selectel) и создайте сервер. Выберите страну, откуда он хорошо доступен всем сотрудникам.</span><span class="en">Sign up with any VPS/VDS hosting (for example Hetzner, DigitalOcean, Timeweb Cloud, Selectel) and create a server. Pick a country it’s easily reachable from for everyone.</span></li>
+          <li><span class="ru">Операционная система: <b>Ubuntu 24.04</b>. Способ входа: <b>пароль root</b> (не только SSH-ключ).</span><span class="en">Operating system: <b>Ubuntu 24.04</b>. Login method: <b>root password</b> (not just an SSH key).</span></li>
+          <li><span class="ru">Когда сервер создан, найдите в панели хостинга его <b>IP-адрес</b> и <b>пароль root</b> — часто их присылают на почту.</span><span class="en">Once the server is created, find its <b>IP address</b> and <b>root password</b> in the hosting panel — they’re often emailed to you.</span></li>
+          <li><span class="ru">Если у хостинга есть файрвол или «группы безопасности» — откройте входящие порты <b>TCP 443</b> и <b>22</b>.</span><span class="en">If the hosting has a firewall or “security groups”, open incoming ports <b>TCP 443</b> and <b>22</b>.</span></li>
+        </ol>
+
+        <h3 style="margin:26px 0 10px"><span class="ru">Шаг 2. Получите ключ лицензии</span><span class="en">Step 2. Get a license key</span></h3>
+        <p class="muted g-small"><span class="ru">Напишите нам в <a data-bot="free5" href="#">Telegram</a> — ключ «Команда 5» подарим сразу. Активируйте его в течение срока, указанного при выдаче.</span><span class="en">Message us on <a data-bot="free5" href="#">Telegram</a> — we’ll give you a Team 5 key right away. Activate it within the period stated when it’s issued.</span></p>
+
+        <h3 style="margin:26px 0 10px"><span class="ru">Шаг 3. Установите сервер из приложения</span><span class="en">Step 3. Install the server from the app</span></h3>
+        <ol class="g-steps">
+          <li><span class="ru">Viato → <b>Настройки</b> → «Режим и работы» → «С командой» → «Добавить работу» → <b>«Настроить сервер»</b>.</span><span class="en">Viato → <b>Settings</b> → “Mode and works” → “With a team” → “Add a work” → <b>“Set up the server”</b>.</span></li>
+          <li><span class="ru">«Выбрать файл ключа» — укажите файл лицензии (или вставьте его текст).</span><span class="en">“Choose the key file” — pick the license file (or paste its text).</span></li>
+          <li><span class="ru">Впишите IP-адрес сервера, пароль root и название компании.</span><span class="en">Enter the server IP address, root password and company name.</span></li>
+          <li><span class="ru">Ваше имя, логин и пароль администратора (не меньше 8 символов).</span><span class="en">Your name, admin login and password (at least 8 characters).</span></li>
+          <li><span class="ru"><b>«Установить»</b> — обычно 1–5 минут, прогресс виден по шагам.</span><span class="en"><b>“Install”</b> — usually 1–5 minutes, with progress shown step by step.</span></li>
+          <li><span class="ru">Сохраните показанный <b>ключ сервера</b> в надёжном месте.</span><span class="en">Save the <b>server key</b> it shows somewhere safe.</span></li>
+        </ol>
+        <div class="g-where" style="margin-top:12px"><span class="ru">Пароль root нужен только для установки и нигде не сохраняется. Сразу после установки выключите вход по паролю: «Команда» → «Сервер». Приложение обновляет сервер по своему ключу.</span><span class="en">The root password is used only for setup and is never stored. Right after setup, turn off password login: “Team” → “Server”. The app updates the server with its own key.</span></div>
+
+        <h3 style="margin:26px 0 10px"><span class="ru">Шаг 4. Включите бэкапы</span><span class="en">Step 4. Turn on backups</span></h3>
+        <ol class="g-steps">
+          <li><span class="ru">«Команда» → «Бэкапы» → задайте <b>пароль бэкапа</b> и запишите его: без него файл не открыть, восстановить пароль нельзя.</span><span class="en">“Team” → “Backups” → set a <b>backup password</b> and write it down: without it a file can’t be opened, and it can’t be recovered.</span></li>
+          <li><span class="ru">Включите «Делать автоматически», выберите, как часто и сколько копий хранить. Папку можно указать на облачном диске или флешке.</span><span class="en">Turn on “Make them automatically”, choose how often and how many copies to keep. The folder can be on a cloud drive or a USB stick.</span></li>
+        </ol>
+
+        <h3 style="margin:26px 0 10px"><span class="ru">Шаг 5. Локальный ИИ на сервере (по желанию)</span><span class="en">Step 5. Local AI on the server (optional)</span></h3>
+        <p class="muted g-small"><span class="ru">В работе компании: Настройки → «Ключи ИИ компании» → установите локальный ИИ на сервер. Viato проверит память и диск и предложит модель. Там же можно передать сотрудникам облачные ключи через сервер — с дневным лимитом на человека.</span><span class="en">In the company workspace: Settings → “Company AI keys” → install local AI on the server. Viato checks memory and disk and suggests a model. There you can also share cloud keys through the server — with a daily limit per person.</span></p>
+
+        <h3 style="margin:26px 0 10px"><span class="ru">Шаг 6. Пригласите людей</span><span class="en">Step 6. Invite people</span></h3>
+        <ol class="g-steps">
+          <li><span class="ru">«Команда» → «Приглашения» → «Новое приглашение» → скопируйте код (начинается с <code>VIATO1-</code>) и отправьте сотруднику в любом мессенджере.</span><span class="en">“Team” → “Invitations” → “New invitation” → copy the code (starts with <code>VIATO1-</code>) and send it to the person in any messenger.</span></li>
+          <li><span class="ru">Сотрудник: Настройки → «Режим и работы» → «С командой» → «Добавить работу» → «Вступить по коду», придумывает логин и пароль.</span><span class="en">The person: Settings → “Mode and works” → “With a team” → “Add a work” → “Join with a code”, then picks a login and password.</span></li>
+          <li><span class="ru">Подтвердите его: «Команда» → «Люди» → «Подтвердить».</span><span class="en">Approve them: “Team” → “People” → “Approve”.</span></li>
+        </ol>
+
+        <details class="g-prov" style="margin-top:26px">
+          <summary><b><span class="ru">Сервер в офисе вместо VPS</span><span class="en">An office server instead of a VPS</span></b> <span class="muted"><span class="ru">свой компьютер, без аренды</span><span class="en">your own machine, no rent</span></span></summary>
+          <div class="g-inner">
+            <p class="muted g-small"><span class="ru">Подходит любой компьютер или мини-ПК, который всегда включён. Удобно, когда все сотрудники в офисе или подключаются к нему по корпоративному VPN. Если люди работают из разных мест без VPN, проще арендовать VPS.</span><span class="en">Any computer or mini PC that stays on will do. Handy when everyone is in the office or connects to it over a company VPN. If people work from different places without a VPN, renting a VPS is simpler.</span></p>
+            <div class="grid g2" style="margin:14px 0">
+              <div class="card g-card"><div class="g-step"><span class="ru">БЕЗ ИИ НА СЕРВЕРЕ</span><span class="en">NO AI ON THE SERVER</span></div><p class="muted g-small" style="margin:0"><span class="ru">2 ядра, 4 ГБ памяти, SSD от 20 ГБ. Подойдёт старый офисный ПК или недорогой мини-ПК.</span><span class="en">2 cores, 4 GB RAM, 20+ GB SSD. An old office PC or an inexpensive mini PC will do.</span></p></div>
+              <div class="card g-card"><div class="g-step"><span class="ru">С ЛОКАЛЬНЫМ ИИ</span><span class="en">WITH LOCAL AI</span></div><p class="muted g-small" style="margin:0"><span class="ru">От 4 ядер (лучше 8), 16 ГБ памяти, SSD от 50 ГБ. Видеокарта не нужна.</span><span class="en">4+ cores (8 is better), 16 GB RAM, 50+ GB SSD. No graphics card needed.</span></p></div>
+            </div>
+            <ol class="g-steps">
+              <li><span class="ru">Установите <a href="https://ubuntu.com/download/server" target="_blank" rel="noopener">Ubuntu Server 24.04</a>. В установщике отметьте <b>«Install OpenSSH server»</b>.</span><span class="en">Install <a href="https://ubuntu.com/download/server" target="_blank" rel="noopener">Ubuntu Server 24.04</a>. In the installer, tick <b>“Install OpenSSH server”</b>.</span></li>
+              <li><span class="ru">В настройках роутера закрепите за компьютером постоянный адрес в сети (резервирование DHCP), например <code>192.168.1.50</code>.</span><span class="en">In the router settings, give the computer a fixed address on the network (DHCP reservation), e.g. <code>192.168.1.50</code>.</span></li>
+              <li><span class="ru">Разрешите вход root по паролю на время установки — на сервере выполните:</span><span class="en">Allow root password login for the setup — run on the server:</span>
+<pre class="g-code">sudo passwd root
+echo "PermitRootLogin yes" | sudo tee /etc/ssh/sshd_config.d/10-root.conf
+sudo systemctl restart ssh</pre></li>
+              <li><span class="ru">Дальше — как с VPS: Шаги 2–6, только вместо IP хостинга впишите адрес компьютера в офисной сети.</span><span class="en">Then follow Steps 2–6 as with a VPS, using the computer’s office network address instead of a hosting IP.</span></li>
+              <li><span class="ru">После установки выключите вход по паролю: «Команда» → «Сервер».</span><span class="en">After setup, turn off password login: “Team” → “Server”.</span></li>
+            </ol>
+          </div>
+        </details>
+
+        <p class="muted g-small" style="margin-top:18px"><span class="ru">Что-то не получается — <a data-bot="hello" href="#">напишите нам</a>, поможем с установкой. Подробно — в <a data-doc="setup-guide" href="docs/Viato-setup-guide-ru.pdf" target="_blank" rel="noopener">инструкции по установке</a>.</span><span class="en">Stuck? <a data-bot="hello" href="#">Message us</a> and we’ll help with the setup. Full details are in the <a data-doc="setup-guide" href="docs/Viato-setup-guide-ru.pdf" target="_blank" rel="noopener">setup guide</a>.</span></p>
+      </div>
+    </details>
   </div>
 </section>
 
