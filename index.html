@@ -45,7 +45,7 @@
   html[lang="ru"] .en, html[lang="en"] .ru { display: none !important; }
   a { color: var(--accent); text-decoration: none; }
   a:hover { text-decoration: underline; }
-  img { max-width: 100%; display: block; }
+  img { max-width: 100%; height: auto; display: block; }
   .wrap { max-width: var(--max); margin: 0 auto; padding: 0 20px; }
   section { padding: 88px 0; }
   section.alt { background: var(--bg2); }
@@ -217,7 +217,7 @@
       <span class="chip"><span class="ru">Данные остаются у вас</span><span class="en">Your data stays with you</span></span>
       <span class="chip">RU · EN · DE · ZH</span>
     </div>
-    <div class="shot"><img src="img/call.webp" width="1600" height="1001" alt="" loading="eager"></div>
+    <div class="shot"><img data-shot="call" src="img/call.webp" width="1600" height="1001" alt="" loading="eager"></div>
     <p class="note center" style="margin-top:12px">
       <span class="ru">Протокол созвона: кратко, решения, открытые вопросы и задачи с исполнителем, сроком и цитатой из разговора.</span>
       <span class="en">Call minutes: summary, decisions, open questions and tasks with owner, deadline and a quote from the conversation.</span>
@@ -273,7 +273,7 @@
         </ul>
         <div class="value"><span class="ru">После встречи у каждого конкретный список дел, а не общее «кажется, договорились».</span><span class="en">After the meeting everyone has a concrete to-do list instead of a vague “I think we agreed”.</span></div>
       </div>
-      <div class="shot"><img src="img/call.webp" width="1600" height="1001" alt="" loading="lazy"></div>
+      <div class="shot"><img data-shot="call" src="img/call.webp" width="1600" height="1001" alt="" loading="lazy"></div>
     </div>
 
     <div class="feature flip">
@@ -287,7 +287,7 @@
         </ul>
         <div class="value"><span class="ru">Ничего не теряется между встречами, вечером не нужно восстанавливать день по памяти.</span><span class="en">Nothing slips between meetings — no more rebuilding your day from memory in the evening.</span></div>
       </div>
-      <div class="shot"><img src="img/dayplan.webp" width="1600" height="1001" alt="" loading="lazy"></div>
+      <div class="shot"><img data-shot="dayplan" src="img/dayplan.webp" width="1600" height="1001" alt="" loading="lazy"></div>
     </div>
 
     <div class="feature">
@@ -301,7 +301,7 @@
         </ul>
         <div class="value"><span class="ru">От «клиент прислал материалы» до плана работ — за минуты, без перепечатывания.</span><span class="en">From “the client sent the materials” to a work plan in minutes, with no retyping.</span></div>
       </div>
-      <div class="shot"><img src="img/gantt.webp" width="1600" height="1001" alt="" loading="lazy"></div>
+      <div class="shot"><img data-shot="gantt" src="img/gantt.webp" width="1600" height="1001" alt="" loading="lazy"></div>
     </div>
 
     <div class="feature flip">
@@ -315,7 +315,7 @@
         </ul>
         <div class="value"><span class="ru">Вы контролируете данные, инфраструктуру и расходы. Никакой ежемесячной подписки.</span><span class="en">You control the data, the infrastructure and the costs. No monthly subscription.</span></div>
       </div>
-      <div class="shot"><img src="img/chat.webp" width="1600" height="1017" alt="" loading="lazy"></div>
+      <div class="shot"><img data-shot="chat" src="img/chat.webp" width="1600" height="1017" alt="" loading="lazy"></div>
     </div>
   </div>
 </section>
@@ -494,7 +494,7 @@
     <p class="ver center" id="ver"></p>
     <div class="grid g3" style="margin-top:28px">
       <div class="card"><h3><span class="ru">Работает на обычном ноутбуке</span><span class="en">Runs on an ordinary laptop</span></h3><p class="muted"><span class="ru">Видеокарта не обязательна. Viato сам проверит компьютер и подскажет, какая модель ИИ подойдёт.</span><span class="en">No graphics card required. Viato checks your computer and recommends the right AI model.</span></p></div>
-      <div class="card"><h3><span class="ru">Первый запуск</span><span class="en">First launch</span></h3><p class="muted"><span class="ru">Windows или macOS могут предупредить о неизвестном издателе — как открыть приложение, показано в <a href="docs/Viato-setup-guide-ru.pdf">инструкции по установке</a>.</span><span class="en">Windows or macOS may warn about an unknown publisher — the <a href="docs/Viato-setup-guide-ru.pdf">setup guide</a> shows how to open the app.</span></p></div>
+      <div class="card"><h3><span class="ru">Первый запуск</span><span class="en">First launch</span></h3><p class="muted"><span class="ru">Windows или macOS могут предупредить о неизвестном издателе — как открыть приложение, показано в <a href="docs/Viato-setup-guide-ru.pdf">инструкции по установке</a>.</span><span class="en">Windows or macOS may warn about an unknown publisher — the <a href="docs/Viato-setup-guide-en.pdf">setup guide</a> shows how to open the app.</span></p></div>
       <div class="card"><h3><span class="ru">Телефон всегда с собой</span><span class="en">Your phone, always with you</span></h3><p class="muted"><span class="ru">Заметки, задачи, списки и напоминания на Android — даже без интернета. Записи обрабатываются в облаке или на вашем ПК.</span><span class="en">Notes, tasks, lists and reminders on Android — even offline. Recordings are processed in the cloud or on your PC.</span></p></div>
     </div>
   </div>
@@ -505,19 +505,18 @@
   <div class="wrap">
     <div class="kicker"><span class="ru">Документация</span><span class="en">Documentation</span></div>
     <h2><span class="ru">Всё, чтобы начать за вечер</span><span class="en">Everything you need to start in one evening</span></h2>
-    <p class="lead en">Documentation is currently in Russian; English versions are on the way.</p>
-    <div class="grid g3" style="margin-top:28px">
-      <a class="card doc" href="docs/Viato-presentation-ru.pdf" target="_blank" rel="noopener">
+        <div class="grid g3" style="margin-top:28px">
+      <a class="card doc" data-doc="presentation" href="docs/Viato-presentation-ru.pdf" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M12 17v3M8 20h8M7 13l3-3 2 2 4-4"/></svg>
-        <span><b><span class="ru">Презентация</span><span class="en">Presentation</span></b><small><span class="ru">Что умеет Viato, приватность, выбор ИИ, лицензии · PDF, 2,9 МБ</span><span class="en">What Viato does, privacy, choosing AI, licensing · PDF, 2.9 MB · RU</span></small></span>
+        <span><b><span class="ru">Презентация</span><span class="en">Presentation</span></b><small><span class="ru">Что умеет Viato, приватность, выбор ИИ, лицензии · PDF, 2,9 МБ</span><span class="en">What Viato does, privacy, choosing AI, licensing · PDF, 2.9 MB</span></small></span>
       </a>
-      <a class="card doc" href="docs/Viato-setup-guide-ru.pdf" target="_blank" rel="noopener">
+      <a class="card doc" data-doc="setup-guide" href="docs/Viato-setup-guide-ru.pdf" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-.6-.6-2.4z"/></svg>
-        <span><b><span class="ru">Установка и настройка</span><span class="en">Setup guide</span></b><small><span class="ru">ПК, сервер команды и телефон · PDF, 3,3 МБ</span><span class="en">PC, team server and phone · PDF, 3.3 MB · RU</span></small></span>
+        <span><b><span class="ru">Установка и настройка</span><span class="en">Setup guide</span></b><small><span class="ru">ПК, сервер команды и телефон · PDF, 3,3 МБ</span><span class="en">PC, team server and phone · PDF, 3.0 MB</span></small></span>
       </a>
-      <a class="card doc" href="docs/Viato-manual-ru.pdf" target="_blank" rel="noopener">
+      <a class="card doc" data-doc="manual" href="docs/Viato-manual-ru.pdf" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5M8 7h7M8 11h7"/></svg>
-        <span><b><span class="ru">Руководство пользователя</span><span class="en">User manual</span></b><small><span class="ru">Все экраны и функции по шагам · PDF, 6,8 МБ</span><span class="en">Every screen and feature, step by step · PDF, 6.8 MB · RU</span></small></span>
+        <span><b><span class="ru">Руководство пользователя</span><span class="en">User manual</span></b><small><span class="ru">Все экраны и функции по шагам · PDF, 6,8 МБ</span><span class="en">Every screen and feature, step by step · PDF, 6.2 MB</span></small></span>
       </a>
     </div>
   </div>
@@ -591,6 +590,12 @@
   function setLang(l) {
     document.documentElement.lang = l;
     try { localStorage.setItem('viato-lang', l); } catch (e) {}
+    document.querySelectorAll('[data-shot]').forEach(function (img) {
+      img.src = (l === 'ru' ? 'img/' : 'img/en/') + img.getAttribute('data-shot') + '.webp';
+    });
+    document.querySelectorAll('[data-doc]').forEach(function (a) {
+      a.href = 'docs/Viato-' + a.getAttribute('data-doc') + '-' + l + '.pdf';
+    });
     document.title = l === 'ru' ? 'Viato — каждый разговор заканчивается планом' : 'Viato — every conversation ends with a plan';
     showVersion();
   }
