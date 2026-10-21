@@ -1,0 +1,13 @@
+{
+  "version": "0.9.8",
+  "checked": "2026-10-21",
+  "files": {
+    "exe": {
+      "sha256": "c29a7925b18af562262a2bf222df97efbc837669963eea0ec3b54350456d0186",
+      "malicious": 0,
+      "suspicious": 0,
+      "engines": 51,
+      "report": "https://www.virustotal.com/gui/file/c29a7925b18af562262a2bf222df97efbc837669963eea0ec3b54350456d0186"
+    }
+  }
+}

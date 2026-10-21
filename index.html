@@ -200,6 +200,20 @@
     background: var(--card); color: var(--text); font-size: 26px; line-height: 1; cursor: pointer; z-index: 1; }
   .viewer .hint { position: fixed; top: 20px; left: 16px; right: 70px; font-size: 13px; color: var(--muted); pointer-events: none; }
   body.noscroll { overflow: hidden; }
+  /* VirusTotal badge under the downloads */
+  .vt { margin-top: 22px; display: grid; grid-template-columns: auto 1fr; gap: 14px 18px; align-items: center; padding: 20px 24px;
+    border-radius: var(--radius); border: 1px solid rgba(95,224,200,.45); background: linear-gradient(120deg, rgba(95,224,200,.12), rgba(95,224,200,.04)); }
+  .vt[hidden] { display: none; }
+  .vt-shield { width: 44px; height: 44px; color: var(--accent); }
+  .vt-text { display: flex; flex-direction: column; gap: 2px; }
+  .vt-text b { font-size: 18px; }
+  .vt-text .muted { font-size: 15px; }
+  .vt-links { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 10px; }
+  .vt-links a { display: inline-flex; align-items: center; gap: 8px; padding: 9px 14px; border-radius: 10px; background: var(--card);
+    border: 1px solid var(--line); color: var(--text); font-size: 15px; font-weight: 600; }
+  .vt-links a:hover { border-color: var(--accent); text-decoration: none; }
+  .vt-links a .ok { color: var(--accent); font-weight: 800; }
+  @media (min-width: 900px) { .vt { grid-template-columns: auto 1fr auto; } .vt-links { grid-column: auto; justify-content: flex-end; } }
   /* AI setup guide */
   .aiguide { margin-top: 40px; border: 1px solid #1f4c49; border-radius: var(--radius); background: linear-gradient(120deg, rgba(18,59,58,.55), rgba(23,34,35,.9)); }
   .aiguide > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 14px; padding: 18px 22px; }
@@ -807,9 +821,17 @@ sudo systemctl restart ssh</pre></li>
       </div>
     </div>
     <p class="ver center" id="ver"></p>
+    <div class="vt" id="vt" hidden>
+      <svg class="vt-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>
+      <div class="vt-text">
+        <b><span class="ru">Проверено антивирусами на VirusTotal</span><span class="en">Scanned by antivirus engines on VirusTotal</span></b>
+        <span class="muted"><span class="ru">Каждую версию проверяют десятки антивирусов. Откройте отчёт по своему файлу:</span><span class="en">Every version is checked by dozens of antivirus engines. Open the report for your file:</span></span>
+      </div>
+      <div class="vt-links" id="vt-links"></div>
+    </div>
     <div class="grid g3" style="margin-top:28px">
       <div class="card"><h3><span class="ru">Работает на обычном ноутбуке</span><span class="en">Runs on an ordinary laptop</span></h3><p class="muted"><span class="ru">Видеокарта не обязательна. Viato сам проверит компьютер и подскажет, какая модель ИИ подойдёт.</span><span class="en">No graphics card required. Viato checks your computer and recommends the right AI model.</span></p></div>
-      <div class="card"><h3><span class="ru">Первый запуск</span><span class="en">First launch</span></h3><p class="muted"><span class="ru">Windows или macOS могут предупредить о неизвестном издателе — как открыть приложение, показано в <a href="docs/Viato-setup-guide-ru.pdf">инструкции по установке</a>.</span><span class="en">Windows or macOS may warn about an unknown publisher — the <a href="docs/Viato-setup-guide-en.pdf">setup guide</a> shows how to open the app.</span></p></div>
+      <div class="card"><h3><span class="ru">Первый запуск</span><span class="en">First launch</span></h3><p class="muted"><span class="ru">Viato — молодой проект, и у наших установщиков пока нет платной цифровой подписи Microsoft и Apple. Поэтому Windows или macOS могут предупредить о неизвестном издателе: так система встречает любую новую программу без такой подписи — это не значит, что в файле нашли угрозу. Как открыть приложение, показано в <a href="docs/Viato-setup-guide-ru.pdf">инструкции по установке</a>. Если сомневаетесь — загрузите файл на <a href="https://www.virustotal.com" target="_blank" rel="noopener">virustotal.com</a>: его бесплатно проверят десятки антивирусов. Скачивайте Viato только с viato.tech.</span><span class="en">Viato is a young project, and our installers don’t carry a paid Microsoft or Apple code signature yet. That’s why Windows or macOS may warn about an unknown publisher: the system does this for any new app without such a signature — not because it found a threat. The <a href="docs/Viato-setup-guide-en.pdf">setup guide</a> shows how to open the app. Not sure? Upload the file to <a href="https://www.virustotal.com" target="_blank" rel="noopener">virustotal.com</a> — dozens of antivirus engines will check it for free. Only download Viato from viato.tech.</span></p></div>
       <div class="card"><h3><span class="ru">Телефон всегда с собой</span><span class="en">Your phone, always with you</span></h3><p class="muted"><span class="ru">Заметки, задачи, списки и напоминания на Android — даже без интернета. Записи обрабатываются в облаке или на вашем ПК.</span><span class="en">Notes, tasks, lists and reminders on Android — even offline. Recordings are processed in the cloud or on your PC.</span></p></div>
     </div>
   </div>
@@ -939,6 +961,7 @@ sudo systemctl restart ssh</pre></li>
     document.querySelectorAll('[data-doc]').forEach(function (a) {
       a.href = ROOT + 'docs/Viato-' + a.getAttribute('data-doc') + '-' + l + '.pdf';
     });
+    if (typeof showVt === 'function') showVt();
     if (!FIXED) document.title = l === 'ru' ? 'Viato — ИИ таск-трекер: созвоны и голосовые заметки в задачи' : 'Viato — AI Task Tracker: Calls & Voice Notes to Tasks';
     showVersion();
   }
@@ -948,6 +971,30 @@ sudo systemctl restart ssh</pre></li>
       try { localStorage.setItem('viato-lang', a.getAttribute('data-lang')); } catch (e) {}
     });
   });
+
+  // VirusTotal reports of the current installers (site/virustotal.json, made by scripts/virustotal.py).
+  var vtData = null;
+  function showVt() {
+    var box = document.getElementById('vt'), links = document.getElementById('vt-links');
+    if (!vtData || !vtData.files) return;
+    var ru = document.documentElement.lang === 'ru', names = { exe: 'Windows', dmg: 'macOS', apk: 'Android' };
+    links.innerHTML = '';
+    ['exe', 'dmg', 'apk'].forEach(function (k) {
+      var f = vtData.files[k];
+      if (!f || !f.report) return;
+      var a = document.createElement('a');
+      a.href = f.report; a.target = '_blank'; a.rel = 'noopener';
+      var bad = (f.malicious || 0) + (f.suspicious || 0);
+      a.innerHTML = names[k] + ' · <span class="ok">' + bad + (ru ? ' из ' : ' of ') + f.engines + '</span> ' +
+        (ru ? 'нашли угрозы' : 'flagged it') + ' ↗';
+      links.appendChild(a);
+    });
+    box.hidden = !links.children.length;
+  }
+  fetch(ROOT + 'virustotal.json', { cache: 'no-cache' })
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (j) { vtData = j; showVt(); })
+    .catch(function () {});
 
   // Version and sizes from the latest GitHub release; the page works without it.
   var release = null;
