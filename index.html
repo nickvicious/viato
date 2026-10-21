@@ -168,6 +168,22 @@
   .final .btns { justify-content: center; margin-top: 26px; }
   footer { border-top: 1px solid var(--line); padding: 32px 0; color: var(--muted); font-size: 14px; }
   footer .wrap { display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; }
+
+  /* screenshot viewer */
+  .shot img { cursor: zoom-in; }
+  .shot { position: relative; }
+  .shot::after { content: ""; position: absolute; right: 12px; bottom: 12px; width: 36px; height: 36px; border-radius: 10px; pointer-events: none;
+    background: rgba(13,19,20,.78) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235fe0c8' stroke-width='2.2' stroke-linecap='round'%3E%3Ccircle cx='10.5' cy='10.5' r='6.5'/%3E%3Cpath d='M15.5 15.5 21 21M10.5 7.5v6M7.5 10.5h6'/%3E%3C/svg%3E") center/20px no-repeat; }
+  .viewer { position: fixed; inset: 0; z-index: 50; background: rgba(5,8,9,.94); display: none; overflow: auto; overscroll-behavior: contain; }
+  .viewer.open { display: block; }
+  .viewer .stage { min-height: 100%; display: flex; align-items: center; justify-content: center; padding: 56px 12px 40px; }
+  .viewer img { max-width: 100%; max-height: calc(100vh - 100px); width: auto; cursor: zoom-in; border-radius: 10px; }
+  .viewer.zoom .stage { display: block; padding: 56px 0 40px; }
+  .viewer.zoom img { max-width: none; max-height: none; width: 1600px; cursor: zoom-out; border-radius: 0; }
+  .viewer .close { position: fixed; top: 10px; right: 12px; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line);
+    background: var(--card); color: var(--text); font-size: 26px; line-height: 1; cursor: pointer; z-index: 1; }
+  .viewer .hint { position: fixed; top: 20px; left: 16px; right: 70px; font-size: 13px; color: var(--muted); pointer-events: none; }
+  body.noscroll { overflow: hidden; }
 </style>
 </head>
 <body>
@@ -566,6 +582,12 @@
   </div>
 </section>
 
+<div class="viewer" id="viewer" role="dialog" aria-modal="true">
+  <button class="close" type="button" aria-label="Close">×</button>
+  <div class="hint"><span class="ru">Нажмите на снимок, чтобы приблизить или отдалить</span><span class="en">Tap the image to zoom in or out</span></div>
+  <div class="stage"><img alt=""></div>
+</div>
+
 <footer>
   <div class="wrap">
     <span>© 2026 Viato</span>
@@ -626,6 +648,43 @@
       showVersion();
     })
     .catch(function () {});
+  // Screenshot viewer: fit to screen <-> full size (1600 px, scrollable). Phones open zoomed in.
+  var viewer = document.getElementById('viewer');
+  var vImg = viewer.querySelector('img');
+  function openViewer(src) {
+    vImg.src = src;
+    viewer.classList.toggle('zoom', window.innerWidth < 900);
+    viewer.classList.add('open');
+    viewer.scrollTo(0, 0);
+    document.body.classList.add('noscroll');
+    history.pushState({ viewer: 1 }, '');
+  }
+  function closeViewer(fromHistory) {
+    if (!viewer.classList.contains('open')) return;
+    viewer.classList.remove('open');
+    document.body.classList.remove('noscroll');
+    if (!fromHistory && history.state && history.state.viewer) history.back();
+  }
+  document.querySelectorAll('.shot img').forEach(function (img) {
+    img.addEventListener('click', function () { openViewer(img.currentSrc || img.src); });
+  });
+  vImg.addEventListener('click', function (e) {
+    e.stopPropagation();
+    var r = vImg.getBoundingClientRect();
+    var fx = (e.clientX - r.left) / r.width, fy = (e.clientY - r.top) / r.height;
+    viewer.classList.toggle('zoom');
+    if (viewer.classList.contains('zoom')) {
+      // Keep the tapped spot under the finger after zooming in.
+      var z = vImg.getBoundingClientRect();
+      viewer.scrollTo(fx * z.width - e.clientX, fy * z.height + (z.top + viewer.scrollTop) - e.clientY);
+    }
+  });
+  viewer.addEventListener('click', function (e) {
+    if (e.target === viewer || e.target.classList.contains('stage') || e.target.classList.contains('close')) closeViewer();
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeViewer(); });
+  window.addEventListener('popstate', function () { closeViewer(true); });
+
   setLang(document.documentElement.lang);
 </script>
 </body>
