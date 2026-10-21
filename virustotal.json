@@ -2,6 +2,20 @@
   "version": "0.9.8",
   "checked": "2026-10-21",
   "files": {
+    "apk": {
+      "sha256": "a5f6ecf55cd28fdc0c26ce431f90173ce74280260912dde6ca38a5f1201041fa",
+      "malicious": 0,
+      "suspicious": 0,
+      "engines": 67,
+      "report": "https://www.virustotal.com/gui/file/a5f6ecf55cd28fdc0c26ce431f90173ce74280260912dde6ca38a5f1201041fa"
+    },
+    "dmg": {
+      "sha256": "6f2aadc688fe50a2a84c4f281dc59ff7eba5fb5a01a5aefe49833b37ae8834b4",
+      "malicious": 0,
+      "suspicious": 0,
+      "engines": 53,
+      "report": "https://www.virustotal.com/gui/file/6f2aadc688fe50a2a84c4f281dc59ff7eba5fb5a01a5aefe49833b37ae8834b4"
+    },
     "exe": {
       "sha256": "c29a7925b18af562262a2bf222df97efbc837669963eea0ec3b54350456d0186",
       "malicious": 0,
