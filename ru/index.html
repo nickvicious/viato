@@ -213,7 +213,8 @@
     border: 1px solid var(--line); color: var(--text); font-size: 15px; font-weight: 600; }
   .vt-links a:hover { border-color: var(--accent); text-decoration: none; }
   .vt-links a .ok { color: var(--accent); font-weight: 800; }
-  @media (min-width: 900px) { .vt { grid-template-columns: auto 1fr auto; } .vt-links { grid-column: auto; justify-content: flex-end; } }
+  .vt-links a { white-space: nowrap; }
+  @media (min-width: 900px) { .vt-links { padding-left: 62px; } }
   /* AI setup guide */
   .aiguide { margin-top: 40px; border: 1px solid #1f4c49; border-radius: var(--radius); background: linear-gradient(120deg, rgba(18,59,58,.55), rgba(23,34,35,.9)); }
   .aiguide > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 14px; padding: 18px 22px; }
