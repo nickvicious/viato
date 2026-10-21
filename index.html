@@ -3,15 +3,30 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Viato — каждый разговор заканчивается планом</title>
-<meta name="description" content="Viato turns calls, voice notes and documents into minutes, tasks with deadlines and a project plan. Runs on your own computer, works offline. Solo is free.">
+<!-- SEO:BEGIN — this block is replaced on /en/ and /ru/ by scripts/build-site.py -->
+<title>Viato — AI Task Tracker: Calls &amp; Voice Notes to Tasks</title>
+<meta name="description" content="AI task tracker for freelancers and small teams: turns calls and voice notes into meeting minutes, tasks with deadlines and a Gantt plan. Local AI, offline, free solo.">
+<link rel="canonical" href="https://viato.tech/">
+<link rel="alternate" hreflang="en" href="https://viato.tech/en/">
+<link rel="alternate" hreflang="ru" href="https://viato.tech/ru/">
+<link rel="alternate" hreflang="x-default" href="https://viato.tech/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Viato">
+<meta property="og:url" content="https://viato.tech/">
+<meta property="og:title" content="Viato — AI task tracker: every conversation ends with a plan">
+<meta property="og:description" content="Calls, voice notes and documents become meeting minutes and tasks. Local AI, works offline, no subscription.">
+<meta property="og:image" content="https://viato.tech/img/og-en.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<!-- SEO:END -->
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<meta property="og:title" content="Viato — every conversation ends with a plan">
-<meta property="og:description" content="Calls, voice notes and documents become tasks. Local AI, works offline, no subscription.">
-<meta property="og:image" content="img/call.webp">
+<meta name="theme-color" content="#0d1314">
 <script>
-  // Pick the language before first paint: ?lang= → saved choice → system language.
+  // Pick the language before first paint: page language (/en/, /ru/) → ?lang= → saved choice → system language.
   (function () {
+    var fixed = document.documentElement.getAttribute('data-page-lang');
+    if (fixed) { document.documentElement.lang = fixed; return; }
     var l = new URLSearchParams(location.search).get('lang');
     try { l = l || localStorage.getItem('viato-lang'); } catch (e) {}
     if (l !== 'ru' && l !== 'en') {
@@ -68,7 +83,7 @@
   nav.menu a { color: var(--muted); }
   nav.menu a:hover { color: var(--text); text-decoration: none; }
   .lang { display: flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; }
-  .lang button { background: none; border: 0; color: var(--muted); font: inherit; font-size: 13px; font-weight: 700; padding: 5px 11px; cursor: pointer; }
+  .lang a { color: var(--muted); font-size: 13px; font-weight: 700; padding: 5px 11px; text-decoration: none; }
   html[lang="ru"] .lang [data-lang="ru"], html[lang="en"] .lang [data-lang="en"] { background: var(--accent); color: var(--accent-ink); }
   @media (max-width: 820px) { nav.menu { display: none; } .lang { margin-left: auto; } }
 
@@ -243,8 +258,8 @@
       <a href="#docs"><span class="ru">Документация</span><span class="en">Docs</span></a>
     </nav>
     <div class="lang" role="group" aria-label="Language">
-      <button type="button" data-lang="ru">RU</button>
-      <button type="button" data-lang="en">EN</button>
+      <a data-lang="ru" href="ru/" hreflang="ru">RU</a>
+      <a data-lang="en" href="en/" hreflang="en">EN</a>
     </div>
   </div>
 </header>
@@ -252,14 +267,14 @@
 <!-- HERO -->
 <section class="hero">
   <div class="wrap">
-    <div class="kicker"><span class="ru">ИИ-ассистент и таск-трекер</span><span class="en">AI assistant &amp; task tracker</span></div>
+    <div class="kicker"><span class="ru">ИИ таск-трекер и протоколы встреч</span><span class="en">AI task tracker &amp; meeting notes</span></div>
     <h1>
       <span class="ru">Каждый разговор заканчивается планом</span>
       <span class="en">Every conversation ends with a plan</span>
     </h1>
     <p class="lead">
-      <span class="ru">Запишите созвон, надиктуйте мысль или загрузите документ — Viato сам сделает протокол, задачи с исполнителями и сроками и план проекта. Работает на вашем компьютере, даже без интернета.</span>
-      <span class="en">Record a call, dictate a thought or drop in a document — Viato writes the minutes, creates tasks with owners and deadlines, and builds the project plan. It runs on your own computer, even offline.</span>
+      <span class="ru">Viato — ИИ таск-трекер, который слушает за вас. Запишите созвон, надиктуйте мысль или загрузите документ — он сам сделает протокол встречи, задачи с исполнителями и сроками и план проекта. Работает на вашем компьютере, даже без интернета.</span>
+      <span class="en">Viato is an AI task tracker that listens for you. Record a call, dictate a thought or drop in a document — it writes the meeting notes, creates tasks with owners and deadlines, and builds the project plan. It runs on your own computer, even offline.</span>
     </p>
     <div class="btns">
       <a class="btn primary" href="#download">
@@ -386,7 +401,7 @@
         <p class="muted g-small" style="margin-top:18px"><span class="ru">Интерфейсы сервисов иногда меняются. Если кнопка называется иначе или что-то не получается — <a data-bot="hello" href="#">напишите нам</a>, поможем.</span><span class="en">Service dashboards change from time to time. If a button is named differently or something doesn’t work — <a data-bot="hello" href="#">message us</a> and we’ll help.</span></p>
       </div>
     </details>
-    <div class="shot"><img data-shot="call" src="img/call.webp" width="1600" height="1001" alt="" loading="eager"></div>
+    <div class="shot"><img data-shot="call" data-alt-ru="Протокол созвона в Viato: кратко, решения и задачи с исполнителями и сроками" data-alt-en="AI meeting notes in Viato: summary, decisions and tasks with owners and deadlines from a recorded call" src="img/call.webp" width="1600" height="1001" alt="Viato" loading="eager"></div>
     <p class="note center" style="margin-top:12px">
       <span class="ru">Протокол созвона: кратко, решения, открытые вопросы и задачи с исполнителем, сроком и цитатой из разговора.</span>
       <span class="en">Call minutes: summary, decisions, open questions and tasks with owner, deadline and a quote from the conversation.</span>
@@ -442,7 +457,7 @@
         </ul>
         <div class="value"><span class="ru">После встречи у каждого конкретный список дел, а не общее «кажется, договорились».</span><span class="en">After the meeting everyone has a concrete to-do list instead of a vague “I think we agreed”.</span></div>
       </div>
-      <div class="shot"><img data-shot="call" src="img/call.webp" width="1600" height="1001" alt="" loading="lazy"></div>
+      <div class="shot"><img data-shot="call" data-alt-ru="Протокол созвона в Viato: кратко, решения и задачи с исполнителями и сроками" data-alt-en="AI meeting notes in Viato: summary, decisions and tasks with owners and deadlines from a recorded call" src="img/call.webp" width="1600" height="1001" alt="Viato" loading="lazy"></div>
     </div>
 
     <div class="feature flip">
@@ -456,7 +471,7 @@
         </ul>
         <div class="value"><span class="ru">Ничего не теряется между встречами, вечером не нужно восстанавливать день по памяти.</span><span class="en">Nothing slips between meetings — no more rebuilding your day from memory in the evening.</span></div>
       </div>
-      <div class="shot"><img data-shot="dayplan" src="img/dayplan.webp" width="1600" height="1001" alt="" loading="lazy"></div>
+      <div class="shot"><img data-shot="dayplan" data-alt-ru="План на день в ИИ таск-трекере Viato: просроченные задачи, задачи на сегодня, напоминания и покупки" data-alt-en="Daily plan in the Viato AI task tracker: overdue tasks, today, reminders and shopping lists" src="img/dayplan.webp" width="1600" height="1001" alt="Viato" loading="lazy"></div>
     </div>
 
     <div class="feature">
@@ -470,7 +485,7 @@
         </ul>
         <div class="value"><span class="ru">От «клиент прислал материалы» до плана работ — за минуты, без перепечатывания.</span><span class="en">From “the client sent the materials” to a work plan in minutes, with no retyping.</span></div>
       </div>
-      <div class="shot"><img data-shot="gantt" src="img/gantt.webp" width="1600" height="1001" alt="" loading="lazy"></div>
+      <div class="shot"><img data-shot="gantt" data-alt-ru="Проект в Viato: оценка ИИ, ближайшие сроки и диаграмма Ганта" data-alt-en="Project overview in Viato: AI assessment, upcoming deadlines and a Gantt chart" src="img/gantt.webp" width="1600" height="1001" alt="Viato" loading="lazy"></div>
     </div>
 
     <div class="feature flip">
@@ -484,7 +499,7 @@
         </ul>
         <div class="value"><span class="ru">Вы контролируете данные, инфраструктуру и расходы. Никакой ежемесячной подписки.</span><span class="en">You control the data, the infrastructure and the costs. No monthly subscription.</span></div>
       </div>
-      <div class="shot"><img data-shot="chat" src="img/chat.webp" width="1600" height="1017" alt="" loading="lazy"></div>
+      <div class="shot"><img data-shot="chat" data-alt-ru="Чат команды рядом с задачами в Viato" data-alt-en="Team chat next to tasks in Viato" src="img/chat.webp" width="1600" height="1017" alt="Viato" loading="lazy"></div>
     </div>
   </div>
 </section>
@@ -911,20 +926,26 @@ sudo systemctl restart ssh</pre></li>
     a.href = 'https://github.com/' + REPO + '/releases/latest/download/' + ASSETS[a.getAttribute('data-asset')];
   });
 
+  // Pages in /en/ and /ru/ sit one folder down: paths built here start from the site root.
+  var ROOT = document.documentElement.getAttribute('data-root') || '';
+  var FIXED = document.documentElement.getAttribute('data-page-lang');
   function setLang(l) {
     document.documentElement.lang = l;
-    try { localStorage.setItem('viato-lang', l); } catch (e) {}
     document.querySelectorAll('[data-shot]').forEach(function (img) {
-      img.src = (l === 'ru' ? 'img/' : 'img/en/') + img.getAttribute('data-shot') + '.webp';
+      img.src = ROOT + (l === 'ru' ? 'img/' : 'img/en/') + img.getAttribute('data-shot') + '.webp';
+      img.alt = img.getAttribute('data-alt-' + l) || 'Viato';
     });
     document.querySelectorAll('[data-doc]').forEach(function (a) {
-      a.href = 'docs/Viato-' + a.getAttribute('data-doc') + '-' + l + '.pdf';
+      a.href = ROOT + 'docs/Viato-' + a.getAttribute('data-doc') + '-' + l + '.pdf';
     });
-    document.title = l === 'ru' ? 'Viato — каждый разговор заканчивается планом' : 'Viato — every conversation ends with a plan';
+    if (!FIXED) document.title = l === 'ru' ? 'Viato — ИИ таск-трекер: созвоны и голосовые заметки в задачи' : 'Viato — AI Task Tracker: Calls & Voice Notes to Tasks';
     showVersion();
   }
-  document.querySelectorAll('.lang button').forEach(function (b) {
-    b.addEventListener('click', function () { setLang(b.getAttribute('data-lang')); });
+  // The RU / EN links open /ru/ and /en/; remember the choice for the root page.
+  document.querySelectorAll('.lang a').forEach(function (a) {
+    a.addEventListener('click', function () {
+      try { localStorage.setItem('viato-lang', a.getAttribute('data-lang')); } catch (e) {}
+    });
   });
 
   // Version and sizes from the latest GitHub release; the page works without it.
