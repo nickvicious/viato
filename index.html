@@ -1,0 +1,627 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Viato — каждый разговор заканчивается планом</title>
+<meta name="description" content="Viato turns calls, voice notes and documents into minutes, tasks with deadlines and a project plan. Runs on your own computer, works offline. Solo is free.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="Viato — every conversation ends with a plan">
+<meta property="og:description" content="Calls, voice notes and documents become tasks. Local AI, works offline, no subscription.">
+<meta property="og:image" content="img/call.webp">
+<script>
+  // Pick the language before first paint: ?lang= → saved choice → system language.
+  (function () {
+    var l = new URLSearchParams(location.search).get('lang');
+    try { l = l || localStorage.getItem('viato-lang'); } catch (e) {}
+    if (l !== 'ru' && l !== 'en') {
+      var langs = navigator.languages || [navigator.language || 'en'];
+      l = /^(ru|uk|be|kk)\b/i.test(langs[0] || '') ? 'ru' : 'en';
+    }
+    document.documentElement.lang = l;
+  })();
+</script>
+<style>
+  :root {
+    --bg: #0d1314;
+    --bg2: #121b1c;
+    --card: #172223;
+    --line: #243334;
+    --text: #e8efee;
+    --muted: #9db0ae;
+    --accent: #5fe0c8;
+    --accent-ink: #062a24;
+    --deep: #123b3a;
+    --warm: #f0a35e;
+    --radius: 16px;
+    --max: 1120px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 17px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+  }
+  html[lang="ru"] .en, html[lang="en"] .ru { display: none !important; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  img { max-width: 100%; display: block; }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 20px; }
+  section { padding: 88px 0; }
+  section.alt { background: var(--bg2); }
+  h1, h2, h3 { line-height: 1.2; margin: 0 0 16px; letter-spacing: -0.01em; }
+  h1 { font-size: clamp(34px, 6vw, 60px); font-weight: 800; }
+  h2 { font-size: clamp(28px, 4vw, 40px); font-weight: 750; }
+  h3 { font-size: 20px; font-weight: 700; }
+  p { margin: 0 0 14px; }
+  .lead { font-size: clamp(18px, 2.2vw, 21px); color: var(--muted); max-width: 760px; }
+  .kicker { color: var(--accent); font-weight: 700; font-size: 14px; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 10px; }
+  .center { text-align: center; }
+  .center .lead { margin-left: auto; margin-right: auto; }
+
+  /* header */
+  header.top { position: sticky; top: 0; z-index: 10; background: rgba(13,19,20,.86); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+  header.top .wrap { display: flex; align-items: center; gap: 24px; height: 64px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 20px; color: var(--text); }
+  .brand img { width: 32px; height: 32px; border-radius: 8px; }
+  nav.menu { display: flex; gap: 22px; margin-left: auto; font-size: 15px; }
+  nav.menu a { color: var(--muted); }
+  nav.menu a:hover { color: var(--text); text-decoration: none; }
+  .lang { display: flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; }
+  .lang button { background: none; border: 0; color: var(--muted); font: inherit; font-size: 13px; font-weight: 700; padding: 5px 11px; cursor: pointer; }
+  html[lang="ru"] .lang [data-lang="ru"], html[lang="en"] .lang [data-lang="en"] { background: var(--accent); color: var(--accent-ink); }
+  @media (max-width: 820px) { nav.menu { display: none; } .lang { margin-left: auto; } }
+
+  /* buttons */
+  .btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 24px; border-radius: 12px; font-weight: 700; font-size: 16px; border: 1px solid transparent; cursor: pointer; transition: transform .12s, background .12s; }
+  .btn:hover { text-decoration: none; transform: translateY(-1px); }
+  .btn.primary { background: var(--accent); color: var(--accent-ink); }
+  .btn.primary:hover { background: #7ce9d5; }
+  .btn.ghost { border-color: var(--line); color: var(--text); background: rgba(255,255,255,.03); }
+  .btn.ghost:hover { border-color: var(--accent); }
+  .btn svg { width: 20px; height: 20px; flex: none; }
+  .btns { display: flex; flex-wrap: wrap; gap: 12px; }
+
+  /* hero */
+  .hero { padding: 80px 0 40px; background: radial-gradient(900px 420px at 70% -10%, rgba(95,224,200,.16), transparent 70%); }
+  .hero .lead { margin-bottom: 28px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+  .chip { font-size: 14px; color: var(--muted); border: 1px solid var(--line); padding: 6px 12px; border-radius: 999px; background: rgba(255,255,255,.02); }
+  .chip b { color: var(--accent); font-weight: 700; }
+  .shot { border-radius: var(--radius); border: 1px solid var(--line); box-shadow: 0 30px 80px rgba(0,0,0,.45); overflow: hidden; background: #202020; }
+  .hero .shot { margin-top: 56px; }
+  .note { font-size: 14px; color: var(--muted); }
+
+  /* grids & cards */
+  .grid { display: grid; gap: 20px; }
+  .g3 { grid-template-columns: repeat(3, 1fr); }
+  .g4 { grid-template-columns: repeat(4, 1fr); }
+  .g2 { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 960px) { .g4 { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 760px) { .g3, .g2, .g4 { grid-template-columns: 1fr; } }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 26px; }
+  .card p:last-child { margin-bottom: 0; }
+  .card .num { font-size: 14px; color: var(--accent); font-weight: 800; margin-bottom: 10px; }
+  .muted { color: var(--muted); }
+  .bridge { margin-top: 32px; padding: 26px 28px; border-radius: var(--radius); background: linear-gradient(120deg, var(--deep), #16302f); border: 1px solid #1f4c49; font-size: 19px; }
+  .bridge b { color: var(--accent); }
+
+  /* feature rows */
+  .feature { display: grid; grid-template-columns: 1fr 1.25fr; gap: 56px; align-items: center; padding: 56px 0; }
+  .feature + .feature { border-top: 1px solid var(--line); }
+  .feature.flip > .text { order: 2; }
+  @media (max-width: 900px) { .feature { grid-template-columns: 1fr; gap: 28px; } .feature.flip > .text { order: 0; } }
+  ul.ticks { list-style: none; padding: 0; margin: 18px 0; }
+  ul.ticks li { position: relative; padding-left: 30px; margin: 10px 0; }
+  ul.ticks li::before { content: ""; position: absolute; left: 0; top: 7px; width: 18px; height: 18px; border-radius: 50%; background: rgba(95,224,200,.15) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5 10.5l3 3 7-7' fill='none' stroke='%235fe0c8' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/14px no-repeat; }
+  .value { margin-top: 18px; padding: 14px 18px; border-left: 3px solid var(--accent); background: rgba(95,224,200,.06); border-radius: 0 10px 10px 0; }
+
+  /* steps */
+  .step .label { font-size: 12px; font-weight: 800; letter-spacing: .1em; color: var(--accent); }
+  .types { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; justify-content: center; }
+  .types span { font-size: 14px; padding: 6px 12px; border-radius: 8px; background: var(--card); border: 1px solid var(--line); }
+
+  /* privacy */
+  .mode .tag { display: inline-block; font-size: 12px; font-weight: 800; letter-spacing: .08em; padding: 4px 10px; border-radius: 999px; background: rgba(95,224,200,.12); color: var(--accent); margin-bottom: 14px; }
+  .mode dl { margin: 14px 0 0; font-size: 15px; }
+  .mode dt { color: var(--muted); font-size: 13px; margin-top: 10px; }
+  .mode dd { margin: 2px 0 0; }
+  .never { margin-top: 24px; }
+  .never h3 { color: var(--accent); }
+
+  /* pricing */
+  .price { display: flex; flex-direction: column; position: relative; }
+  .price .amount { font-size: 30px; font-weight: 800; margin: 6px 0 4px; }
+  .price .who { color: var(--muted); font-size: 15px; min-height: 48px; }
+  .price .btn { margin-top: auto; justify-content: center; }
+  .price .spacer { flex: 1; min-height: 16px; }
+  .price.hot { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent), 0 20px 50px rgba(95,224,200,.12); }
+  .badge { position: absolute; top: -13px; left: 22px; background: var(--warm); color: #2a1503; font-size: 12px; font-weight: 800; letter-spacing: .04em; padding: 4px 10px; border-radius: 999px; }
+  .offer { margin-top: 28px; display: grid; grid-template-columns: auto 1fr auto; gap: 22px; align-items: center; padding: 26px 28px; border-radius: var(--radius); border: 1px dashed var(--warm); background: rgba(240,163,94,.07); }
+  .offer .gift { font-size: 40px; line-height: 1; }
+  @media (max-width: 760px) { .offer { grid-template-columns: 1fr; } }
+  .perks { margin-top: 28px; }
+
+  /* downloads */
+  .dl .os { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+  .dl .os svg { width: 30px; height: 30px; color: var(--accent); }
+  .dl .btn { width: 100%; justify-content: center; margin-top: 16px; }
+  .dl .req { font-size: 14px; color: var(--muted); }
+  .ver { font-size: 14px; color: var(--muted); margin-top: 18px; }
+
+  /* docs */
+  .doc { display: flex; gap: 16px; align-items: flex-start; color: var(--text); }
+  .doc:hover { text-decoration: none; border-color: var(--accent); }
+  .doc svg { width: 36px; height: 36px; flex: none; color: var(--accent); }
+  .doc small { color: var(--muted); display: block; margin-top: 4px; }
+
+  /* faq */
+  details { border-bottom: 1px solid var(--line); padding: 18px 0; }
+  details summary { cursor: pointer; font-weight: 700; font-size: 18px; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+  details summary::-webkit-details-marker { display: none; }
+  details summary::after { content: "+"; color: var(--accent); font-size: 24px; line-height: 1; }
+  details[open] summary::after { content: "−"; }
+  details p { margin: 12px 0 0; color: var(--muted); }
+
+  /* final cta & footer */
+  .final { text-align: center; background: radial-gradient(700px 300px at 50% 0, rgba(95,224,200,.14), transparent 70%); }
+  .final .btns { justify-content: center; margin-top: 26px; }
+  footer { border-top: 1px solid var(--line); padding: 32px 0; color: var(--muted); font-size: 14px; }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#"><img src="favicon.svg" alt="">Viato</a>
+    <nav class="menu">
+      <a href="#features"><span class="ru">Возможности</span><span class="en">Features</span></a>
+      <a href="#privacy"><span class="ru">Приватность</span><span class="en">Privacy</span></a>
+      <a href="#pricing"><span class="ru">Лицензия</span><span class="en">Pricing</span></a>
+      <a href="#download"><span class="ru">Скачать</span><span class="en">Download</span></a>
+      <a href="#docs"><span class="ru">Документация</span><span class="en">Docs</span></a>
+    </nav>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" data-lang="ru">RU</button>
+      <button type="button" data-lang="en">EN</button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="kicker"><span class="ru">ИИ-ассистент и таск-трекер</span><span class="en">AI assistant &amp; task tracker</span></div>
+    <h1>
+      <span class="ru">Каждый разговор заканчивается планом</span>
+      <span class="en">Every conversation ends with a plan</span>
+    </h1>
+    <p class="lead">
+      <span class="ru">Запишите созвон, надиктуйте мысль или загрузите документ — Viato сам сделает протокол, задачи с исполнителями и сроками и план проекта. Работает на вашем компьютере, даже без интернета.</span>
+      <span class="en">Record a call, dictate a thought or drop in a document — Viato writes the minutes, creates tasks with owners and deadlines, and builds the project plan. It runs on your own computer, even offline.</span>
+    </p>
+    <div class="btns">
+      <a class="btn primary" href="#download">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>
+        <span class="ru">Скачать бесплатно</span><span class="en">Download free</span>
+      </a>
+      <a class="btn ghost" href="#pricing">
+        <span class="ru">Лицензия для команды</span><span class="en">Team license</span>
+      </a>
+    </div>
+    <div class="chips">
+      <span class="chip"><b class="ru">Соло</b><b class="en">Solo</b> <span class="ru">— бесплатно навсегда</span><span class="en">— free forever</span></span>
+      <span class="chip"><span class="ru">Работает офлайн</span><span class="en">Works offline</span></span>
+      <span class="chip"><span class="ru">Без подписки</span><span class="en">No subscription</span></span>
+      <span class="chip"><span class="ru">Данные остаются у вас</span><span class="en">Your data stays with you</span></span>
+      <span class="chip">RU · EN · DE · ZH</span>
+    </div>
+    <div class="shot"><img src="img/call.webp" width="1600" height="1001" alt="" loading="eager"></div>
+    <p class="note center" style="margin-top:12px">
+      <span class="ru">Протокол созвона: кратко, решения, открытые вопросы и задачи с исполнителем, сроком и цитатой из разговора.</span>
+      <span class="en">Call minutes: summary, decisions, open questions and tasks with owner, deadline and a quote from the conversation.</span>
+    </p>
+  </div>
+</section>
+
+<!-- PAIN -->
+<section class="alt">
+  <div class="wrap">
+    <div class="kicker"><span class="ru">Зачем это нужно</span><span class="en">Why it matters</span></div>
+    <h2><span class="ru">Договорённости теряются между встречей и трекером</span><span class="en">Agreements get lost between the meeting and the tracker</span></h2>
+    <div class="grid g3" style="margin-top:32px">
+      <div class="card">
+        <div class="num">01</div>
+        <h3><span class="ru">«Кажется, мы договорились»</span><span class="en">“I think we agreed…”</span></h3>
+        <p class="muted"><span class="ru">После созвона у каждого своё воспоминание. Кто, что и к какому сроку — приходится выяснять заново.</span><span class="en">After a call everyone remembers it differently. Who does what by when has to be sorted out all over again.</span></p>
+      </div>
+      <div class="card">
+        <div class="num">02</div>
+        <h3><span class="ru">Ручной перенос</span><span class="en">Manual retyping</span></h3>
+        <p class="muted"><span class="ru">Заметки, брифы и переписку кто-то должен перепечатать в трекер. Это скучно — поэтому часто не делается.</span><span class="en">Someone has to retype notes, briefs and chats into the tracker. It’s boring — so it often doesn’t happen.</span></p>
+      </div>
+      <div class="card">
+        <div class="num">03</div>
+        <h3><span class="ru">Мысли в дороге</span><span class="en">Ideas on the go</span></h3>
+        <p class="muted"><span class="ru">Идея или поручение приходит, когда трекера нет под рукой. К вечеру половина забыта.</span><span class="en">An idea or an assignment comes up when the tracker isn’t at hand. By evening, half of it is gone.</span></p>
+      </div>
+    </div>
+    <div class="bridge">
+      <span class="ru"><b>Viato закрывает этот разрыв.</b> Всё сказанное и написанное само становится структурой: протокол → решения → задачи с исполнителями и сроками → проект и диаграмма Ганта.</span>
+      <span class="en"><b>Viato closes this gap.</b> Everything said or written becomes structure on its own: minutes → decisions → tasks with owners and deadlines → project and Gantt chart.</span>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="wrap">
+    <div class="center">
+      <div class="kicker"><span class="ru">Что вы получаете</span><span class="en">What you get</span></div>
+      <h2><span class="ru">Меньше рутины — больше сделанного</span><span class="en">Less busywork, more done</span></h2>
+    </div>
+
+    <div class="feature">
+      <div class="text">
+        <h3 style="font-size:26px"><span class="ru">Протокол встречи пишется сам</span><span class="en">Meeting minutes write themselves</span></h3>
+        <p class="muted"><span class="ru">Zoom, Teams, Meet или звонок в браузере — Viato записывает микрофон и звук компьютера одновременно. Можно загрузить готовую запись аудио или видео.</span><span class="en">Zoom, Teams, Meet or a browser call — Viato records your microphone and computer sound at the same time. Or upload an existing audio or video file.</span></p>
+        <ul class="ticks">
+          <li><span class="ru">Кратко, что обсуждали, решения и открытые вопросы</span><span class="en">Summary, topics, decisions and open questions</span></li>
+          <li><span class="ru">Задачи с исполнителем, сроком и цитатой с меткой времени</span><span class="en">Tasks with owner, deadline and a time-stamped quote</span></li>
+          <li><span class="ru">В один клик — задачи, письмо клиенту, экспорт в Word и Markdown</span><span class="en">One click to tasks, a client email, export to Word or Markdown</span></li>
+        </ul>
+        <div class="value"><span class="ru">После встречи у каждого конкретный список дел, а не общее «кажется, договорились».</span><span class="en">After the meeting everyone has a concrete to-do list instead of a vague “I think we agreed”.</span></div>
+      </div>
+      <div class="shot"><img src="img/call.webp" width="1600" height="1001" alt="" loading="lazy"></div>
+    </div>
+
+    <div class="feature flip">
+      <div class="text">
+        <h3 style="font-size:26px"><span class="ru">Сказали на ходу — разложено по местам</span><span class="en">Say it on the go — it’s filed where it belongs</span></h3>
+        <p class="muted"><span class="ru">«Задачи на завтра…», «Список покупок: молоко, кофе…», «Напомни в три позвонить в типографию» — Viato понимает команду, делит речь на пункты и кладёт их куда нужно.</span><span class="en">“Tasks for tomorrow…”, “Shopping list: milk, coffee…”, “Remind me at three to call the print shop” — Viato understands the command, splits speech into items and puts them where they belong.</span></p>
+        <ul class="ticks">
+          <li><span class="ru">План на день: просрочено, на сегодня, напоминания, что купить</span><span class="en">Daily plan: overdue, due today, reminders, shopping</span></li>
+          <li><span class="ru">Сроки вроде «к пятнице» считаются точно — кодом, а не догадкой ИИ</span><span class="en">Deadlines like “by Friday” are computed exactly — by code, not guessed by AI</span></li>
+          <li><span class="ru">Черновики писем на языке адресата — отправляете только вы</span><span class="en">Email drafts in the recipient’s language — only you hit send</span></li>
+        </ul>
+        <div class="value"><span class="ru">Ничего не теряется между встречами, вечером не нужно восстанавливать день по памяти.</span><span class="en">Nothing slips between meetings — no more rebuilding your day from memory in the evening.</span></div>
+      </div>
+      <div class="shot"><img src="img/dayplan.webp" width="1600" height="1001" alt="" loading="lazy"></div>
+    </div>
+
+    <div class="feature">
+      <div class="text">
+        <h3 style="font-size:26px"><span class="ru">Видно, где проект и что важно сейчас</span><span class="en">See where the project stands and what matters now</span></h3>
+        <p class="muted"><span class="ru">Загрузите бриф, ТЗ или переписку (.docx, .pdf, .xlsx и др.) — ИИ сделает то же, что для созвона, и привяжет задачи к проекту.</span><span class="en">Upload a brief, spec or email thread (.docx, .pdf, .xlsx and more) — AI handles it like a call and attaches tasks to the project.</span></p>
+        <ul class="ticks">
+          <li><span class="ru">Сводка: что готово, что просрочено, ближайшие сроки</span><span class="en">Overview: what’s done, what’s overdue, upcoming deadlines</span></li>
+          <li><span class="ru">Оценка ИИ: идём ли в срок и что важнее всего сейчас</span><span class="en">AI assessment: are we on track and what matters most right now</span></li>
+          <li><span class="ru">Доска, список и диаграмма Ганта со связями между задачами</span><span class="en">Board, list and a Gantt chart with task dependencies</span></li>
+        </ul>
+        <div class="value"><span class="ru">От «клиент прислал материалы» до плана работ — за минуты, без перепечатывания.</span><span class="en">From “the client sent the materials” to a work plan in minutes, with no retyping.</span></div>
+      </div>
+      <div class="shot"><img src="img/gantt.webp" width="1600" height="1001" alt="" loading="lazy"></div>
+    </div>
+
+    <div class="feature flip">
+      <div class="text">
+        <h3 style="font-size:26px"><span class="ru">Вся команда — в одном месте</span><span class="en">The whole team in one place</span></h3>
+        <p class="muted"><span class="ru">Начните в одиночку и подключите команду позже — записи переносятся без переезда.</span><span class="en">Start solo and bring the team in later — your records move over with you.</span></p>
+        <ul class="ticks">
+          <li><span class="ru">Общие проекты и задачи, роли и права, вход по приглашению</span><span class="en">Shared projects and tasks, roles and permissions, invite-only access</span></li>
+          <li><span class="ru">Чаты рядом с задачами, планирование созвонов в часовом поясе каждого</span><span class="en">Chats next to tasks, meeting scheduling in everyone’s time zone</span></li>
+          <li><span class="ru">Свой сервер ставится из приложения за минуты — без командной строки</span><span class="en">Your own server, installed from the app in minutes — no command line</span></li>
+        </ul>
+        <div class="value"><span class="ru">Вы контролируете данные, инфраструктуру и расходы. Никакой ежемесячной подписки.</span><span class="en">You control the data, the infrastructure and the costs. No monthly subscription.</span></div>
+      </div>
+      <div class="shot"><img src="img/chat.webp" width="1600" height="1017" alt="" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW -->
+<section class="alt">
+  <div class="wrap">
+    <div class="center">
+      <div class="kicker"><span class="ru">Как это работает</span><span class="en">How it works</span></div>
+      <h2><span class="ru">Нажали «Записать» — дальше работает ИИ</span><span class="en">Hit “Record” — AI does the rest</span></h2>
+    </div>
+    <div class="grid g4" style="margin-top:36px">
+      <div class="card step"><div class="label"><span class="ru">1 · ЗАПИСЬ</span><span class="en">1 · CAPTURE</span></div><h3><span class="ru">Любой источник</span><span class="en">Any source</span></h3><p class="muted"><span class="ru">Кнопка на ПК или телефоне, созвон, аудио/видеофайл, документ или текст.</span><span class="en">A button on PC or phone, a call, an audio/video file, a document or pasted text.</span></p></div>
+      <div class="card step"><div class="label"><span class="ru">2 · РАСШИФРОВКА</span><span class="en">2 · TRANSCRIBE</span></div><h3><span class="ru">Речь → текст</span><span class="en">Speech → text</span></h3><p class="muted"><span class="ru">Язык определяется сам: русский, английский, немецкий, китайский.</span><span class="en">Language is detected automatically: English, Russian, German, Chinese.</span></p></div>
+      <div class="card step"><div class="label"><span class="ru">3 · РАЗБОР</span><span class="en">3 · UNDERSTAND</span></div><h3><span class="ru">Тип, проект, срок</span><span class="en">Type, project, deadline</span></h3><p class="muted"><span class="ru">Голосовая команда («задача для меня») или догадка ИИ. Ваш выбор всегда важнее.</span><span class="en">A voice command (“task for me”) or the AI’s best guess. Your choice always wins.</span></p></div>
+      <div class="card step"><div class="label"><span class="ru">4 · РЕЗУЛЬТАТ</span><span class="en">4 · RESULT</span></div><h3><span class="ru">Готовые задачи</span><span class="en">Ready-made items</span></h3><p class="muted"><span class="ru">Задачи, списки, напоминания, письма, протоколы — сразу в нужном проекте.</span><span class="en">Tasks, lists, reminders, emails, minutes — right in the right project.</span></p></div>
+    </div>
+    <div class="types">
+      <span class="ru">Заметка</span><span class="en">Note</span>
+      <span class="ru">Задача</span><span class="en">Task</span>
+      <span class="ru">Задача для команды</span><span class="en">Team task</span>
+      <span class="ru">Список дел</span><span class="en">To-do list</span>
+      <span class="ru">Список покупок</span><span class="en">Shopping list</span>
+      <span class="ru">Напоминание</span><span class="en">Reminder</span>
+      <span class="ru">Черновик письма</span><span class="en">Email draft</span>
+      <span class="ru">Протокол звонка</span><span class="en">Call minutes</span>
+      <span class="ru">Протокол встречи</span><span class="en">Meeting minutes</span>
+    </div>
+  </div>
+</section>
+
+<!-- PRIVACY -->
+<section id="privacy">
+  <div class="wrap">
+    <div class="kicker"><span class="ru">Приватность</span><span class="en">Privacy</span></div>
+    <h2><span class="ru">Вы сами решаете, где обрабатываются ваши разговоры</span><span class="en">You decide where your conversations are processed</span></h2>
+    <p class="lead"><span class="ru">Самый частый вопрос — куда уходят записи. В Viato три режима, и переключить их можно в любой момент.</span><span class="en">The most common question is where recordings go. Viato has three modes, and you can switch any time.</span></p>
+    <div class="grid g3" style="margin-top:32px">
+      <div class="card mode">
+        <span class="tag"><span class="ru">ТОЛЬКО ЛОКАЛЬНО</span><span class="en">LOCAL ONLY</span></span>
+        <h3><span class="ru">Ничего не покидает компьютер</span><span class="en">Nothing leaves your computer</span></h3>
+        <p class="muted"><span class="ru">Распознавание и разбор идут на вашем ПК. Интернет не нужен. Облачные сервисы запрещены одним переключателем.</span><span class="en">Speech recognition and analysis run on your PC. No internet needed. One switch blocks every cloud service.</span></p>
+        <dl><dt><span class="ru">Для кого</span><span class="en">For</span></dt><dd><span class="ru">юристы, медицина, финансы, переговоры под NDA</span><span class="en">legal, medical, finance, NDA negotiations</span></dd>
+        <dt><span class="ru">Цена</span><span class="en">Cost</span></dt><dd><span class="ru">бесплатно</span><span class="en">free</span></dd></dl>
+      </div>
+      <div class="card mode">
+        <span class="tag"><span class="ru">ГИБРИД</span><span class="en">HYBRID</span></span>
+        <h3><span class="ru">Локально, облако — когда нужно</span><span class="en">Local first, cloud when needed</span></h3>
+        <p class="muted"><span class="ru">Сначала работает локальный ИИ; облако помогает с длинными созвонами или когда компьютер занят.</span><span class="en">Local AI goes first; the cloud helps with long calls or when your computer is busy.</span></p>
+        <dl><dt><span class="ru">Для кого</span><span class="en">For</span></dt><dd><span class="ru">большинство — баланс приватности и скорости</span><span class="en">most people — balance of privacy and speed</span></dd>
+        <dt><span class="ru">Цена</span><span class="en">Cost</span></dt><dd><span class="ru">бесплатно с бесплатными моделями</span><span class="en">free with free cloud models</span></dd></dl>
+      </div>
+      <div class="card mode">
+        <span class="tag"><span class="ru">ОБЛАКО</span><span class="en">CLOUD</span></span>
+        <h3><span class="ru">Быстрее на длинных созвонах</span><span class="en">Faster on long calls</span></h3>
+        <p class="muted"><span class="ru">Запись уходит выбранному провайдеру напрямую по вашему ключу. Можно оставить только тех, кто не обучается на данных.</span><span class="en">The recording goes straight to the provider you choose, with your own key. You can keep only providers that don’t train on your data.</span></p>
+        <dl><dt><span class="ru">Для кого</span><span class="en">For</span></dt><dd><span class="ru">слабые ноутбуки, много длинных созвонов</span><span class="en">low-end laptops, many long calls</span></dd>
+        <dt><span class="ru">Цена</span><span class="en">Cost</span></dt><dd><span class="ru">бесплатно или копейки за созвон</span><span class="en">free, or cents per call</span></dd></dl>
+      </div>
+    </div>
+    <div class="card never">
+      <h3><span class="ru">Что не уходит никогда</span><span class="en">What never leaves</span></h3>
+      <ul class="ticks">
+        <li><span class="ru">Разработчику Viato — ничего. У нас нет своего облака, учётных записей и сбора статистики. Мы не видим ни записей, ни задач.</span><span class="en">Nothing goes to the Viato developer. We have no cloud, no accounts and no analytics. We never see your recordings or tasks.</span></li>
+        <li><span class="ru">Ключи ИИ хранятся только на вашем компьютере; на телефон передаются в зашифрованном виде.</span><span class="en">AI keys stay on your computer; they reach your phone only encrypted.</span></li>
+        <li><span class="ru">Личные заметки, списки и напоминания не уходят даже на сервер вашей компании.</span><span class="en">Personal notes, lists and reminders never go even to your company server.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- WHO -->
+<section class="alt">
+  <div class="wrap">
+    <div class="kicker"><span class="ru">Кому подходит</span><span class="en">Who it’s for</span></div>
+    <h2><span class="ru">Тем, у кого много разговоров и мало времени их разбирать</span><span class="en">For people with lots of conversations and little time to process them</span></h2>
+    <div class="grid g4" style="margin-top:32px">
+      <div class="card"><h3><span class="ru">Фрилансер, консультант, эксперт</span><span class="en">Freelancer, consultant, expert</span></h3><p class="muted"><span class="ru">Протокол каждого созвона с клиентом, задачи по проектам, черновики писем — на своём ноутбуке и бесплатно.</span><span class="en">Minutes of every client call, tasks per project, email drafts — on your own laptop, for free.</span></p></div>
+      <div class="card"><h3><span class="ru">Студия, агентство, инженерная команда</span><span class="en">Studio, agency, engineering team</span></h3><p class="muted"><span class="ru">Общие проекты и Гант, задачи из встреч с исполнителями, чаты рядом с задачами, свой сервер.</span><span class="en">Shared projects and Gantt, tasks from meetings with owners, chats next to tasks, your own server.</span></p></div>
+      <div class="card"><h3><span class="ru">Руководитель</span><span class="en">Manager</span></h3><p class="muted"><span class="ru">Сводка по каждому проекту: что просрочено, где риск, что важнее сейчас. Договорённости не теряются.</span><span class="en">An overview of every project: what’s overdue, where the risk is, what matters now. Agreements don’t get lost.</span></p></div>
+      <div class="card"><h3><span class="ru">Компании с требованиями к данным</span><span class="en">Companies with data requirements</span></h3><p class="muted"><span class="ru">Обработка на своём железе, шифрование на сервере, работа там, где западные облака недоступны.</span><span class="en">Processing on your own hardware, encrypted server storage, works where Western clouds are unavailable.</span></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="wrap">
+    <div class="center">
+      <div class="kicker"><span class="ru">Лицензия</span><span class="en">Pricing</span></div>
+      <h2><span class="ru">Не подписка: купили один раз — пользуетесь всегда</span><span class="en">Not a subscription: buy once, use forever</span></h2>
+    </div>
+    <div class="grid g4" style="margin-top:40px">
+      <div class="card price">
+        <h3><span class="ru">Соло</span><span class="en">Solo</span></h3>
+        <div class="amount"><span class="ru">Бесплатно</span><span class="en">Free</span></div>
+        <p class="who"><span class="ru">Все возможности для одного человека.</span><span class="en">Every feature, for one person.</span></p>
+        <div class="spacer"></div>
+        <a class="btn ghost" href="#download"><span class="ru">Скачать</span><span class="en">Download</span></a>
+      </div>
+      <div class="card price hot">
+        <span class="badge"><span class="ru">ВРЕМЕННО БЕСПЛАТНО</span><span class="en">FREE FOR NOW</span></span>
+        <h3><span class="ru">Команда 5</span><span class="en">Team 5</span></h3>
+        <div class="amount"><span class="ru">до 5 человек</span><span class="en">up to 5 people</span></div>
+        <p class="who"><span class="ru">Для небольшой студии или проектной группы.</span><span class="en">For a small studio or project group.</span></p>
+        <div class="spacer"></div>
+        <a class="btn primary" data-bot="free5" href="#"><span class="ru">Получить бесплатно</span><span class="en">Get it free</span></a>
+      </div>
+      <div class="card price">
+        <h3><span class="ru">Команда 15</span><span class="en">Team 15</span></h3>
+        <div class="amount"><span class="ru">до 15 человек</span><span class="en">up to 15 people</span></div>
+        <p class="who"><span class="ru">Для агентства или отдела.</span><span class="en">For an agency or a department.</span></p>
+        <div class="spacer"></div>
+        <a class="btn ghost" data-bot="team15" href="#"><span class="ru">Купить лицензию</span><span class="en">Buy license</span></a>
+      </div>
+      <div class="card price">
+        <h3><span class="ru">Безлимит</span><span class="en">Unlimited</span></h3>
+        <div class="amount"><span class="ru">без ограничений</span><span class="en">no limits</span></div>
+        <p class="who"><span class="ru">Для компании любого размера.</span><span class="en">For a company of any size.</span></p>
+        <div class="spacer"></div>
+        <a class="btn ghost" data-bot="unlimited" href="#"><span class="ru">Купить лицензию</span><span class="en">Buy license</span></a>
+      </div>
+    </div>
+
+    <div class="offer">
+      <div class="gift">🎁</div>
+      <div>
+        <h3 style="margin-bottom:6px"><span class="ru">Лицензия на 5 человек — бесплатно за ваш кейс</span><span class="en">A 5-person license — free for your story</span></h3>
+        <p class="muted" style="margin:0"><span class="ru">Пока это предложение действует, лицензию «Команда 5» можно получить бесплатно. Расскажите, как вы внедрили Viato и как он упростил работу вашей команды, — и мы пришлём ключ.</span><span class="en">While this offer lasts, the Team 5 license is free. Tell us how you introduced Viato and how it made your team’s work easier — and we’ll send you a key.</span></p>
+      </div>
+      <a class="btn primary" data-bot="free5" href="#">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.4 4.6 2.9 11.7c-1.3.5-1.2 1.2-.2 1.5l4.7 1.5 1.8 5.6c.2.6.4.8.9.8.4 0 .6-.2.9-.4l2.2-2.1 4.6 3.4c.8.5 1.4.2 1.6-.8l3-14.2c.3-1.3-.5-1.8-1.2-1.4zM8.6 14.4l9.2-5.8c.4-.3.8-.1.5.2l-7.6 6.9-.3 3.3-1.8-4.6z"/></svg>
+        <span class="ru">Написать в Telegram</span><span class="en">Message us on Telegram</span>
+      </a>
+    </div>
+
+    <div class="grid g3 perks">
+      <div class="card"><h3><span class="ru">Разовая покупка</span><span class="en">One-time purchase</span></h3><p class="muted"><span class="ru">Лицензия бессрочная, никаких ежемесячных платежей. Обновления приложения и сервера — бесплатно.</span><span class="en">A perpetual license with no monthly fees. App and server updates are free.</span></p></div>
+      <div class="card"><h3><span class="ru">На компанию, а не на место</span><span class="en">Per company, not per seat</span></h3><p class="muted"><span class="ru">Ключ активирует администратор на сервере команды. Выросли — переходите на больший тариф, данные сохраняются.</span><span class="en">The admin activates one key on the team server. Grow into a bigger tier any time — data stays.</span></p></div>
+      <div class="card"><h3><span class="ru">Без сервера активации</span><span class="en">No activation server</span></h3><p class="muted"><span class="ru">Лицензию не нужно периодически подтверждать — работа не зависит от разработчика.</span><span class="en">No periodic license checks — your work never depends on us.</span></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- DOWNLOAD -->
+<section id="download" class="alt">
+  <div class="wrap">
+    <div class="center">
+      <div class="kicker"><span class="ru">Скачать</span><span class="en">Download</span></div>
+      <h2><span class="ru">ПК, телефон и карманный диктофон</span><span class="en">PC, phone and a pocket recorder</span></h2>
+      <p class="lead"><span class="ru">Компьютер — главное место работы: здесь работает локальный ИИ и записываются созвоны. Телефон подключается к нему по QR-коду.</span><span class="en">Your computer is the main workplace: it runs local AI and records calls. Your phone pairs with it via a QR code.</span></p>
+    </div>
+    <div class="grid g3 dl" style="margin-top:36px">
+      <div class="card">
+        <div class="os"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 5.5 10 4.5v7H3zM11 4.3 21 3v8.5H11zM3 12.5h7v7l-7-1zM11 12.5h10V21l-10-1.4z"/></svg><h3 style="margin:0">Windows</h3></div>
+        <p class="req">Windows 10 / 11 · 64-bit · <span data-size="exe">~285 MB</span></p>
+        <a class="btn primary" data-asset="exe" href="https://github.com/nickvicious/viato/releases/latest">
+          <span class="ru">Скачать для Windows</span><span class="en">Download for Windows</span>
+        </a>
+      </div>
+      <div class="card">
+        <div class="os"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.7-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.8 1.2 1.8 2.6 3.1 2.5 1.2 0 1.7-.8 3.2-.8s1.9.8 3.2.8c1.3 0 2.2-1.2 3-2.4.9-1.4 1.3-2.7 1.3-2.8 0 0-2.6-1-2.6-4.2zM13.9 4.9c.7-.8 1.1-1.9 1-3-1 0-2.2.7-2.9 1.5-.6.7-1.2 1.8-1 2.9 1.1.1 2.2-.6 2.9-1.4z"/></svg><h3 style="margin:0">macOS</h3></div>
+        <p class="req">macOS 13+ · Apple Silicon (M1–M4) · <span data-size="dmg">~310 MB</span></p>
+        <a class="btn primary" data-asset="dmg" href="https://github.com/nickvicious/viato/releases/latest">
+          <span class="ru">Скачать для Mac</span><span class="en">Download for Mac</span>
+        </a>
+      </div>
+      <div class="card">
+        <div class="os"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 9.3 19.3 6a.4.4 0 0 0-.7-.4l-1.8 3.3A11 11 0 0 0 12 8a11 11 0 0 0-4.8 1L5.4 5.6a.4.4 0 0 0-.7.4l1.8 3.3A8.8 8.8 0 0 0 2 16.5h20a8.8 8.8 0 0 0-4.5-7.2zM7.5 13.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm9 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/></svg><h3 style="margin:0">Android</h3></div>
+        <p class="req">Android 8+ · <span data-size="apk">~6 MB</span></p>
+        <a class="btn primary" data-asset="apk" href="https://github.com/nickvicious/viato/releases/latest">
+          <span class="ru">Скачать APK</span><span class="en">Download APK</span>
+        </a>
+      </div>
+    </div>
+    <p class="ver center" id="ver"></p>
+    <div class="grid g3" style="margin-top:28px">
+      <div class="card"><h3><span class="ru">Работает на обычном ноутбуке</span><span class="en">Runs on an ordinary laptop</span></h3><p class="muted"><span class="ru">Видеокарта не обязательна. Viato сам проверит компьютер и подскажет, какая модель ИИ подойдёт.</span><span class="en">No graphics card required. Viato checks your computer and recommends the right AI model.</span></p></div>
+      <div class="card"><h3><span class="ru">Первый запуск</span><span class="en">First launch</span></h3><p class="muted"><span class="ru">Windows или macOS могут предупредить о неизвестном издателе — как открыть приложение, показано в <a href="docs/Viato-setup-guide-ru.pdf">инструкции по установке</a>.</span><span class="en">Windows or macOS may warn about an unknown publisher — the <a href="docs/Viato-setup-guide-ru.pdf">setup guide</a> shows how to open the app.</span></p></div>
+      <div class="card"><h3><span class="ru">Диктофон — по желанию</span><span class="en">Recorder — optional</span></h3><p class="muted"><span class="ru">Карманный M5Stack Cardputer: нажали кнопку и говорите, телефон не нужен. Всё работает и без него.</span><span class="en">A pocket M5Stack Cardputer: press a key and talk, no phone needed. Everything works without it too.</span></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- DOCS -->
+<section id="docs">
+  <div class="wrap">
+    <div class="kicker"><span class="ru">Документация</span><span class="en">Documentation</span></div>
+    <h2><span class="ru">Всё, чтобы начать за вечер</span><span class="en">Everything you need to start in one evening</span></h2>
+    <p class="lead en">Documentation is currently in Russian; English versions are on the way.</p>
+    <div class="grid g3" style="margin-top:28px">
+      <a class="card doc" href="docs/Viato-presentation-ru.pdf" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M12 17v3M8 20h8M7 13l3-3 2 2 4-4"/></svg>
+        <span><b><span class="ru">Презентация</span><span class="en">Presentation</span></b><small><span class="ru">Что умеет Viato, приватность, выбор ИИ, лицензии · PDF, 2,9 МБ</span><span class="en">What Viato does, privacy, choosing AI, licensing · PDF, 2.9 MB · RU</span></small></span>
+      </a>
+      <a class="card doc" href="docs/Viato-setup-guide-ru.pdf" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-.6-.6-2.4z"/></svg>
+        <span><b><span class="ru">Установка и настройка</span><span class="en">Setup guide</span></b><small><span class="ru">ПК, сервер команды, телефон и диктофон · PDF, 3,3 МБ</span><span class="en">PC, team server, phone and recorder · PDF, 3.3 MB · RU</span></small></span>
+      </a>
+      <a class="card doc" href="docs/Viato-manual-ru.pdf" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5M8 7h7M8 11h7"/></svg>
+        <span><b><span class="ru">Руководство пользователя</span><span class="en">User manual</span></b><small><span class="ru">Все экраны и функции по шагам · PDF, 6,8 МБ</span><span class="en">Every screen and feature, step by step · PDF, 6.8 MB · RU</span></small></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="alt">
+  <div class="wrap" style="max-width:860px">
+    <div class="kicker"><span class="ru">Вопросы</span><span class="en">FAQ</span></div>
+    <h2><span class="ru">Частые вопросы</span><span class="en">Frequently asked questions</span></h2>
+    <details>
+      <summary><span class="ru">Куда уходят мои записи?</span><span class="en">Where do my recordings go?</span></summary>
+      <p><span class="ru">Туда, куда решите вы: только на ваш компьютер, в гибридном режиме или выбранному облачному провайдеру по вашему ключу. У разработчика Viato нет своего облака — мы не видим ни записей, ни задач.</span><span class="en">Wherever you decide: only your computer, hybrid mode, or a cloud provider of your choice using your own key. The Viato developer has no cloud — we never see your recordings or tasks.</span></p>
+    </details>
+    <details>
+      <summary><span class="ru">Нужен ли интернет?</span><span class="en">Do I need the internet?</span></summary>
+      <p><span class="ru">Нет. Запись, задачи и списки работают всегда, а с локальным ИИ — и вся обработка. Интернет нужен только для облачных моделей и синхронизации команды.</span><span class="en">No. Recording, tasks and lists always work, and with local AI so does all processing. The internet is only needed for cloud models and team sync.</span></p>
+    </details>
+    <details>
+      <summary><span class="ru">Нужен мощный компьютер?</span><span class="en">Do I need a powerful computer?</span></summary>
+      <p><span class="ru">Нет. Для обычного офисного ноутбука есть лёгкие локальные модели, а длинные созвоны можно отдавать бесплатному облаку. С видеокартой от 4 ГБ протоколы полностью делаются локально.</span><span class="en">No. Light local models work on an ordinary office laptop, and long calls can go to a free cloud model. With a 4 GB+ graphics card, minutes are produced fully locally.</span></p>
+    </details>
+    <details>
+      <summary><span class="ru">Работает ли в России и Китае?</span><span class="en">Does it work in Russia and China?</span></summary>
+      <p><span class="ru">Да. Локальные модели работают везде, а DeepSeek и GLM доступны без VPN. У каждого провайдера в настройках отмечено, где он недоступен.</span><span class="en">Yes. Local models work everywhere, and DeepSeek and GLM are available without a VPN. Each provider in Settings shows where it’s unavailable.</span></p>
+    </details>
+    <details>
+      <summary><span class="ru">Сколько стоит ИИ?</span><span class="en">How much does the AI cost?</span></summary>
+      <p><span class="ru">Локальный ИИ и бесплатные облачные модели — бесплатно. Платные сервисы выключены по умолчанию и стоят копейки за созвон, если вы их включите.</span><span class="en">Local AI and free cloud models cost nothing. Paid services are off by default and cost cents per call if you turn them on.</span></p>
+    </details>
+    <details>
+      <summary><span class="ru">Как купить лицензию для команды?</span><span class="en">How do I buy a team license?</span></summary>
+      <p><span class="ru">Нажмите «Купить лицензию» — откроется наш Telegram-бот. Напишите, сколько вас и как вы работаете, мы ответим лично.</span><span class="en">Click “Buy license” — it opens our Telegram bot. Tell us your team size and how you work, and we’ll reply personally.</span></p>
+    </details>
+  </div>
+</section>
+
+<!-- FINAL -->
+<section class="final">
+  <div class="wrap">
+    <h2><span class="ru">Запишите ближайший созвон в Viato</span><span class="en">Record your next call with Viato</span></h2>
+    <p class="lead"><span class="ru">…и сравните протокол с тем, что запомнили сами.</span><span class="en">…and compare the minutes with what you remember yourself.</span></p>
+    <div class="btns">
+      <a class="btn primary" href="#download"><span class="ru">Скачать бесплатно</span><span class="en">Download free</span></a>
+      <a class="btn ghost" data-bot="hello" href="#"><span class="ru">Задать вопрос</span><span class="en">Ask a question</span></a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Viato</span>
+    <span><span class="ru">Связь:</span><span class="en">Contact:</span> <a data-bot="hello" href="#">Telegram</a></span>
+  </div>
+</footer>
+
+<script>
+  var BOT = 'ai_recorderbot';
+  var REPO = 'nickvicious/viato';
+  // Release asset names are fixed so "latest/download" links never go stale.
+  var ASSETS = { exe: 'Viato-Setup-Windows.exe', dmg: 'Viato-macOS-AppleSilicon.dmg', apk: 'Viato-Android.apk' };
+
+  document.querySelectorAll('[data-bot]').forEach(function (a) {
+    a.href = 'https://t.me/' + BOT + '?start=' + a.getAttribute('data-bot');
+    a.target = '_blank'; a.rel = 'noopener';
+  });
+  document.querySelectorAll('[data-asset]').forEach(function (a) {
+    a.href = 'https://github.com/' + REPO + '/releases/latest/download/' + ASSETS[a.getAttribute('data-asset')];
+  });
+
+  function setLang(l) {
+    document.documentElement.lang = l;
+    try { localStorage.setItem('viato-lang', l); } catch (e) {}
+    document.title = l === 'ru' ? 'Viato — каждый разговор заканчивается планом' : 'Viato — every conversation ends with a plan';
+    showVersion();
+  }
+  document.querySelectorAll('.lang button').forEach(function (b) {
+    b.addEventListener('click', function () { setLang(b.getAttribute('data-lang')); });
+  });
+
+  // Version and sizes from the latest GitHub release; the page works without it.
+  var release = null;
+  function showVersion() {
+    if (!release) return;
+    var ru = document.documentElement.lang === 'ru';
+    var d = new Date(release.published_at);
+    document.getElementById('ver').textContent = (ru ? 'Версия ' : 'Version ') + release.tag_name.replace(/^v/, '') +
+      ' · ' + d.toLocaleDateString(ru ? 'ru-RU' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+  }
+  fetch('https://api.github.com/repos/' + REPO + '/releases/latest')
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (j) {
+      if (!j) return;
+      release = j;
+      (j.assets || []).forEach(function (a) {
+        Object.keys(ASSETS).forEach(function (k) {
+          var el = document.querySelector('[data-size="' + k + '"]');
+          if (a.name === ASSETS[k] && el) el.textContent = Math.round(a.size / 1048576) + ' MB';
+        });
+      });
+      showVersion();
+    })
+    .catch(function () {});
+  setLang(document.documentElement.lang);
+</script>
+</body>
+</html>
