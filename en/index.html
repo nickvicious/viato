@@ -260,7 +260,7 @@
   pre.g-code { margin: 10px 0 4px; padding: 12px 14px; background: #0a0f10; border: 1px solid var(--line); border-radius: 10px; font-size: 13px; line-height: 1.6; overflow-x: auto; white-space: pre; color: #cfe9e4; }
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Viato", "url": "https://viato.tech/en/", "description": "AI task tracker for freelancers and small teams: turns calls and voice notes into meeting minutes, tasks with deadlines and a Gantt plan. Local AI, offline, free solo.", "applicationCategory": "BusinessApplication", "applicationSubCategory": "Task tracker", "operatingSystem": "Windows 10, Windows 11, macOS 13+, Android 8+", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "downloadUrl": "https://github.com/nickvicious/viato/releases/latest", "image": "https://viato.tech/img/og-en.jpg", "inLanguage": ["en", "ru", "de", "zh"], "featureList": ["Meeting minutes from calls (Zoom, Teams, Meet, browser calls)", "Voice notes become tasks, lists and reminders", "Tasks from documents and emails", "Projects, board and Gantt chart", "Team server with chats and shared tasks", "Local AI, works offline"], "screenshot": ["https://viato.tech/img/en/call.webp", "https://viato.tech/img/en/dayplan.webp", "https://viato.tech/img/en/gantt.webp"]}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Where do my recordings go?", "acceptedAnswer": {"@type": "Answer", "text": "Wherever you decide: only your computer, hybrid mode, or a cloud provider of your choice using your own key. The Viato developer has no cloud — we never see your recordings or tasks."}}, {"@type": "Question", "name": "Do I need the internet?", "acceptedAnswer": {"@type": "Answer", "text": "No. Recording, tasks and lists always work, and with local AI so does all processing. The internet is only needed for cloud models and team sync."}}, {"@type": "Question", "name": "Do I need a powerful computer?", "acceptedAnswer": {"@type": "Answer", "text": "No. Light local models work on an ordinary office laptop, and long calls can go to a free cloud model. With a 4 GB+ graphics card, minutes are produced fully locally."}}, {"@type": "Question", "name": "Does it work in Russia and China?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Local models work everywhere, and DeepSeek and GLM are available without a VPN. Each provider in Settings shows where it’s unavailable."}}, {"@type": "Question", "name": "How much does the AI cost?", "acceptedAnswer": {"@type": "Answer", "text": "Local AI and free cloud models cost nothing. Paid services are off by default and cost cents per call if you turn them on."}}, {"@type": "Question", "name": "How do I buy a team license?", "acceptedAnswer": {"@type": "Answer", "text": "Click “Buy license” — it opens our Telegram bot. Tell us your team size and how you work, and we’ll reply personally."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Where do my recordings go?", "acceptedAnswer": {"@type": "Answer", "text": "Wherever you decide: only your computer, hybrid mode, or a cloud provider of your choice using your own key. The Viato developer has no cloud — we never see your recordings or tasks."}}, {"@type": "Question", "name": "Do I need the internet?", "acceptedAnswer": {"@type": "Answer", "text": "No. Recording, tasks and lists always work, and with local AI so does all processing. The internet is only needed for cloud models and team sync."}}, {"@type": "Question", "name": "Do I need a powerful computer?", "acceptedAnswer": {"@type": "Answer", "text": "No. Light local models work on an ordinary office laptop, and long calls can go to a free cloud model. With a 4 GB+ graphics card, minutes are produced fully locally."}}, {"@type": "Question", "name": "How much does the AI cost?", "acceptedAnswer": {"@type": "Answer", "text": "Local AI and free cloud models cost nothing. Paid services are off by default and cost cents per call if you turn them on."}}, {"@type": "Question", "name": "How do I buy a team license?", "acceptedAnswer": {"@type": "Answer", "text": "Click “Buy license” — it opens our Telegram bot. Tell us your team size and how you work, and we’ll reply personally."}}]}</script>
 </head>
 <body>
 
@@ -332,7 +332,7 @@
           <div class="card g-card">
             <div class="g-step"><span class="en">STEP 1 · SPEECH → TEXT</span></div>
             <h3>Cloudflare Workers AI</h3>
-            <div class="g-tags"><span class="t-free"><span class="en">free</span></span><span><span class="en">works from Russia and China</span></span></div>
+            <div class="g-tags"><span class="t-free"><span class="en">free</span></span></div>
             <p class="muted g-small"><span class="en">You need two values: an <b>API token</b> and an <b>Account ID</b>. Both come from the same page.</span></p>
             <ol class="g-steps">
               <li><span class="en">Sign up at <a href="https://dash.cloudflare.com/sign-up" target="_blank" rel="noopener">dash.cloudflare.com/sign-up</a> — email and password, no card needed. Confirm your email via the link in the message.</span></li>
@@ -349,8 +349,8 @@
           <div class="card g-card">
             <div class="g-step"><span class="en">STEP 2 · TEXT ANALYSIS</span></div>
             <h3>Google Gemini</h3>
-            <div class="g-tags"><span class="t-free"><span class="en">free</span></span><span class="t-warn"><span class="en">trains on your data</span></span><span class="t-warn"><span class="en">unavailable in Russia and China</span></span></div>
-            <p class="muted g-small"><span class="en">One key is enough. From Russia or China, connect <a href="#g-glm">Zhipu GLM</a> (free) or <a href="#g-deepseek">DeepSeek</a> (cents) instead.</span></p>
+            <div class="g-tags"><span class="t-free"><span class="en">free</span></span><span class="t-warn"><span class="en">trains on your data</span></span></div>
+            <p class="muted g-small"><span class="en">One key is enough. Alternatives: <a href="#g-glm">Zhipu GLM</a> (free) or <a href="#g-deepseek">DeepSeek</a> (cents).</span></p>
             <ol class="g-steps">
               <li><span class="en">Open <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">aistudio.google.com/apikey</a> and sign in with your Google account.</span></li>
               <li><span class="en">If a terms of service dialog appears, accept it.</span></li>
@@ -367,7 +367,7 @@
         <p class="muted g-small"><span class="en">Connect two or three: if one is down or hits its limit, Viato switches to the next. Paid services work only when “Paid AI services” is on in Viato.</span></p>
 
         <details class="g-prov">
-          <summary><b>Groq</b> <span class="t-free"><span class="en">free</span></span> <span class="muted"><span class="en">speech and text · unavailable in Russia and China</span></span></summary>
+          <summary><b>Groq</b> <span class="t-free"><span class="en">free</span></span> <span class="muted"><span class="en">speech and text</span></span></summary>
           <ol class="g-steps">
             <li><span class="en">Sign in at <a href="https://console.groq.com" target="_blank" rel="noopener">console.groq.com</a> (Google or email).</span></li>
             <li><span class="en">Open <a href="https://console.groq.com/keys" target="_blank" rel="noopener">console.groq.com/keys</a> → <b>“Create API Key”</b> → enter any name (e.g. Viato) → confirm.</span></li>
@@ -377,7 +377,7 @@
         </details>
 
         <details class="g-prov" id="g-glm">
-          <summary><b>Zhipu GLM (Z.ai)</b> <span class="t-free"><span class="en">free</span></span> <span class="muted"><span class="en">text · works from China</span></span></summary>
+          <summary><b>Zhipu GLM (Z.ai)</b> <span class="t-free"><span class="en">free</span></span> <span class="muted"><span class="en">text</span></span></summary>
           <ol class="g-steps">
             <li><span class="en">Sign up at <a href="https://z.ai/model-api" target="_blank" rel="noopener">z.ai/model-api</a>.</span></li>
             <li><span class="en">Open the keys page <a href="https://z.ai/manage-apikey/apikey-list" target="_blank" rel="noopener">z.ai/manage-apikey/apikey-list</a> and create a new key.</span></li>
@@ -387,7 +387,7 @@
         </details>
 
         <details class="g-prov" id="g-deepseek">
-          <summary><b>DeepSeek</b> <span class="t-paid"><span class="en">paid, cents</span></span> <span class="muted"><span class="en">text · best on long calls · works from Russia and China</span></span></summary>
+          <summary><b>DeepSeek</b> <span class="t-paid"><span class="en">paid, cents</span></span> <span class="muted"><span class="en">text · best on long calls</span></span></summary>
           <ol class="g-steps">
             <li><span class="en">Sign up at <a href="https://platform.deepseek.com" target="_blank" rel="noopener">platform.deepseek.com</a>.</span></li>
             <li><span class="en">Top up your balance: <a href="https://platform.deepseek.com/top_up" target="_blank" rel="noopener">platform.deepseek.com/top_up</a>. $2–5 lasts a long time.</span></li>
@@ -397,7 +397,7 @@
         </details>
 
         <details class="g-prov">
-          <summary><b>Qwen / Alibaba DashScope</b> <span class="t-paid"><span class="en">paid after a free quota</span></span> <span class="muted"><span class="en">text · works from Russia and China</span></span></summary>
+          <summary><b>Qwen / Alibaba DashScope</b> <span class="t-paid"><span class="en">paid after a free quota</span></span> <span class="muted"><span class="en">text</span></span></summary>
           <ol class="g-steps">
             <li><span class="en">Sign up at <a href="https://www.alibabacloud.com" target="_blank" rel="noopener">alibabacloud.com</a>.</span></li>
             <li><span class="en">Open the Model Studio keys page in the Singapore region: <a href="https://modelstudio.console.alibabacloud.com/ap-southeast-1/settings/api-key" target="_blank" rel="noopener">Model Studio → API Key</a>. If the console asks you to activate Model Studio, do so. The region in the top right must be <b>Singapore</b>.</span></li>
@@ -407,7 +407,7 @@
         </details>
 
         <details class="g-prov">
-          <summary><b>OpenAI</b> <span class="t-paid"><span class="en">paid</span></span> <span class="muted"><span class="en">text · unavailable in Russia and China</span></span></summary>
+          <summary><b>OpenAI</b> <span class="t-paid"><span class="en">paid</span></span> <span class="muted"><span class="en">text</span></span></summary>
           <ol class="g-steps">
             <li><span class="en">Sign in at <a href="https://platform.openai.com" target="_blank" rel="noopener">platform.openai.com</a>.</span></li>
             <li><span class="en">Top up your balance: <a href="https://platform.openai.com/settings/organization/billing/overview" target="_blank" rel="noopener">Settings → Billing</a>. A few dollars last a long time.</span></li>
@@ -728,7 +728,7 @@ sudo systemctl restart ssh</pre></li>
       <div class="card"><h3><span class="en">Freelancer, consultant, expert</span></h3><p class="muted"><span class="en">Minutes of every client call, tasks per project, email drafts — on your own laptop, for free.</span></p></div>
       <div class="card"><h3><span class="en">Studio, agency, engineering team</span></h3><p class="muted"><span class="en">Shared projects and Gantt, tasks from meetings with owners, chats next to tasks, your own server.</span></p></div>
       <div class="card"><h3><span class="en">Manager</span></h3><p class="muted"><span class="en">An overview of every project: what’s overdue, where the risk is, what matters now. Agreements don’t get lost.</span></p></div>
-      <div class="card"><h3><span class="en">Companies with data requirements</span></h3><p class="muted"><span class="en">Processing on your own hardware, encrypted server storage, works where Western clouds are unavailable.</span></p></div>
+      <div class="card"><h3><span class="en">Companies with data requirements</span></h3><p class="muted"><span class="en">Processing on your own hardware and encrypted storage on your own server.</span></p></div>
     </div>
   </div>
 </section>
@@ -881,10 +881,7 @@ sudo systemctl restart ssh</pre></li>
       <summary><span class="en">Do I need a powerful computer?</span></summary>
       <p><span class="en">No. Light local models work on an ordinary office laptop, and long calls can go to a free cloud model. With a 4 GB+ graphics card, minutes are produced fully locally.</span></p>
     </details>
-    <details>
-      <summary><span class="en">Does it work in Russia and China?</span></summary>
-      <p><span class="en">Yes. Local models work everywhere, and DeepSeek and GLM are available without a VPN. Each provider in Settings shows where it’s unavailable.</span></p>
-    </details>
+    
     <details>
       <summary><span class="en">How much does the AI cost?</span></summary>
       <p><span class="en">Local AI and free cloud models cost nothing. Paid services are off by default and cost cents per call if you turn them on.</span></p>
