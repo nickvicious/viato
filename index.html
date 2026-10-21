@@ -184,6 +184,45 @@
     background: var(--card); color: var(--text); font-size: 26px; line-height: 1; cursor: pointer; z-index: 1; }
   .viewer .hint { position: fixed; top: 20px; left: 16px; right: 70px; font-size: 13px; color: var(--muted); pointer-events: none; }
   body.noscroll { overflow: hidden; }
+  /* AI setup guide */
+  .aiguide { margin-top: 40px; border: 1px solid #1f4c49; border-radius: var(--radius); background: linear-gradient(120deg, rgba(18,59,58,.55), rgba(23,34,35,.9)); }
+  .aiguide > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 14px; padding: 18px 22px; }
+  .aiguide > summary::-webkit-details-marker { display: none; }
+  .aiguide > summary::after { content: "+"; margin-left: auto; color: var(--accent); font-size: 28px; line-height: 1; }
+  .aiguide[open] > summary::after { content: "−"; }
+  .aiguide .g-icon { font-size: 26px; }
+  .aiguide .g-head b { display: block; font-size: 18px; }
+  .aiguide .g-head small { color: var(--muted); font-size: 14px; }
+  .aiguide .g-body { padding: 0 22px 24px; }
+  .g-where { padding: 12px 16px; border-left: 3px solid var(--accent); background: rgba(95,224,200,.06); border-radius: 0 10px 10px 0; font-size: 15px; }
+  .g-card h3 { margin-bottom: 8px; }
+  .g-step { font-size: 12px; font-weight: 800; letter-spacing: .1em; color: var(--accent); margin-bottom: 6px; }
+  .g-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+  .g-tags > span, .g-prov summary > span[class^="t-"] { font-size: 12px; font-weight: 700; padding: 3px 9px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
+  .t-free { color: var(--accent) !important; border-color: rgba(95,224,200,.4) !important; }
+  .t-paid { color: var(--warm) !important; border-color: rgba(240,163,94,.4) !important; }
+  .t-warn { color: #f2c46b !important; border-color: rgba(242,196,107,.35) !important; }
+  .g-small { font-size: 15px; }
+  ol.g-steps { margin: 12px 0 0; padding-left: 22px; font-size: 15px; }
+  ol.g-steps li { margin: 8px 0; padding-left: 4px; }
+  ol.g-steps li::marker { color: var(--accent); font-weight: 800; }
+  .g-steps code, .g-card code { font-size: 13px; background: rgba(255,255,255,.07); padding: 1px 6px; border-radius: 5px; word-break: break-all; }
+  .g-warn { margin-top: 14px; font-size: 14px; padding: 10px 14px; border-radius: 10px; background: rgba(242,196,107,.08); border: 1px solid rgba(242,196,107,.25); }
+  .g-prov { border: 1px solid var(--line); border-radius: 12px; background: var(--card); margin-top: 10px; padding: 0; }
+  .g-prov > summary { cursor: pointer; padding: 14px 16px; list-style: none; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 15px; }
+  .g-prov > summary::-webkit-details-marker { display: none; }
+  .g-prov > summary::before { content: "▸"; color: var(--accent); }
+  .g-prov[open] > summary::before { content: "▾"; }
+  .g-prov > ol, .g-prov > p { margin-left: 16px; margin-right: 16px; }
+  .g-prov > ol { margin-top: 0; }
+  .g-prov > :last-child { padding-bottom: 14px; }
+  .aiguide + .shot { margin-top: 28px !important; }
+  /* undo the FAQ details styles inside the guide */
+  details.aiguide, details.g-prov { padding: 0; }
+  details.aiguide { border-bottom: 1px solid #1f4c49; }
+  details.g-prov { border-bottom: 1px solid var(--line); }
+  .aiguide summary { font-weight: 400; font-size: inherit; justify-content: flex-start; }
+  .g-prov > summary::after { content: none !important; }
 </style>
 </head>
 <body>
@@ -233,6 +272,115 @@
       <span class="chip"><span class="ru">Данные остаются у вас</span><span class="en">Your data stays with you</span></span>
       <span class="chip">RU · EN · DE · ZH</span>
     </div>
+    <details class="aiguide" id="ai-setup">
+      <summary>
+        <span class="g-icon">🔌</span>
+        <span class="g-head">
+          <b><span class="ru">Как подключить облачный ИИ — пошаговая инструкция</span><span class="en">How to connect cloud AI — step by step</span></b>
+          <small><span class="ru">Бесплатно, 5–10 минут: один ключ для распознавания речи и один для разбора текста</span><span class="en">Free, 5–10 minutes: one key for speech recognition and one for text analysis</span></small>
+        </span>
+      </summary>
+      <div class="g-body">
+        <p class="muted">
+          <span class="ru">Viato может работать полностью на вашем компьютере — тогда ключи не нужны. Облачный ИИ быстрее и точнее на длинных созвонах. Для бесплатного старта хватит двух сервисов: <b>Cloudflare</b> превращает речь в текст, <b>Google Gemini</b> разбирает текст на задачи и протоколы. Ключи хранятся только на вашем компьютере.</span>
+          <span class="en">Viato can run entirely on your computer — then no keys are needed. Cloud AI is faster and more accurate on long calls. Two services are enough for a free start: <b>Cloudflare</b> turns speech into text, <b>Google Gemini</b> turns text into tasks and minutes. Keys are stored only on your computer.</span>
+        </p>
+        <div class="g-where">
+          <span class="ru"><b>Куда вставлять ключи:</b> Viato → <b>Настройки</b> → «Обработка ИИ» → «Провайдеры» → раскройте нужный сервис → вставьте ключ → «Сохранить ключ». Появится пометка «Ключ сохранён».</span>
+          <span class="en"><b>Where keys go:</b> Viato → <b>Settings</b> → “AI processing” → “Providers” → expand the service → paste the key → “Save key”. You’ll see “Key saved”.</span>
+        </div>
+
+        <div class="grid g2" style="margin-top:20px">
+          <div class="card g-card">
+            <div class="g-step"><span class="ru">ШАГ 1 · РЕЧЬ → ТЕКСТ</span><span class="en">STEP 1 · SPEECH → TEXT</span></div>
+            <h3>Cloudflare Workers AI</h3>
+            <div class="g-tags"><span class="t-free"><span class="ru">бесплатно</span><span class="en">free</span></span><span><span class="ru">работает из России и Китая</span><span class="en">works from Russia and China</span></span></div>
+            <p class="muted g-small"><span class="ru">Нужны два значения: <b>API-токен</b> и <b>Account ID</b>. Оба берутся с одной страницы.</span><span class="en">You need two values: an <b>API token</b> and an <b>Account ID</b>. Both come from the same page.</span></p>
+            <ol class="g-steps">
+              <li><span class="ru">Зарегистрируйтесь: <a href="https://dash.cloudflare.com/sign-up" target="_blank" rel="noopener">dash.cloudflare.com/sign-up</a> — почта и пароль, карта не нужна. Подтвердите почту по ссылке из письма.</span><span class="en">Sign up at <a href="https://dash.cloudflare.com/sign-up" target="_blank" rel="noopener">dash.cloudflare.com/sign-up</a> — email and password, no card needed. Confirm your email via the link in the message.</span></li>
+              <li><span class="ru">Откройте страницу Workers AI: <a href="https://dash.cloudflare.com/?to=/:account/ai/workers-ai" target="_blank" rel="noopener">dash.cloudflare.com → AI → Workers AI</a>. Если Cloudflare спросит аккаунт — выберите свой.</span><span class="en">Open the Workers AI page: <a href="https://dash.cloudflare.com/?to=/:account/ai/workers-ai" target="_blank" rel="noopener">dash.cloudflare.com → AI → Workers AI</a>. If Cloudflare asks for an account, pick yours.</span></li>
+              <li><span class="ru">Нажмите <b>«Use REST API»</b>.</span><span class="en">Click <b>“Use REST API”</b>.</span></li>
+              <li><span class="ru">Нажмите <b>«Create a Workers AI API Token»</b> → ничего не меняйте → <b>«Create API Token»</b>.</span><span class="en">Click <b>“Create a Workers AI API Token”</b> → change nothing → <b>“Create API Token”</b>.</span></li>
+              <li><span class="ru">Нажмите <b>«Copy API Token»</b> — это значение для поля <code>CLOUDFLARE_API_TOKEN</code>. Сразу вставьте его в Viato или сохраните: целиком токен показывается один раз.</span><span class="en">Click <b>“Copy API Token”</b> — this goes into the <code>CLOUDFLARE_API_TOKEN</code> field. Paste it into Viato or save it right away: the full token is shown only once.</span></li>
+              <li><span class="ru">На той же странице в блоке <b>«Get Account ID»</b> скопируйте <b>Account ID</b> — это значение для поля <code>CLOUDFLARE_ACCOUNT_ID</code>.</span><span class="en">On the same page, under <b>“Get Account ID”</b>, copy the <b>Account ID</b> — this goes into the <code>CLOUDFLARE_ACCOUNT_ID</code> field.</span></li>
+              <li><span class="ru">В Viato: «Провайдеры» → <b>Cloudflare Workers AI</b> → вставьте оба значения → «Сохранить ключ».</span><span class="en">In Viato: “Providers” → <b>Cloudflare Workers AI</b> → paste both values → “Save key”.</span></li>
+            </ol>
+            <div class="g-warn"><span class="ru">⚠️ Не берите «Global API Key» и не создавайте токен по другим шаблонам — нужен именно токен Workers AI с этой страницы. Account ID — это 32 символа из цифр и латинских букв, не адрес почты.</span><span class="en">⚠️ Don’t use the “Global API Key” and don’t create a token from other templates — you need exactly the Workers AI token from this page. The Account ID is 32 characters of digits and letters, not your email.</span></div>
+          </div>
+
+          <div class="card g-card">
+            <div class="g-step"><span class="ru">ШАГ 2 · РАЗБОР ТЕКСТА</span><span class="en">STEP 2 · TEXT ANALYSIS</span></div>
+            <h3>Google Gemini</h3>
+            <div class="g-tags"><span class="t-free"><span class="ru">бесплатно</span><span class="en">free</span></span><span class="t-warn"><span class="ru">учится на данных</span><span class="en">trains on your data</span></span><span class="t-warn"><span class="ru">недоступен в России и Китае</span><span class="en">unavailable in Russia and China</span></span></div>
+            <p class="muted g-small"><span class="ru">Нужен один ключ. Из России и Китая вместо Gemini подключите <a href="#g-glm">Zhipu GLM</a> (бесплатно) или <a href="#g-deepseek">DeepSeek</a> (копейки).</span><span class="en">One key is enough. From Russia or China, connect <a href="#g-glm">Zhipu GLM</a> (free) or <a href="#g-deepseek">DeepSeek</a> (cents) instead.</span></p>
+            <ol class="g-steps">
+              <li><span class="ru">Откройте <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">aistudio.google.com/apikey</a> и войдите через аккаунт Google.</span><span class="en">Open <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">aistudio.google.com/apikey</a> and sign in with your Google account.</span></li>
+              <li><span class="ru">Если появится окно с условиями использования — примите их.</span><span class="en">If a terms of service dialog appears, accept it.</span></li>
+              <li><span class="ru">Нажмите <b>«Create API key»</b>. Если Google спросит проект — выберите любой из списка (обычно «Default Gemini Project»).</span><span class="en">Click <b>“Create API key”</b>. If Google asks for a project, pick any one from the list (usually “Default Gemini Project”).</span></li>
+              <li><span class="ru">Скопируйте ключ — он начинается с <code>AIza</code>.</span><span class="en">Copy the key — it starts with <code>AIza</code>.</span></li>
+              <li><span class="ru">В Viato: «Провайдеры» → <b>Google Gemini</b> → вставьте ключ → «Сохранить ключ».</span><span class="en">In Viato: “Providers” → <b>Google Gemini</b> → paste the key → “Save key”.</span></li>
+            </ol>
+            <div class="g-warn"><span class="ru">⚠️ Бесплатный тариф Gemini использует запросы для улучшения продуктов Google. Для конфиденциальных разговоров включите в Viato «Только локальный ИИ» или используйте провайдера, который не учится на данных.</span><span class="en">⚠️ Gemini’s free tier uses requests to improve Google products. For confidential conversations, turn on “Local AI only” in Viato or use a provider that doesn’t train on your data.</span></div>
+            <p class="muted g-small" style="margin-top:14px"><span class="ru"><b>Проверка:</b> надиктуйте «Задача для меня: проверить ИИ» и откройте «Записи» — там видно, какая модель сработала.</span><span class="en"><b>Check:</b> dictate “Task for me: check the AI” and open “Recordings” — it shows which model did the work.</span></p>
+          </div>
+        </div>
+
+        <h3 style="margin:30px 0 6px"><span class="ru">Другие провайдеры</span><span class="en">Other providers</span></h3>
+        <p class="muted g-small"><span class="ru">Подключите два-три: если один недоступен или упёрся в лимит, Viato сам возьмёт следующий. Платные сервисы работают, только когда в Viato включены «Платные ИИ-сервисы».</span><span class="en">Connect two or three: if one is down or hits its limit, Viato switches to the next. Paid services work only when “Paid AI services” is on in Viato.</span></p>
+
+        <details class="g-prov">
+          <summary><b>Groq</b> <span class="t-free"><span class="ru">бесплатно</span><span class="en">free</span></span> <span class="muted"><span class="ru">речь и текст · недоступен в России и Китае</span><span class="en">speech and text · unavailable in Russia and China</span></span></summary>
+          <ol class="g-steps">
+            <li><span class="ru">Войдите на <a href="https://console.groq.com" target="_blank" rel="noopener">console.groq.com</a> (Google или почта).</span><span class="en">Sign in at <a href="https://console.groq.com" target="_blank" rel="noopener">console.groq.com</a> (Google or email).</span></li>
+            <li><span class="ru">Откройте <a href="https://console.groq.com/keys" target="_blank" rel="noopener">console.groq.com/keys</a> → <b>«Create API Key»</b> → введите любое имя (например, Viato) → подтвердите.</span><span class="en">Open <a href="https://console.groq.com/keys" target="_blank" rel="noopener">console.groq.com/keys</a> → <b>“Create API Key”</b> → enter any name (e.g. Viato) → confirm.</span></li>
+            <li><span class="ru">Скопируйте ключ (начинается с <code>gsk_</code>, показывается один раз).</span><span class="en">Copy the key (starts with <code>gsk_</code>, shown only once).</span></li>
+            <li><span class="ru">В Viato: «Провайдеры» → <b>Groq</b> → вставьте → «Сохранить ключ».</span><span class="en">In Viato: “Providers” → <b>Groq</b> → paste → “Save key”.</span></li>
+          </ol>
+        </details>
+
+        <details class="g-prov" id="g-glm">
+          <summary><b>Zhipu GLM (Z.ai)</b> <span class="t-free"><span class="ru">бесплатно</span><span class="en">free</span></span> <span class="muted"><span class="ru">текст · работает из Китая</span><span class="en">text · works from China</span></span></summary>
+          <ol class="g-steps">
+            <li><span class="ru">Зарегистрируйтесь на <a href="https://z.ai/model-api" target="_blank" rel="noopener">z.ai/model-api</a>.</span><span class="en">Sign up at <a href="https://z.ai/model-api" target="_blank" rel="noopener">z.ai/model-api</a>.</span></li>
+            <li><span class="ru">Откройте страницу ключей <a href="https://z.ai/manage-apikey/apikey-list" target="_blank" rel="noopener">z.ai/manage-apikey/apikey-list</a> и создайте новый ключ.</span><span class="en">Open the keys page <a href="https://z.ai/manage-apikey/apikey-list" target="_blank" rel="noopener">z.ai/manage-apikey/apikey-list</a> and create a new key.</span></li>
+            <li><span class="ru">Скопируйте ключ. В Viato: «Провайдеры» → <b>Zhipu GLM</b> → вставьте → «Сохранить ключ».</span><span class="en">Copy the key. In Viato: “Providers” → <b>Zhipu GLM</b> → paste → “Save key”.</span></li>
+          </ol>
+          <p class="muted g-small"><span class="ru">Модель GLM-4.7-Flash бесплатна, пополнять баланс не нужно. В часы пик бывает перегружена.</span><span class="en">The GLM-4.7-Flash model is free, no top-up needed. It can be overloaded at peak hours.</span></p>
+        </details>
+
+        <details class="g-prov" id="g-deepseek">
+          <summary><b>DeepSeek</b> <span class="t-paid"><span class="ru">платно, копейки</span><span class="en">paid, cents</span></span> <span class="muted"><span class="ru">текст · лучший на длинных созвонах · работает из России и Китая</span><span class="en">text · best on long calls · works from Russia and China</span></span></summary>
+          <ol class="g-steps">
+            <li><span class="ru">Зарегистрируйтесь на <a href="https://platform.deepseek.com" target="_blank" rel="noopener">platform.deepseek.com</a>.</span><span class="en">Sign up at <a href="https://platform.deepseek.com" target="_blank" rel="noopener">platform.deepseek.com</a>.</span></li>
+            <li><span class="ru">Пополните баланс: <a href="https://platform.deepseek.com/top_up" target="_blank" rel="noopener">platform.deepseek.com/top_up</a>. $2–5 хватит надолго.</span><span class="en">Top up your balance: <a href="https://platform.deepseek.com/top_up" target="_blank" rel="noopener">platform.deepseek.com/top_up</a>. $2–5 lasts a long time.</span></li>
+            <li><span class="ru">Откройте <a href="https://platform.deepseek.com/api_keys" target="_blank" rel="noopener">platform.deepseek.com/api_keys</a> → <b>«Create new API key»</b> → скопируйте ключ (показывается один раз).</span><span class="en">Open <a href="https://platform.deepseek.com/api_keys" target="_blank" rel="noopener">platform.deepseek.com/api_keys</a> → <b>“Create new API key”</b> → copy the key (shown only once).</span></li>
+            <li><span class="ru">В Viato: «Провайдеры» → <b>DeepSeek</b> → вставьте → «Сохранить ключ» → включите «Платные ИИ-сервисы».</span><span class="en">In Viato: “Providers” → <b>DeepSeek</b> → paste → “Save key” → turn on “Paid AI services”.</span></li>
+          </ol>
+        </details>
+
+        <details class="g-prov">
+          <summary><b>Qwen / Alibaba DashScope</b> <span class="t-paid"><span class="ru">платно после бесплатной квоты</span><span class="en">paid after a free quota</span></span> <span class="muted"><span class="ru">текст · работает из России и Китая</span><span class="en">text · works from Russia and China</span></span></summary>
+          <ol class="g-steps">
+            <li><span class="ru">Зарегистрируйтесь на <a href="https://www.alibabacloud.com" target="_blank" rel="noopener">alibabacloud.com</a>.</span><span class="en">Sign up at <a href="https://www.alibabacloud.com" target="_blank" rel="noopener">alibabacloud.com</a>.</span></li>
+            <li><span class="ru">Откройте страницу ключей Model Studio в регионе Singapore: <a href="https://modelstudio.console.alibabacloud.com/ap-southeast-1/settings/api-key" target="_blank" rel="noopener">Model Studio → API Key</a>. Если консоль попросит активировать Model Studio — активируйте. Справа вверху должен быть выбран регион <b>Singapore</b>.</span><span class="en">Open the Model Studio keys page in the Singapore region: <a href="https://modelstudio.console.alibabacloud.com/ap-southeast-1/settings/api-key" target="_blank" rel="noopener">Model Studio → API Key</a>. If the console asks you to activate Model Studio, do so. The region in the top right must be <b>Singapore</b>.</span></li>
+            <li><span class="ru"><b>«Create API Key»</b> → оставьте настройки по умолчанию → <b>«OK»</b> → сразу скопируйте ключ: после закрытия окна его больше не показать.</span><span class="en"><b>“Create API Key”</b> → keep the defaults → <b>“OK”</b> → copy the key right away: it can’t be shown again after you close the dialog.</span></li>
+            <li><span class="ru">В Viato: «Провайдеры» → <b>Alibaba Qwen / DashScope</b> → вставьте → «Сохранить ключ» → включите «Платные ИИ-сервисы».</span><span class="en">In Viato: “Providers” → <b>Alibaba Qwen / DashScope</b> → paste → “Save key” → turn on “Paid AI services”.</span></li>
+          </ol>
+        </details>
+
+        <details class="g-prov">
+          <summary><b>OpenAI</b> <span class="t-paid"><span class="ru">платно</span><span class="en">paid</span></span> <span class="muted"><span class="ru">текст · недоступен в России и Китае</span><span class="en">text · unavailable in Russia and China</span></span></summary>
+          <ol class="g-steps">
+            <li><span class="ru">Войдите на <a href="https://platform.openai.com" target="_blank" rel="noopener">platform.openai.com</a>.</span><span class="en">Sign in at <a href="https://platform.openai.com" target="_blank" rel="noopener">platform.openai.com</a>.</span></li>
+            <li><span class="ru">Пополните баланс: <a href="https://platform.openai.com/settings/organization/billing/overview" target="_blank" rel="noopener">Settings → Billing</a>. Нескольких долларов хватит надолго.</span><span class="en">Top up your balance: <a href="https://platform.openai.com/settings/organization/billing/overview" target="_blank" rel="noopener">Settings → Billing</a>. A few dollars last a long time.</span></li>
+            <li><span class="ru">Откройте <a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener">platform.openai.com/api-keys</a> → <b>«Create new secret key»</b> → скопируйте ключ (начинается с <code>sk-</code>, показывается один раз).</span><span class="en">Open <a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener">platform.openai.com/api-keys</a> → <b>“Create new secret key”</b> → copy the key (starts with <code>sk-</code>, shown only once).</span></li>
+            <li><span class="ru">В Viato: «Провайдеры» → <b>OpenAI</b> → вставьте → «Сохранить ключ» → включите «Платные ИИ-сервисы».</span><span class="en">In Viato: “Providers” → <b>OpenAI</b> → paste → “Save key” → turn on “Paid AI services”.</span></li>
+          </ol>
+        </details>
+
+        <p class="muted g-small" style="margin-top:18px"><span class="ru">Интерфейсы сервисов иногда меняются. Если кнопка называется иначе или что-то не получается — <a data-bot="hello" href="#">напишите нам</a>, поможем.</span><span class="en">Service dashboards change from time to time. If a button is named differently or something doesn’t work — <a data-bot="hello" href="#">message us</a> and we’ll help.</span></p>
+      </div>
+    </details>
     <div class="shot"><img data-shot="call" src="img/call.webp" width="1600" height="1001" alt="" loading="eager"></div>
     <p class="note center" style="margin-top:12px">
       <span class="ru">Протокол созвона: кратко, решения, открытые вопросы и задачи с исполнителем, сроком и цитатой из разговора.</span>
@@ -535,6 +683,8 @@
         <span><b><span class="ru">Руководство пользователя</span><span class="en">User manual</span></b><small><span class="ru">Все экраны и функции по шагам · PDF, 6,8 МБ</span><span class="en">Every screen and feature, step by step · PDF, 6.2 MB</span></small></span>
       </a>
     </div>
+    <!-- A copy of the AI setup guide from the hero is placed here by the script below. -->
+    <div id="docs-guide"></div>
   </div>
 </section>
 
@@ -596,6 +746,23 @@
 </footer>
 
 <script>
+  // The AI setup guide lives once in the hero; Documentation gets a copy with its own ids.
+  (function () {
+    var copy = document.getElementById('ai-setup').cloneNode(true);
+    copy.open = false;
+    copy.querySelectorAll('[id]').forEach(function (el) { el.id += '-docs'; });
+    copy.id = 'ai-setup-docs';
+    copy.querySelectorAll('a[href^="#g-"]').forEach(function (a) { a.setAttribute('href', a.getAttribute('href') + '-docs'); });
+    document.getElementById('docs-guide').appendChild(copy);
+  })();
+  // Links to a provider inside the guide open its collapsed block.
+  document.querySelectorAll('.aiguide a[href^="#g-"]').forEach(function (a) {
+    a.addEventListener('click', function () {
+      var t = document.getElementById(a.getAttribute('href').slice(1));
+      if (t) t.open = true;
+    });
+  });
+
   var BOT = 'ai_recorderbot';
   var REPO = 'nickvicious/viato';
   // Release asset names are fixed so "latest/download" links never go stale.
