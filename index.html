@@ -36,6 +36,13 @@
     }
     document.documentElement.lang = l;
   })();
+  // Theme: saved choice -> system setting.
+  (function () {
+    var t = null;
+    try { t = localStorage.getItem('viato-theme'); } catch (e) {}
+    if (t !== 'light' && t !== 'dark') t = window.matchMedia && matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', t);
+  })();
 </script>
 <style>
   :root {
@@ -51,7 +58,37 @@
     --warm: #f0a35e;
     --radius: 16px;
     --max: 1120px;
+    --header: rgba(13,19,20,.86);
+    --shadow: rgba(0,0,0,.45);
+    --hl-border: #1f4c49;
+    --hl-bg: linear-gradient(120deg, rgba(18,59,58,.55), rgba(23,34,35,.9));
+    --code-bg: #0a0f10;
+    --code-text: #cfe9e4;
+    --warn: #f2c46b;
   }
+  html[data-theme="light"] {
+    --bg: #f5f7f7;
+    --bg2: #eaf0ef;
+    --card: #ffffff;
+    --line: #d6e0df;
+    --text: #12211f;
+    --muted: #586b69;
+    --accent: #0b8a74;
+    --accent-ink: #ffffff;
+    --deep: #d9f0eb;
+    --warm: #b9630f;
+    --header: rgba(245,247,247,.9);
+    --shadow: rgba(18,33,31,.14);
+    --hl-border: #a9dccf;
+    --hl-bg: linear-gradient(120deg, #e3f5f0, #ffffff);
+    --code-bg: #f0f4f3;
+    --code-text: #12211f;
+    --warn: #8a5a00;
+  }
+  html[data-theme="light"] .btn.primary:hover { background: #0a7a67; }
+  html[data-theme="light"] .bridge { background: var(--hl-bg); border-color: var(--hl-border); }
+  html[data-theme="light"] .badge { color: #fff; }
+  html[data-theme="light"] .hero { background: radial-gradient(900px 420px at 70% -10%, rgba(11,138,116,.12), transparent 70%); }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
   body {
@@ -76,7 +113,7 @@
   .center .lead { margin-left: auto; margin-right: auto; }
 
   /* header */
-  header.top { position: sticky; top: 0; z-index: 10; background: rgba(13,19,20,.86); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+  header.top { position: sticky; top: 0; z-index: 10; background: var(--header); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
   header.top .wrap { display: flex; align-items: center; gap: 24px; height: 64px; }
   .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 20px; color: var(--text); }
   .brand img { width: 32px; height: 32px; border-radius: 8px; }
@@ -104,7 +141,7 @@
   .chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
   .chip { font-size: 14px; color: var(--muted); border: 1px solid var(--line); padding: 6px 12px; border-radius: 999px; background: rgba(255,255,255,.02); }
   .chip b { color: var(--accent); font-weight: 700; }
-  .shot { border-radius: var(--radius); border: 1px solid var(--line); box-shadow: 0 30px 80px rgba(0,0,0,.45); overflow: hidden; background: #202020; }
+  .shot { border-radius: var(--radius); border: 1px solid var(--line); box-shadow: 0 30px 80px var(--shadow); overflow: hidden; background: var(--card); }
   .hero .shot { margin-top: 56px; }
   .note { font-size: 14px; color: var(--muted); }
 
@@ -119,7 +156,7 @@
   .card p:last-child { margin-bottom: 0; }
   .card .num { font-size: 14px; color: var(--accent); font-weight: 800; margin-bottom: 10px; }
   .muted { color: var(--muted); }
-  .bridge { margin-top: 32px; padding: 26px 28px; border-radius: var(--radius); background: linear-gradient(120deg, var(--deep), #16302f); border: 1px solid #1f4c49; font-size: 19px; }
+  .bridge { margin-top: 32px; padding: 26px 28px; border-radius: var(--radius); background: linear-gradient(120deg, var(--deep), #16302f); border: 1px solid var(--hl-border); font-size: 19px; }
   .bridge b { color: var(--accent); }
 
   /* feature rows */
@@ -200,6 +237,31 @@
     background: var(--card); color: var(--text); font-size: 26px; line-height: 1; cursor: pointer; z-index: 1; }
   .viewer .hint { position: fixed; top: 20px; left: 16px; right: 70px; font-size: 13px; color: var(--muted); pointer-events: none; }
   body.noscroll { overflow: hidden; }
+  /* theme switch */
+  .theme-btn { background: none; border: 1px solid var(--line); border-radius: 999px; width: 34px; height: 30px; display: inline-flex; align-items: center; justify-content: center; color: var(--muted); cursor: pointer; }
+  .theme-btn:hover { color: var(--accent); border-color: var(--accent); }
+  .theme-btn svg { width: 16px; height: 16px; }
+  html[data-theme="light"] .theme-btn .sun, html[data-theme="dark"] .theme-btn .moon { display: none; }
+  .top-tools { display: flex; align-items: center; gap: 10px; }
+  @media (max-width: 820px) { .top-tools { margin-left: auto; } .lang { margin-left: 0; } }
+  /* screen gallery in the hero */
+  .gallery { margin-top: 56px; }
+  .gal-tabs { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 16px; }
+  .gal-tabs button { font: inherit; font-size: 15px; font-weight: 600; padding: 7px 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--muted); cursor: pointer; }
+  .gal-tabs button[aria-selected="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+  .gal-frame { position: relative; }
+  .gal-frame .slide { display: none; }
+  .gal-frame .slide.on { display: block; }
+  .gal-nav { position: absolute; top: 50%; transform: translateY(-50%); z-index: 2; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line);
+    background: var(--card); color: var(--text); font-size: 24px; line-height: 1; cursor: pointer; box-shadow: 0 6px 18px var(--shadow); }
+  .gal-nav:hover { border-color: var(--accent); color: var(--accent); }
+  .gal-nav.prev { left: -22px; } .gal-nav.next { right: -22px; }
+  @media (max-width: 1180px) { .gal-nav.prev { left: 8px; } .gal-nav.next { right: 8px; } }
+  @media (max-width: 760px) { .gal-nav { width: 36px; height: 36px; font-size: 20px; } }
+  .gal-caps { text-align: center; margin-top: 14px; color: var(--muted); font-size: 16px; min-height: 52px; }
+  .gal-caps p { display: none; margin: 0; }
+  .gal-caps p.on { display: block; }
+  .gal-caps b { color: var(--text); }
   /* VirusTotal badge under the downloads */
   .vt { margin-top: 22px; display: grid; grid-template-columns: auto 1fr; gap: 14px 18px; align-items: center; padding: 20px 24px;
     border-radius: var(--radius); border: 1px solid rgba(95,224,200,.45); background: linear-gradient(120deg, rgba(95,224,200,.12), rgba(95,224,200,.04)); }
@@ -216,7 +278,7 @@
   .vt-links a { white-space: nowrap; }
   @media (min-width: 900px) { .vt-links { padding-left: 62px; } }
   /* AI setup guide */
-  .aiguide { margin-top: 40px; border: 1px solid #1f4c49; border-radius: var(--radius); background: linear-gradient(120deg, rgba(18,59,58,.55), rgba(23,34,35,.9)); }
+  .aiguide { margin-top: 40px; border: 1px solid var(--hl-border); border-radius: var(--radius); background: var(--hl-bg); }
   .aiguide > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 14px; padding: 18px 22px; }
   .aiguide > summary::-webkit-details-marker { display: none; }
   .aiguide > summary::after { content: "+"; margin-left: auto; color: var(--accent); font-size: 28px; line-height: 1; }
@@ -232,7 +294,7 @@
   .g-tags > span, .g-prov summary > span[class^="t-"] { font-size: 12px; font-weight: 700; padding: 3px 9px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
   .t-free { color: var(--accent) !important; border-color: rgba(95,224,200,.4) !important; }
   .t-paid { color: var(--warm) !important; border-color: rgba(240,163,94,.4) !important; }
-  .t-warn { color: #f2c46b !important; border-color: rgba(242,196,107,.35) !important; }
+  .t-warn { color: var(--warn) !important; border-color: rgba(242,196,107,.35) !important; }
   .g-small { font-size: 15px; }
   ol.g-steps { margin: 12px 0 0; padding-left: 22px; font-size: 15px; }
   ol.g-steps li { margin: 8px 0; padding-left: 4px; }
@@ -247,17 +309,17 @@
   .g-prov > ol, .g-prov > p { margin-left: 16px; margin-right: 16px; }
   .g-prov > ol { margin-top: 0; }
   .g-prov > :last-child { padding-bottom: 14px; }
-  .aiguide + .shot { margin-top: 28px !important; }
+  .aiguide + .gallery { margin-top: 28px; }
   /* undo the FAQ details styles inside the guide */
   details.aiguide, details.g-prov { padding: 0; }
-  details.aiguide { border-bottom: 1px solid #1f4c49; }
+  details.aiguide { border-bottom: 1px solid var(--hl-border); }
   details.g-prov { border-bottom: 1px solid var(--line); }
   .aiguide summary { font-weight: 400; font-size: inherit; justify-content: flex-start; }
   .g-prov > summary::after { content: none !important; }
-  .card.hl { border-color: #1f4c49; background: linear-gradient(160deg, rgba(18,59,58,.5), var(--card)); }
+  .card.hl { border-color: var(--hl-border); background: var(--hl-bg); }
   #server-setup { margin-top: 28px; }
   .g-prov > .g-inner { padding: 0 16px 14px; }
-  pre.g-code { margin: 10px 0 4px; padding: 12px 14px; background: #0a0f10; border: 1px solid var(--line); border-radius: 10px; font-size: 13px; line-height: 1.6; overflow-x: auto; white-space: pre; color: #cfe9e4; }
+  pre.g-code { margin: 10px 0 4px; padding: 12px 14px; background: var(--code-bg); border: 1px solid var(--line); border-radius: 10px; font-size: 13px; line-height: 1.6; overflow-x: auto; white-space: pre; color: var(--code-text); }
 </style>
 </head>
 <body>
@@ -273,9 +335,15 @@
       <a href="#download"><span class="ru">Скачать</span><span class="en">Download</span></a>
       <a href="#docs"><span class="ru">Документация</span><span class="en">Docs</span></a>
     </nav>
-    <div class="lang" role="group" aria-label="Language">
-      <a data-lang="ru" href="ru/" hreflang="ru">RU</a>
-      <a data-lang="en" href="en/" hreflang="en">EN</a>
+    <div class="top-tools">
+      <div class="lang" role="group" aria-label="Language">
+        <a data-lang="ru" href="ru/" hreflang="ru">RU</a>
+        <a data-lang="en" href="en/" hreflang="en">EN</a>
+      </div>
+      <button class="theme-btn" type="button" id="theme-btn" aria-label="Light / dark theme" title="Light / dark theme">
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
     </div>
   </div>
 </header>
@@ -289,8 +357,8 @@
       <span class="en">Every conversation ends with a plan</span>
     </h1>
     <p class="lead">
-      <span class="ru">Viato — ИИ таск-трекер, который слушает за вас. Запишите созвон, надиктуйте мысль или загрузите документ — он сам сделает протокол встречи, задачи с исполнителями и сроками и план проекта. Работает на вашем компьютере, даже без интернета.</span>
-      <span class="en">Viato is an AI task tracker that listens for you. Record a call, dictate a thought or drop in a document — it writes the meeting notes, creates tasks with owners and deadlines, and builds the project plan. It runs on your own computer, even offline.</span>
+      <span class="ru">Viato — ИИ таск-трекер, который слушает за вас. Запишите созвон, надиктуйте мысль или загрузите документ — он сам сделает протокол встречи, задачи с исполнителями и сроками и план проекта. Ориентирован на приватность. Работает на вашем компьютере, даже полностью офлайн.</span>
+      <span class="en">Viato is an AI task tracker that listens for you. Record a call, dictate a thought or drop in a document — it writes the meeting notes, creates tasks with owners and deadlines, and builds the project plan. Privacy first. It runs on your own computer, even fully offline.</span>
     </p>
     <div class="btns">
       <a class="btn primary" href="#download">
@@ -417,11 +485,15 @@
         <p class="muted g-small" style="margin-top:18px"><span class="ru">Интерфейсы сервисов иногда меняются. Если кнопка называется иначе или что-то не получается — <a data-bot="hello" href="#">напишите нам</a>, поможем.</span><span class="en">Service dashboards change from time to time. If a button is named differently or something doesn’t work — <a data-bot="hello" href="#">message us</a> and we’ll help.</span></p>
       </div>
     </details>
-    <div class="shot"><img data-shot="callactions" data-alt-ru="Протокол созвона в Viato: кнопки «Создать задачи», «Создать список дел», «Экспорт» и протокол — кратко, решения, открытые вопросы и задачи" data-alt-en="AI meeting notes in Viato: “Create tasks”, “Create a to-do list”, “Export” buttons and the minutes — summary, decisions, open questions and tasks" src="img/callactions.webp" width="1600" height="1127" alt="Viato" loading="eager"></div>
-    <p class="note center" style="margin-top:12px">
-      <span class="ru">Протокол созвона готов сам — дальше в один клик: задачи, список дел или покупок, перевод, экспорт в Word.</span>
-      <span class="en">The call minutes write themselves — then one click turns them into tasks, a to-do or shopping list, a translation or a Word export.</span>
-    </p>
+    <div class="gallery" id="gallery" tabindex="-1">
+      <div class="gal-tabs" role="tablist"><button type="button" role="tab" data-i="0" aria-selected="true"><span class="ru">Главная</span><span class="en">Home</span></button><button type="button" role="tab" data-i="1" aria-selected="false"><span class="ru">Созвоны</span><span class="en">Calls</span></button><button type="button" role="tab" data-i="2" aria-selected="false"><span class="ru">Задачи</span><span class="en">Tasks</span></button><button type="button" role="tab" data-i="3" aria-selected="false"><span class="ru">Проекты</span><span class="en">Projects</span></button><button type="button" role="tab" data-i="4" aria-selected="false"><span class="ru">Анализ текста</span><span class="en">Text analysis</span></button></div>
+      <div class="gal-frame">
+        <button class="gal-nav prev" type="button" aria-label="Previous">‹</button>
+        <div class="shot"><img class="slide on" data-shot="home" data-alt-ru="Главная страница Viato: план на день, задачи и списки" data-alt-en="Viato home: daily plan, tasks and lists" src="img/dark/ru/home.webp" width="1600" height="1106" alt="Viato" loading="eager"><img class="slide" data-shot="call" data-alt-ru="Протокол созвона в Viato: кнопки «Создать задачи», «Экспорт» и протокол — кратко, решения, вопросы, задачи" data-alt-en="AI meeting notes in Viato: Create tasks and Export buttons, summary, decisions, questions and tasks" src="img/dark/ru/call.webp" width="1600" height="1106" alt="Viato" loading="lazy"><img class="slide" data-shot="tasks" data-alt-ru="Доска задач Viato по срокам" data-alt-en="Viato task board by deadline" src="img/dark/ru/tasks.webp" width="1600" height="1106" alt="Viato" loading="lazy"><img class="slide" data-shot="project" data-alt-ru="Проект в Viato: сводка и оценка ИИ" data-alt-en="Project in Viato: overview and AI assessment" src="img/dark/ru/project.webp" width="1600" height="1106" alt="Viato" loading="lazy"><img class="slide" data-shot="text" data-alt-ru="Анализ текста в Viato: решения и задачи из брифа" data-alt-en="Text analysis in Viato: decisions and tasks from a brief" src="img/dark/ru/text.webp" width="1600" height="1106" alt="Viato" loading="lazy"></div>
+        <button class="gal-nav next" type="button" aria-label="Next">›</button>
+      </div>
+      <div class="gal-caps"><p data-i="0" class="on"><span class="ru"><b>Главная:</b> план на день, ближайшие задачи и списки — и быстрая заметка голосом или текстом.</span><span class="en"><b>Home:</b> today’s plan, upcoming tasks and lists — plus a quick note by voice or text.</span></p><p data-i="1"><span class="ru"><b>Созвоны:</b> протокол готов сам — дальше в один клик задачи, список дел или покупок, перевод, экспорт в Word.</span><span class="en"><b>Calls:</b> the minutes write themselves — then one click turns them into tasks, a to-do or shopping list, a translation or a Word export.</span></p><p data-i="2"><span class="ru"><b>Задачи:</b> доска по срокам — просрочено, сегодня, завтра, на неделе, позже. Фильтры «мои / команды», работа и личное.</span><span class="en"><b>Tasks:</b> a board by deadline — overdue, today, tomorrow, this week, later. Filters for mine / team, work and personal.</span></p><p data-i="3"><span class="ru"><b>Проекты:</b> цель, сводка по срокам и оценка ИИ — что важнее всего сейчас. Ниже — доска, список и диаграмма Ганта.</span><span class="en"><b>Projects:</b> goal, deadline overview and AI assessment — what matters most right now. Below: board, list and Gantt chart.</span></p><p data-i="4"><span class="ru"><b>Анализ текста:</b> бриф, ТЗ или переписка превращаются в решения, вопросы и задачи со сроками.</span><span class="en"><b>Text analysis:</b> a brief, spec or email thread becomes decisions, questions and tasks with deadlines.</span></p></div>
+    </div>
   </div>
 </section>
 
@@ -473,7 +545,7 @@
         </ul>
         <div class="value"><span class="ru">После встречи у каждого конкретный список дел, а не общее «кажется, договорились».</span><span class="en">After the meeting everyone has a concrete to-do list instead of a vague “I think we agreed”.</span></div>
       </div>
-      <div class="shot"><img data-shot="call" data-alt-ru="Протокол созвона в Viato: кратко, решения и задачи с исполнителями и сроками" data-alt-en="AI meeting notes in Viato: summary, decisions and tasks with owners and deadlines from a recorded call" src="img/call.webp" width="1600" height="1001" alt="Viato" loading="lazy"></div>
+      <div class="shot"><img data-shot="minutes" data-alt-ru="Протокол созвона в Viato: кратко, решения и задачи с исполнителями и сроками" data-alt-en="AI meeting notes in Viato: summary, decisions and tasks with owners and deadlines from a recorded call" src="img/dark/ru/minutes.webp" width="1600" height="1015" alt="Viato" loading="lazy"></div>
     </div>
 
     <div class="feature flip">
@@ -487,7 +559,7 @@
         </ul>
         <div class="value"><span class="ru">Ничего не теряется между встречами, вечером не нужно восстанавливать день по памяти.</span><span class="en">Nothing slips between meetings — no more rebuilding your day from memory in the evening.</span></div>
       </div>
-      <div class="shot"><img data-shot="dayplan" data-alt-ru="План на день в ИИ таск-трекере Viato: просроченные задачи, задачи на сегодня, напоминания и покупки" data-alt-en="Daily plan in the Viato AI task tracker: overdue tasks, today, reminders and shopping lists" src="img/dayplan.webp" width="1600" height="1001" alt="Viato" loading="lazy"></div>
+      <div class="shot"><img data-shot="dayplan" data-alt-ru="План на день в ИИ таск-трекере Viato: просроченные задачи, задачи на сегодня, напоминания и покупки" data-alt-en="Daily plan in the Viato AI task tracker: overdue tasks, today, reminders and shopping lists" src="img/dark/ru/dayplan.webp" width="1600" height="1018" alt="Viato" loading="lazy"></div>
     </div>
 
     <div class="feature">
@@ -501,7 +573,7 @@
         </ul>
         <div class="value"><span class="ru">От «клиент прислал материалы» до плана работ — за минуты, без перепечатывания.</span><span class="en">From “the client sent the materials” to a work plan in minutes, with no retyping.</span></div>
       </div>
-      <div class="shot"><img data-shot="gantt" data-alt-ru="Проект в Viato: оценка ИИ, ближайшие сроки и диаграмма Ганта" data-alt-en="Project overview in Viato: AI assessment, upcoming deadlines and a Gantt chart" src="img/gantt.webp" width="1600" height="1001" alt="Viato" loading="lazy"></div>
+      <div class="shot"><img data-shot="gantt" data-alt-ru="Проект в Viato: оценка ИИ, ближайшие сроки и диаграмма Ганта" data-alt-en="Project overview in Viato: AI assessment, upcoming deadlines and a Gantt chart" src="img/dark/ru/gantt.webp" width="1600" height="1015" alt="Viato" loading="lazy"></div>
     </div>
 
     <div class="feature flip">
@@ -515,7 +587,7 @@
         </ul>
         <div class="value"><span class="ru">Вы контролируете данные, инфраструктуру и расходы. Никакой ежемесячной подписки.</span><span class="en">You control the data, the infrastructure and the costs. No monthly subscription.</span></div>
       </div>
-      <div class="shot"><img data-shot="chat" data-alt-ru="Чат команды рядом с задачами в Viato" data-alt-en="Team chat next to tasks in Viato" src="img/chat.webp" width="1600" height="1017" alt="Viato" loading="lazy"></div>
+      <div class="shot"><img data-shot="chat" data-alt-ru="Чат команды рядом с задачами в Viato" data-alt-en="Team chat next to tasks in Viato" src="img/dark/ru/chat.webp" width="1600" height="1018" alt="Viato" loading="lazy"></div>
     </div>
   </div>
 </section>
@@ -579,6 +651,22 @@
         <h3><span class="ru">Копии на компьютере администратора</span><span class="en">Copies on the admin’s computer</span></h3>
         <p class="muted"><span class="ru">По расписанию — от каждых 6 часов до раза в неделю — все данные компании сохраняются на ПК администратора: в любую папку, хоть на облачный диск или флешку. Файлы зашифрованы паролем администратора. Откат к любой копии — одной кнопкой в панели администратора. Пропал сервер или хостинг — компания переезжает на новый сервер из бэкапа одной кнопкой: те же люди, пароли и лицензия, а сотрудники только вводят новый адрес.</span><span class="en">On a schedule — from every 6 hours to once a week — all company data is saved to the admin’s PC: any folder, even a cloud drive or a USB stick. Files are encrypted with the admin’s password. Rolling back to any copy is one click in the admin panel. If the server or the hosting is lost, the company moves to a new server from a backup in one click: same people, passwords and license — employees just enter the new address.</span></p>
       </div>
+    </div>
+
+    <div class="card" style="margin-top:20px">
+      <div class="g-step"><span class="ru">ШИФРОВАНИЕ</span><span class="en">ENCRYPTION</span></div>
+      <h3><span class="ru">Как защищены данные команды</span><span class="en">How team data is protected</span></h3>
+      <div class="grid g2" style="margin-top:14px">
+        <div><b><span class="ru">Соединение с сервером</span><span class="en">Connection to the server</span></b>
+          <p class="muted g-small"><span class="ru">Только HTTPS (TLS) на одном порту. Сертификат сервера «закреплён»: его отпечаток (SHA-256) приходит в коде приглашения, и приложение доверяет только этому сертификату. Подменить сервер посередине нельзя, а домен не нужен.</span><span class="en">HTTPS (TLS) only, on a single port. The server certificate is pinned: its SHA-256 fingerprint comes in the invitation code, and the app trusts that certificate only. Nobody can impersonate the server in between, and no domain is needed.</span></p></div>
+        <div><b><span class="ru">База компании</span><span class="en">Company database</span></b>
+          <p class="muted g-small"><span class="ru">У каждой компании своя база, зашифрованная SQLCipher (AES-256) случайным 256-битным ключом. Ключ лежит на сервере в файле, который может прочитать только служба Viato. Скопированный файл базы без ключа бесполезен.</span><span class="en">Each company has its own database, encrypted with SQLCipher (AES-256) using a random 256-bit key. The key sits on the server in a file only the Viato service can read. A copied database file is useless without it.</span></p></div>
+        <div><b><span class="ru">Файлы, пароли и входы</span><span class="en">Files, passwords and sign-ins</span></b>
+          <p class="muted g-small"><span class="ru">Файлы из чатов шифруются AES-256-GCM, у каждого файла свой ключ, и удаляются, когда все их получили. Пароли хранятся только как хэши Argon2, у каждого устройства свой токен, который можно отозвать.</span><span class="en">Chat files are encrypted with AES-256-GCM, each with its own key, and deleted once everyone has them. Passwords are stored only as Argon2 hashes; every device has its own revocable token.</span></p></div>
+        <div><b><span class="ru">Бэкапы</span><span class="en">Backups</span></b>
+          <p class="muted g-small"><span class="ru">Шифруются ещё на компьютере администратора: AES-256-GCM, ключ получается из пароля бэкапа (scrypt). Пароль никуда не передаётся — без него файл не открыть.</span><span class="en">Encrypted right on the admin’s computer: AES-256-GCM with a key derived from the backup password (scrypt). The password never leaves that PC — the file can’t be opened without it.</span></p></div>
+      </div>
+      <p class="muted g-small" style="margin:6px 0 0"><span class="ru">Честно о границах: шифрование защищает от кражи дисков, снимков VPS и утечки бэкапов. От того, кто получил полный контроль над работающим сервером, оно не спасает — поэтому выбирайте надёжный хостинг и выключите вход на сервер по паролю.</span><span class="en">To be clear about the limits: encryption protects against stolen disks, VPS snapshots and leaked backups. It can’t stop someone who has full control of the running server — so pick a trustworthy host and turn off password login on the server.</span></p>
     </div>
 
     <details class="aiguide" id="server-setup">
@@ -957,7 +1045,7 @@ sudo systemctl restart ssh</pre></li>
   function setLang(l) {
     document.documentElement.lang = l;
     document.querySelectorAll('[data-shot]').forEach(function (img) {
-      img.src = ROOT + (l === 'ru' ? 'img/' : 'img/en/') + img.getAttribute('data-shot') + '.webp';
+      img.src = ROOT + 'img/' + theme() + '/' + l + '/' + img.getAttribute('data-shot') + '.webp';
       img.alt = img.getAttribute('data-alt-' + l) || 'Viato';
     });
     document.querySelectorAll('[data-doc]').forEach(function (a) {
@@ -967,6 +1055,44 @@ sudo systemctl restart ssh</pre></li>
     if (!FIXED) document.title = l === 'ru' ? 'Viato — ИИ таск-трекер: созвоны и голосовые заметки в задачи' : 'Viato — AI Task Tracker: Calls & Voice Notes to Tasks';
     showVersion();
   }
+  // Light / dark theme: the page and its screenshots.
+  function theme() { return document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark'; }
+  function setTheme(t) {
+    document.documentElement.setAttribute('data-theme', t);
+    try { localStorage.setItem('viato-theme', t); } catch (e) {}
+    var m = document.querySelector('meta[name="theme-color"]');
+    if (m) m.setAttribute('content', t === 'light' ? '#f5f7f7' : '#0d1314');
+    setLang(document.documentElement.lang);
+  }
+  document.getElementById('theme-btn').addEventListener('click', function () { setTheme(theme() === 'light' ? 'dark' : 'light'); });
+
+  // Screen gallery: tabs, arrows, swipe, arrow keys; no autoplay.
+  (function () {
+    var g = document.getElementById('gallery');
+    var slides = g.querySelectorAll('.slide'), tabs = g.querySelectorAll('.gal-tabs button'), caps = g.querySelectorAll('.gal-caps p');
+    var cur = 0;
+    function show(i) {
+      cur = (i + slides.length) % slides.length;
+      slides.forEach(function (el, k) { el.classList.toggle('on', k === cur); });
+      tabs.forEach(function (el, k) { el.setAttribute('aria-selected', k === cur ? 'true' : 'false'); });
+      caps.forEach(function (el, k) { el.classList.toggle('on', k === cur); });
+    }
+    tabs.forEach(function (b) { b.addEventListener('click', function () { show(+b.getAttribute('data-i')); }); });
+    g.querySelector('.gal-nav.prev').addEventListener('click', function () { show(cur - 1); });
+    g.querySelector('.gal-nav.next').addEventListener('click', function () { show(cur + 1); });
+    var x0 = null;
+    g.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+    g.addEventListener('touchend', function (e) {
+      if (x0 === null) return;
+      var dx = e.changedTouches[0].clientX - x0; x0 = null;
+      if (Math.abs(dx) > 40) show(cur + (dx < 0 ? 1 : -1));
+    });
+    g.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') show(cur + 1);
+      if (e.key === 'ArrowLeft') show(cur - 1);
+    });
+  })();
+
   // The RU / EN links open /ru/ and /en/; remember the choice for the root page.
   document.querySelectorAll('.lang a').forEach(function (a) {
     a.addEventListener('click', function () {
