@@ -287,6 +287,10 @@
   .aiguide .g-head b { display: block; font-size: 18px; }
   .aiguide .g-head small { color: var(--muted); font-size: 14px; }
   .aiguide .g-body { padding: 0 22px 24px; }
+  .changelog { margin-top: 24px; }
+  .changelog h3 { margin: 4px 0 10px; font-size: 18px; }
+  .changelog h3 small { font-weight: 400; font-size: 14px; }
+  .changelog ul { margin: 0; padding-left: 20px; display: grid; gap: 8px; line-height: 1.5; }
   .g-where { padding: 12px 16px; border-left: 3px solid var(--accent); background: rgba(95,224,200,.06); border-radius: 0 10px 10px 0; font-size: 15px; }
   .g-card h3 { margin-bottom: 8px; }
   .g-step { font-size: 12px; font-weight: 800; letter-spacing: .1em; color: var(--accent); margin-bottom: 6px; }
@@ -913,6 +917,33 @@ sudo systemctl restart ssh</pre></li>
       </div>
     </div>
     <p class="ver center" id="ver"></p>
+    <!-- Changelog: folded by default; the newest version first, in plain words. -->
+    <details class="aiguide changelog" id="changelog">
+      <summary>
+        <span class="g-icon">📝</span>
+        <span class="g-head">
+          <b><span class="ru">Что нового</span></b>
+          <small><span class="ru">История изменений по версиям</span></small>
+        </span>
+      </summary>
+      <div class="g-body">
+        <h3>1.0.1 <small class="muted"><span class="ru">· 26 октября 2026</span></small></h3>
+        <ul class="ru">
+          <li>Значительно улучшили поиск задач в созвонах, особенно в коротких и при работе на локальном ИИ.</li>
+          <li>Появилась кнопка «Найти ещё задачи» на странице созвона — если результат ИИ вас не устроил. Рядом можно выбрать модель, а окно свернуть и спокойно работать дальше: прогресс виден на странице.</li>
+          <li>Добавлен удобный общий поиск по задачам, созвонам, текстам, заметкам и письмам (Ctrl+K). Находит слово в любой форме.</li>
+          <li>Добавлен ИИ-поиск: спросите «какие договорённости по плате для лампы?» — и получите ответ со ссылками на задачи и пункты протоколов. Включается в Настройки → Обработка ИИ → «ИИ-поиск». Работает только на локальной модели: ничего не уходит в облако.</li>
+          <li>Распознавание речи через Gemini — ещё один бесплатный облачный вариант.</li>
+          <li>Можно добавить несколько ключей для одного ИИ-сервиса: если один перестал работать (кончился лимит или деньги), Viato сам переключится на следующий.</li>
+          <li>Проще установка локального ИИ: одна кнопка «Установить рекомендуемое», а модель распознавания речи можно выбрать и скачать отдельно.</li>
+          <li>Понятные предупреждения, если записи не обрабатываются: не настроен ИИ, нет интернета, брандмауэр блокирует Viato, ключи отклонены. Записи при этом ждут в очереди и не теряются.</li>
+          <li>Задача из выделенного текста теперь создаётся всегда.</li>
+          <li>Диктофон (бета): его функции включаются в настройках, прошивку можно записать прямо из приложения по USB.</li>
+          <li>Мелкие исправления и улучшения интерфейса.</li>
+        </ul>
+        
+      </div>
+    </details>
     <div class="vt" id="vt" hidden>
       <svg class="vt-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>
       <div class="vt-text">

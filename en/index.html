@@ -287,6 +287,10 @@
   .aiguide .g-head b { display: block; font-size: 18px; }
   .aiguide .g-head small { color: var(--muted); font-size: 14px; }
   .aiguide .g-body { padding: 0 22px 24px; }
+  .changelog { margin-top: 24px; }
+  .changelog h3 { margin: 4px 0 10px; font-size: 18px; }
+  .changelog h3 small { font-weight: 400; font-size: 14px; }
+  .changelog ul { margin: 0; padding-left: 20px; display: grid; gap: 8px; line-height: 1.5; }
   .g-where { padding: 12px 16px; border-left: 3px solid var(--accent); background: rgba(95,224,200,.06); border-radius: 0 10px 10px 0; font-size: 15px; }
   .g-card h3 { margin-bottom: 8px; }
   .g-step { font-size: 12px; font-weight: 800; letter-spacing: .1em; color: var(--accent); margin-bottom: 6px; }
@@ -913,6 +917,33 @@ sudo systemctl restart ssh</pre></li>
       </div>
     </div>
     <p class="ver center" id="ver"></p>
+    <!-- Changelog: folded by default; the newest version first, in plain words. -->
+    <details class="aiguide changelog" id="changelog">
+      <summary>
+        <span class="g-icon">📝</span>
+        <span class="g-head">
+          <b><span class="en">What’s new</span></b>
+          <small><span class="en">Changes by version</span></small>
+        </span>
+      </summary>
+      <div class="g-body">
+        <h3>1.0.1 <small class="muted"><span class="en">· October 26, 2026</span></small></h3>
+        
+        <ul class="en">
+          <li>Much better task detection in calls, especially short ones and with local AI.</li>
+          <li>New “Find more tasks” button on the call page — for when the AI’s result isn’t good enough. Pick the model next to it, minimize the window and keep working: the progress is shown on the page.</li>
+          <li>New quick search across tasks, calls, texts, notes and emails (Ctrl+K). Finds a word in any form.</li>
+          <li>New AI search: ask “what did we agree about the lamp board?” and get an answer with links to tasks and minutes items. Turn it on in Settings → AI processing → “AI search”. Runs on the local model only: nothing goes to the cloud.</li>
+          <li>Speech recognition through Gemini — one more free cloud option.</li>
+          <li>Several keys for one AI service: when one stops working (limit or credit used up), Viato switches to the next one by itself.</li>
+          <li>Easier local AI setup: one “Install the recommended” button, and the speech recognition model can be chosen and downloaded on its own.</li>
+          <li>Clear warnings when recordings aren’t processed: no AI set up, no internet, a firewall blocks Viato, keys refused. Recordings wait in the queue and are never lost.</li>
+          <li>A task from selected text is now always created.</li>
+          <li>Recorder (beta): its features are turned on in Settings, and its firmware can be flashed right from the app over USB.</li>
+          <li>Small fixes and interface improvements.</li>
+        </ul>
+      </div>
+    </details>
     <div class="vt" id="vt" hidden>
       <svg class="vt-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>
       <div class="vt-text">
