@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>License Agreement · Viato</title>
+<meta name="description" content="Viato: license agreement / лицензионное соглашение.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta name="robots" content="index, follow">
+<script>
+  // the same language and theme as the main page (index.html)
+  (function () {
+    var l = new URLSearchParams(location.search).get('lang');
+    try { l = l || localStorage.getItem('viato-lang'); } catch (e) {}
+    if (l !== 'ru' && l !== 'en') l = /^(ru|uk|be|kk)\b/i.test((navigator.languages || [navigator.language || 'en'])[0] || '') ? 'ru' : 'en';
+    document.documentElement.lang = l;
+    var t = null;
+    try { t = localStorage.getItem('viato-theme'); } catch (e) {}
+    if (t !== 'light' && t !== 'dark') t = window.matchMedia && matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', t);
+  })();
+</script>
+<style>
+  :root { --bg: #0d1314; --card: #172223; --line: #243334; --text: #e8efee; --muted: #9db0ae; --accent: #5fe0c8; }
+  :root[data-theme="light"] { --bg: #f6f8f7; --card: #ffffff; --line: #dbe3e1; --text: #14201f; --muted: #52625f; --accent: #0f7f6c; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 820px; margin: 0 auto; padding: 24px 16px 64px; }
+  nav { display: flex; gap: 16px; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+  nav .links { display: flex; gap: 14px; flex-wrap: wrap; }
+  a { color: var(--accent); }
+  h1 { font-size: 28px; line-height: 1.25; margin: 8px 0 4px; }
+  h2 { font-size: 19px; margin: 28px 0 6px; }
+  p, li { color: var(--text); }
+  ul { padding-left: 22px; }
+  code { background: var(--card); border: 1px solid var(--line); border-radius: 6px; padding: 0 5px; font-size: 14px; word-break: break-all; }
+  button { background: var(--card); color: var(--text); border: 1px solid var(--line); border-radius: 8px; padding: 4px 10px; cursor: pointer; font: inherit; }
+  html[lang="ru"] .en, html[lang="en"] .ru { display: none; }
+</style>
+</head>
+<body>
+<main>
+<nav>
+  <a href="/">Viato</a>
+  <span class="links">
+    <a href="/terms.html"><span class="ru">Лицензионное соглашение</span><span class="en">License agreement</span></a>
+    <a href="/privacy.html"><span class="ru">Конфиденциальность</span><span class="en">Privacy</span></a>
+    <button type="button" id="lang"><span class="ru">English</span><span class="en">Русский</span></button>
+  </span>
+</nav>
+<article class="ru" lang="ru">
+<h1>Лицензионное соглашение Viato</h1>
+<p>Редакция 1.0 от 26 октября 2026 года.</p>
+<p>Это соглашение между вами (далее — «Пользователь») и частным разработчиком Viato (далее — «Разработчик») об использовании программы Viato: ПК-приложения для Windows и macOS, приложения для Android, прошивки диктофона и командного сервера (далее — «Программа»). Устанавливая или используя Программу, вы принимаете это соглашение. Если вы не согласны — не устанавливайте и не используйте Программу.</p>
+<h2>1. Что разрешено</h2>
+<ul><li>Разработчик предоставляет вам простую (неисключительную) бесплатную лицензию на установку и использование Программы на любом числе ваших устройств для личных и рабочих целей.</li><li><strong>Режим «Соло»</strong> (работа одного человека) бесплатен без ограничений по сроку.</li><li><strong>Командный режим</strong> (общий командный сервер компании) работает с ключом командной лицензии. Ключ выдаёт Разработчик; тариф определяет число людей в команде и срок действия ключа. Без действующего ключа командные функции ограничиваются, данные при этом не удаляются.</li><li>Вы можете бесплатно передавать установочные файлы Программы в неизменном виде (например, коллегам).</li></ul>
+<h2>2. Что запрещено</h2>
+<ul><li>Изменять Программу, выдавать её за свою, продавать или сдавать в аренду, удалять сведения об авторстве и лицензиях.</li><li>Обходить проверку командной лицензии, подделывать или распространять ключи лицензии.</li><li>Использовать Программу для незаконной записи разговоров, слежки или нарушения прав других людей.</li></ul>
+<p>Эти запреты не ограничивают права, которые даёт вам закон, и права по лицензиям сторонних компонентов (раздел 4).</p>
+<h2>3. Ваши данные</h2>
+<ul><li>Программа хранит данные на ваших устройствах и на командном сервере вашей компании; Разработчик к ним доступа не имеет (подробно — в Политике конфиденциальности на <a href="https://viato.tech/">viato.tech</a>).</li><li>Вы сами отвечаете за резервные копии: Программа делает копию базы перед каждым обновлением, а командный сервер — автоматические резервные копии, но потерю данных из‑за сбоя устройства, удаления или вирусов полностью исключить нельзя.</li><li><strong>Запись разговоров.</strong> Записывать звонки и встречи можно только с согласием участников, если его требует закон. Получить согласие — ваша обязанность.</li><li><strong>Облачные ИИ</strong> работают по вашим ключам и по условиям выбранных вами провайдеров. Отвечает за них провайдер, а не Разработчик.</li></ul>
+<h2>4. Сторонние компоненты</h2>
+<p>В Программу входят компоненты других авторов (например, Electron, Python, FFmpeg, whisper.cpp, llama.cpp, модели ИИ). Они распространяются по своим лицензиям, полный список — в приложении: «Настройки» → «О программе» → «Лицензии». Где лицензия это требует, вы можете заменить компонент своей версией: например, программу ffmpeg (LGPL) в папке ffmpeg приложения. Исходный код таких компонентов Разработчик пришлёт по запросу.</p>
+<h2>5. Результаты работы ИИ</h2>
+<p>Расшифровки, классы, задачи, сроки, протоколы и черновики писем создаются автоматически и <strong>могут содержать ошибки</strong>. Проверяйте важное перед использованием. Письма Программа только готовит как черновики — отправляете их вы сами.</p>
+<h2>6. Отказ от гарантий</h2>
+<p>Программа предоставляется <strong>«как есть»</strong>, бесплатно (кроме ключей командной лицензии) и без каких-либо гарантий: явных или подразумеваемых, включая гарантии пригодности для определённой цели, бесперебойной работы и отсутствия ошибок, — в той мере, в какой это допускает применимое право.</p>
+<h2>7. Ограничение ответственности</h2>
+<p>В той мере, в какой это допускает применимое право, Разработчик не отвечает за упущенную выгоду, потерю данных, перерывы в работе и иные косвенные убытки, связанные с использованием Программы или невозможностью её использовать. Если ответственность Разработчика всё же наступает, она ограничена суммой, которую вы заплатили за ключ командной лицензии за последние 12 месяцев (для бесплатного использования — нулём).</p>
+<h2>8. Обновления</h2>
+<p>Разработчик может выпускать новые версии. Программа сообщает о выходе новой версии, но не устанавливает её сама. Установщики пока не подписаны цифровой подписью: скачивайте их только с <a href="https://viato.tech/">viato.tech</a> или со страницы выпусков Viato на GitHub.</p>
+<h2>9. Прекращение</h2>
+<p>Соглашение действует, пока вы пользуетесь Программой. Оно прекращается, если вы нарушили его условия; тогда вы должны перестать пользоваться Программой. Ваши данные остаются у вас.</p>
+<h2>10. Прочее</h2>
+<ul><li>Если какое-либо положение соглашения недействительно по закону вашей страны, остальные положения продолжают действовать.</li><li>Разработчик может изменить соглашение; новая редакция публикуется на <a href="https://viato.tech/">viato.tech</a> и действует для версий Программы, выпущенных после неё.</li><li>Вопросы — через Telegram-бот @ai_recorderbot.</li></ul>
+</article>
+<article class="en" lang="en">
+<h1>Viato License Agreement</h1>
+<p>Version 1.0 of 26 October 2026.</p>
+<p>This agreement is between you (the "User") and the independent developer of Viato (the "Developer") about the use of the Viato software: the PC app for Windows and macOS, the Android app, the recorder firmware and the team server (the "Software"). By installing or using the Software you accept this agreement. If you do not agree, do not install or use the Software.</p>
+<h2>1. What you may do</h2>
+<ul><li>The Developer grants you a free, non-exclusive license to install and use the Software on any number of your devices, for personal and work purposes.</li><li><strong>Solo mode</strong> (one person) is free with no time limit.</li><li><strong>Team mode</strong> (a company's shared team server) works with a team license key. The Developer issues the keys; the plan sets the number of people and the term of the key. Without a valid key the team features are limited; no data is deleted.</li><li>You may pass the Software's installers on free of charge and unchanged (for example to colleagues).</li></ul>
+<h2>2. What you may not do</h2>
+<ul><li>Modify the Software, present it as your own, sell or rent it, or remove authorship and license notices.</li><li>Circumvent the team license check, forge or distribute license keys.</li><li>Use the Software to record conversations unlawfully, to spy on people or to violate the rights of others.</li></ul>
+<p>These restrictions do not limit the rights the law gives you, nor the rights under the licenses of third-party components (section 4).</p>
+<h2>3. Your data</h2>
+<ul><li>The Software keeps data on your devices and on your company's team server; the Developer has no access to it (details in the Privacy Policy on <a href="https://viato.tech/">viato.tech</a>).</li><li>You are responsible for backups: the Software copies its database before every update and the team server makes automatic backups, but data loss through a device failure, deletion or malware cannot be ruled out completely.</li><li><strong>Recording conversations.</strong> Record calls and meetings only with the participants' consent where the law requires it. Getting the consent is your duty.</li><li><strong>Cloud AI</strong> works with your keys and under the terms of the providers you choose. The provider, not the Developer, is responsible for it.</li></ul>
+<h2>4. Third-party components</h2>
+<p>The Software includes components by other authors (for example Electron, Python, FFmpeg, whisper.cpp, llama.cpp, AI models). They are distributed under their own licenses, listed in full in the app: Settings → About → Licenses. Where a license requires it, you may replace a component with your own version — for example the ffmpeg program (LGPL) in the app's ffmpeg folder. The Developer sends the source code of such components on request.</p>
+<h2>5. AI results</h2>
+<p>Transcripts, classes, tasks, deadlines, minutes and mail drafts are made automatically and <strong>may contain errors</strong>. Check what matters before you rely on it. The Software only prepares mail as drafts; you send them yourself.</p>
+<h2>6. No warranty</h2>
+<p>The Software is provided <strong>"as is"</strong>, free of charge (except team license keys) and without any warranty, express or implied, including fitness for a particular purpose, uninterrupted operation and freedom from errors, to the extent permitted by applicable law.</p>
+<h2>7. Limitation of liability</h2>
+<p>To the extent permitted by applicable law, the Developer is not liable for lost profits, loss of data, interruptions or other indirect damages related to the use of the Software or the inability to use it. If the Developer is liable nevertheless, the liability is limited to the amount you paid for a team license key in the last 12 months (zero for free use).</p>
+<h2>8. Updates</h2>
+<p>The Developer may release new versions. The Software tells you about a new version but does not install it by itself. The installers are not digitally signed yet: download them only from <a href="https://viato.tech/">viato.tech</a> or the Viato releases page on GitHub.</p>
+<h2>9. Termination</h2>
+<p>The agreement lasts while you use the Software. It ends if you break its terms; you must then stop using the Software. Your data stays yours.</p>
+<h2>10. Other</h2>
+<ul><li>If any provision is invalid under the law of your country, the other provisions remain in force.</li><li>The Developer may change this agreement; a new version is published on <a href="https://viato.tech/">viato.tech</a> and applies to versions of the Software released after it.</li><li>Questions: the Telegram bot @ai_recorderbot.</li></ul>
+</article>
+</main>
+<script>
+  document.getElementById('lang').addEventListener('click', function () {
+    var l = document.documentElement.lang === 'ru' ? 'en' : 'ru';
+    document.documentElement.lang = l;
+    try { localStorage.setItem('viato-lang', l); } catch (e) {}
+  });
+</script>
+</body>
+</html>

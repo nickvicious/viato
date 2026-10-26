@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy Policy · Viato</title>
+<meta name="description" content="Viato: privacy policy / политика конфиденциальности.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta name="robots" content="index, follow">
+<script>
+  // the same language and theme as the main page (index.html)
+  (function () {
+    var l = new URLSearchParams(location.search).get('lang');
+    try { l = l || localStorage.getItem('viato-lang'); } catch (e) {}
+    if (l !== 'ru' && l !== 'en') l = /^(ru|uk|be|kk)\b/i.test((navigator.languages || [navigator.language || 'en'])[0] || '') ? 'ru' : 'en';
+    document.documentElement.lang = l;
+    var t = null;
+    try { t = localStorage.getItem('viato-theme'); } catch (e) {}
+    if (t !== 'light' && t !== 'dark') t = window.matchMedia && matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', t);
+  })();
+</script>
+<style>
+  :root { --bg: #0d1314; --card: #172223; --line: #243334; --text: #e8efee; --muted: #9db0ae; --accent: #5fe0c8; }
+  :root[data-theme="light"] { --bg: #f6f8f7; --card: #ffffff; --line: #dbe3e1; --text: #14201f; --muted: #52625f; --accent: #0f7f6c; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 820px; margin: 0 auto; padding: 24px 16px 64px; }
+  nav { display: flex; gap: 16px; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+  nav .links { display: flex; gap: 14px; flex-wrap: wrap; }
+  a { color: var(--accent); }
+  h1 { font-size: 28px; line-height: 1.25; margin: 8px 0 4px; }
+  h2 { font-size: 19px; margin: 28px 0 6px; }
+  p, li { color: var(--text); }
+  ul { padding-left: 22px; }
+  code { background: var(--card); border: 1px solid var(--line); border-radius: 6px; padding: 0 5px; font-size: 14px; word-break: break-all; }
+  button { background: var(--card); color: var(--text); border: 1px solid var(--line); border-radius: 8px; padding: 4px 10px; cursor: pointer; font: inherit; }
+  html[lang="ru"] .en, html[lang="en"] .ru { display: none; }
+</style>
+</head>
+<body>
+<main>
+<nav>
+  <a href="/">Viato</a>
+  <span class="links">
+    <a href="/terms.html"><span class="ru">Лицензионное соглашение</span><span class="en">License agreement</span></a>
+    <a href="/privacy.html"><span class="ru">Конфиденциальность</span><span class="en">Privacy</span></a>
+    <button type="button" id="lang"><span class="ru">English</span><span class="en">Русский</span></button>
+  </span>
+</nav>
+<article class="ru" lang="ru">
+<h1>Политика конфиденциальности Viato</h1>
+<p>Редакция 1.0 от 26 октября 2026 года.</p>
+<p>Эта политика объясняет, какие данные обрабатывают приложения Viato (ПК-приложение для Windows и macOS, приложение для Android, прошивка диктофона, командный сервер), сайт <a href="https://viato.tech/">viato.tech</a> и бот связи в Telegram, где эти данные хранятся и кто их видит.</p>
+<h2>1. Кто мы</h2>
+<p>Viato создаёт и распространяет частный разработчик (далее — «Разработчик»). Юридического лица у Разработчика пока нет. Связаться с Разработчиком можно через Telegram-бот @ai_recorderbot (кнопка «Связаться с разработчиком» в приложении и на сайте).</p>
+<h2>2. Коротко</h2>
+<ul><li>Viato работает на вашем компьютере. Записи, расшифровки, задачи, заметки, письма, протоколы и чаты хранятся у вас (и на командном сервере вашей компании, если вы работаете в команде).</li><li>Разработчик <strong>не получает</strong> ваши записи, тексты, задачи и чаты. У Разработчика нет своего облака, учётных записей пользователей, аналитики и телеметрии.</li><li>Облачные ИИ используются, только если вы сами их включили и ввели свой ключ. Тогда данные уходят напрямую выбранному провайдеру.</li></ul>
+<h2>3. Данные в приложении</h2>
+<ul><li><strong>ПК-приложение</strong> хранит данные в папке данных на вашем компьютере (Windows: <code>%APPDATA%\AI Recorder</code>, macOS: <code>~/Library/Application Support/AI Recorder</code>): база данных, аудиозаписи, настройки, ключи ИИ, журналы.</li><li><strong>Android-приложение</strong> хранит свои данные на телефоне. С ПК оно синхронизируется напрямую в вашей сети, по зашифрованному соединению (HTTPS с закреплённым сертификатом). Ключи ИИ передаются на телефон только по зашифрованному каналу.</li><li><strong>Разделение по голосам</strong> в звонках и встречах выполняется на вашем компьютере. Голосовые признаки участников вычисляются только на время обработки записи и не сохраняются.</li><li><strong>Диктофон</strong> хранит записи на своей карте памяти и передаёт их на ваш ПК или телефон (Wi‑Fi или Bluetooth).</li><li>Удалить данные можете только вы: в приложении или удалив папку данных. Удаление приложения папку данных не удаляет — чтобы обновления не теряли данные.</li></ul>
+<h2>4. Облачные ИИ (по вашему выбору)</h2>
+<ul><li>По умолчанию ИИ может работать полностью локально (переключатель «Только локальный ИИ»). Без ИИ записи не теряются: они ждут в очереди.</li><li>Если вы включили облачного провайдера (например, Groq, Cloudflare Workers AI, Zhipu, Google Gemini, DeepSeek, Qwen/DashScope, OpenAI) и ввели свой ключ, приложение отправляет ему звук записи или текст для обработки — напрямую с вашего устройства, по вашему ключу. Разработчик эти данные не видит.</li><li>Обработку у провайдера регулируют его условия и политика конфиденциальности. <strong>Некоторые бесплатные тарифы используют данные для обучения своих моделей</strong> (например, бесплатный Google Gemini) — в настройках у таких провайдеров есть пометка. Платные провайдеры включаются отдельным переключателем.</li><li>В командном режиме компания может дать сотрудникам свои ключи ИИ: тогда запросы идут через командный сервер компании.</li></ul>
+<h2>5. Командный режим</h2>
+<ul><li>Рабочие данные команды (проекты, задачи, комментарии, чат, встречи, настройки ИИ компании) хранятся на <strong>командном сервере вашей компании</strong> — на её собственном сервере или компьютере. Владелец и администратор этих данных — компания. Разработчик к командному серверу доступа не имеет.</li><li>База командного сервера зашифрована, соединение с ним — HTTPS с закреплённым сертификатом.</li><li>Личные данные (личные заметки, списки, напоминания, пространство «Соло») на командный сервер не отправляются.</li></ul>
+<h2>6. Что приложение само передаёт в интернет</h2>
+<p>Без ваших записей и текстов, только служебные запросы:</p>
+<ul><li><strong>Проверка новой версии</strong> — раз в день запрос к GitHub (сведения о последнем выпуске). GitHub видит ваш IP-адрес.</li><li><strong>Время по сети</strong> для проверки срока командной лицензии — запросы к нескольким общедоступным сайтам (например, cloudflare.com, microsoft.com, apple.com, baidu.com, qq.com).</li><li><strong>Проверка связи</strong> при сбое обработки — короткие запросы к адресам облачных ИИ, чтобы понять, есть ли интернет.</li><li><strong>Загрузка локальных моделей</strong> (по вашей команде) — с Hugging Face и GitHub.</li></ul>
+<h2>7. Связь с Разработчиком</h2>
+<ul><li><strong>Telegram-бот.</strong> Когда вы пишете боту, Разработчик получает то, что вы сообщили: имя, компанию и размер команды из короткой анкеты, ваши сообщения и файлы, а также данные вашего профиля Telegram (имя, имя пользователя, язык). Анкета и служебная отметка хранятся в хранилище Cloudflare, переписка — в Telegram. Цель — ответить вам, выдать или продлить ключ лицензии, разобраться с проблемой. Данные хранятся, пока нужна переписка, или до вашей просьбы их удалить.</li><li><strong>Отчёт об ошибке.</strong> Приложение может сохранить файл с отчётом (версии, настройки, ошибки, журнал). Перед сохранением вы видите его целиком. В нём нет записей, расшифровок, задач, чатов и ключей ИИ. Разработчик получает отчёт, только если вы сами его отправите.</li></ul>
+<h2>8. Сайт <a href="https://viato.tech/">viato.tech</a></h2>
+<ul><li>Сайт размещён на GitHub Pages. GitHub может записывать IP-адреса посетителей в свои журналы (по своей политике конфиденциальности).</li><li>У сайта нет cookies, рекламы и счётчиков аналитики. В вашем браузере (localStorage) сохраняются только выбранные язык и тема.</li><li>Страница загрузок запрашивает у GitHub номер последней версии и показывает отчёты VirusTotal о файлах установки.</li></ul>
+<h2>9. Запись разговоров</h2>
+<p>Запись звонков и встреч может требовать согласия всех участников. Получить его — обязанность того, кто записывает. Приложение каждый раз напоминает предупредить участников.</p>
+<h2>10. Ваши права</h2>
+<p>Вы можете узнать, какие ваши данные есть у Разработчика (переписка с ботом), попросить исправить или удалить их — напишите в бот. Данные в приложении на ваших устройствах и на командном сервере компании Разработчику недоступны: ими управляете вы или ваша компания.</p>
+<h2>11. Дети</h2>
+<p>Viato — рабочий инструмент и не предназначен для детей.</p>
+<h2>12. Изменения</h2>
+<p>Новая редакция политики публикуется на сайте <a href="https://viato.tech/">viato.tech</a> с датой. Существенные изменения упоминаются в разделе «Что нового».</p>
+</article>
+<article class="en" lang="en">
+<h1>Viato Privacy Policy</h1>
+<p>Version 1.0 of 26 October 2026.</p>
+<p>This policy explains what data the Viato apps (the PC app for Windows and macOS, the Android app, the recorder firmware, the team server), the <a href="https://viato.tech/">viato.tech</a> website and the Telegram contact bot process, where the data is kept and who sees it.</p>
+<h2>1. Who we are</h2>
+<p>Viato is made and distributed by an independent developer (the "Developer"). The Developer does not have a legal entity yet. You can reach the Developer through the Telegram bot @ai_recorderbot ("Contact the developer" in the app and on the website).</p>
+<h2>2. In short</h2>
+<ul><li>Viato runs on your computer. Recordings, transcripts, tasks, notes, mail drafts, minutes and chats are kept by you (and on your company's team server if you work in a team).</li><li>The Developer <strong>does not receive</strong> your recordings, texts, tasks or chats. The Developer has no cloud of its own, no user accounts, no analytics and no telemetry.</li><li>Cloud AI is used only if you turn it on and enter your own key. Then the data goes directly to the provider you chose.</li></ul>
+<h2>3. Data in the app</h2>
+<ul><li><strong>The PC app</strong> keeps its data in the data folder on your computer (Windows: <code>%APPDATA%\AI Recorder</code>, macOS: <code>~/Library/Application Support/AI Recorder</code>): the database, audio recordings, settings, AI keys and logs.</li><li><strong>The Android app</strong> keeps its data on the phone. It syncs with the PC directly in your network over an encrypted connection (HTTPS with a pinned certificate). AI keys reach the phone only over an encrypted channel.</li><li><strong>Speaker separation</strong> in calls and meetings runs on your computer. Voice features of the participants are computed only while a recording is processed and are not kept.</li><li><strong>The recorder</strong> keeps recordings on its memory card and sends them to your PC or phone (Wi‑Fi or Bluetooth).</li><li>Only you can delete the data: in the app or by deleting the data folder. Uninstalling the app does not delete the data folder, so updates never lose data.</li></ul>
+<h2>4. Cloud AI (your choice)</h2>
+<ul><li>AI can work fully locally (the "Local AI only" switch). Without AI, recordings are not lost: they wait in the queue.</li><li>If you turn on a cloud provider (for example Groq, Cloudflare Workers AI, Zhipu, Google Gemini, DeepSeek, Qwen/DashScope, OpenAI) and enter your own key, the app sends it the audio or text to process — directly from your device, with your key. The Developer does not see this data.</li><li>The provider's terms and privacy policy govern what it does with the data. <strong>Some free tiers use the data to train their models</strong> (for example, free Google Gemini); such providers are marked in the settings. Paid providers have a switch of their own.</li><li>In team mode a company may give its staff the company's AI keys; the requests then go through the company's team server.</li></ul>
+<h2>5. Team mode</h2>
+<ul><li>A team's work data (projects, tasks, comments, chat, meetings, the company's AI settings) is kept on <strong>your company's team server</strong> — its own server or computer. The company owns and administers this data. The Developer has no access to the team server.</li><li>The team server's database is encrypted; the connection to it is HTTPS with a pinned certificate.</li><li>Personal data (personal notes, lists, reminders, the "Solo" space) is never sent to the team server.</li></ul>
+<h2>6. What the app sends to the internet by itself</h2>
+<p>Never your recordings or texts, only service requests:</p>
+<ul><li><strong>New version check</strong> — once a day a request to GitHub (information about the latest release). GitHub sees your IP address.</li><li><strong>Network time</strong> to check the term of a team license — requests to a few public websites (for example cloudflare.com, microsoft.com, apple.com, baidu.com, qq.com).</li><li><strong>Connection check</strong> when processing fails — short requests to cloud AI addresses to see whether there is internet.</li><li><strong>Local model downloads</strong> (when you ask for them) — from Hugging Face and GitHub.</li></ul>
+<h2>7. Contacting the Developer</h2>
+<ul><li><strong>Telegram bot.</strong> When you write to the bot, the Developer receives what you share: your name, company and team size from a short form, your messages and files, and your Telegram profile data (name, user name, language). The form and a service mark are kept in Cloudflare storage, the conversation in Telegram. The purpose is to answer you, issue or renew a license key and solve problems. The data is kept while the conversation is needed or until you ask to delete it.</li><li><strong>Error report.</strong> The app can save a report file (versions, settings, errors, log). You see all of it before saving. It holds no recordings, transcripts, tasks, chats or AI keys. The Developer receives a report only if you send it yourself.</li></ul>
+<h2>8. The <a href="https://viato.tech/">viato.tech</a> website</h2>
+<ul><li>The website is hosted on GitHub Pages. GitHub may log visitors' IP addresses (under its own privacy policy).</li><li>The website has no cookies, ads or analytics counters. Only your chosen language and theme are saved in your browser (localStorage).</li><li>The downloads section asks GitHub for the latest version number and shows VirusTotal reports of the installers.</li></ul>
+<h2>9. Recording conversations</h2>
+<p>Recording calls and meetings may require the consent of everyone in them. Getting it is the duty of the person who records. The app reminds you to tell the participants every time.</p>
+<h2>10. Your rights</h2>
+<p>You can ask what data of yours the Developer has (the conversation with the bot) and ask to correct or delete it — write to the bot. The data in the app on your devices and on your company's team server is not accessible to the Developer: you or your company manage it.</p>
+<h2>11. Children</h2>
+<p>Viato is a work tool and is not intended for children.</p>
+<h2>12. Changes</h2>
+<p>A new version of this policy is published on <a href="https://viato.tech/">viato.tech</a> with its date. Significant changes are mentioned in "What's new".</p>
+</article>
+</main>
+<script>
+  document.getElementById('lang').addEventListener('click', function () {
+    var l = document.documentElement.lang === 'ru' ? 'en' : 'ru';
+    document.documentElement.lang = l;
+    try { localStorage.setItem('viato-lang', l); } catch (e) {}
+  });
+</script>
+</body>
+</html>
