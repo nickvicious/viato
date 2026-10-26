@@ -927,6 +927,13 @@ sudo systemctl restart ssh</pre></li>
         </span>
       </summary>
       <div class="g-body">
+        <h3>1.0.2 <small class="muted"><span class="en">· October 26, 2026</span></small></h3>
+        
+        <ul class="en">
+          <li>Local AI no longer holds memory while nothing is processed: the models load for a new recording and unload a few seconds after it. On a 16 GB Mac Viato took up to 12 GB — now almost nothing when idle.</li>
+          <li>The text model no longer keeps old requests in memory (up to 8 GB).</li>
+          <li>If Viato crashes or is force quit, its background part and the models now stop too.</li>
+        </ul>
         <h3>1.0.1 <small class="muted"><span class="en">· October 26, 2026</span></small></h3>
         
         <ul class="en">
