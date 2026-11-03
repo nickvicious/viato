@@ -1,27 +1,27 @@
 {
-  "version": "1.0.3",
-  "checked": "2026-10-27",
+  "version": "1.0.5",
+  "checked": "2026-11-03",
   "files": {
     "apk": {
-      "sha256": "1b02cb93143be109d1ac8a31e7bfe072afe4d36032c19cfe845fb6e0b79be792",
-      "malicious": 0,
+      "sha256": "ec9eb84650c296a690bd2235e2e4448d7c48b97bb9d36e2a8f3cc12cde196de8",
+      "malicious": 1,
       "suspicious": 0,
-      "engines": 66,
-      "report": "https://www.virustotal.com/gui/file/1b02cb93143be109d1ac8a31e7bfe072afe4d36032c19cfe845fb6e0b79be792"
+      "engines": 62,
+      "report": "https://www.virustotal.com/gui/file/ec9eb84650c296a690bd2235e2e4448d7c48b97bb9d36e2a8f3cc12cde196de8"
     },
     "dmg": {
-      "sha256": "40998c3801002f3c6e593ba4f2bc6662fd00143c97fdefcc86630b466004db3a",
+      "sha256": "b3abb046e04693736674da9d96c906880a380166d62cf7d202118809869b1384",
       "malicious": 0,
       "suspicious": 0,
-      "engines": 52,
-      "report": "https://www.virustotal.com/gui/file/40998c3801002f3c6e593ba4f2bc6662fd00143c97fdefcc86630b466004db3a"
+      "engines": 53,
+      "report": "https://www.virustotal.com/gui/file/b3abb046e04693736674da9d96c906880a380166d62cf7d202118809869b1384"
     },
     "exe": {
-      "sha256": "4036f5231eee481bc489c9a008f694a61c591b3e623e9ee0d228b27b92f337d7",
+      "sha256": "1b2d2c10850d005898ba33de72c1775f9176ab9ac6e401d9e677fc849762f227",
       "malicious": 0,
       "suspicious": 0,
-      "engines": 48,
-      "report": "https://www.virustotal.com/gui/file/4036f5231eee481bc489c9a008f694a61c591b3e623e9ee0d228b27b92f337d7"
+      "engines": 53,
+      "report": "https://www.virustotal.com/gui/file/1b2d2c10850d005898ba33de72c1775f9176ab9ac6e401d9e677fc849762f227"
     }
   }
 }
