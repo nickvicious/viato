@@ -4,9 +4,9 @@
   "files": {
     "apk": {
       "sha256": "ec9eb84650c296a690bd2235e2e4448d7c48b97bb9d36e2a8f3cc12cde196de8",
-      "malicious": 1,
+      "malicious": 0,
       "suspicious": 0,
-      "engines": 62,
+      "engines": 66,
       "report": "https://www.virustotal.com/gui/file/ec9eb84650c296a690bd2235e2e4448d7c48b97bb9d36e2a8f3cc12cde196de8"
     },
     "dmg": {
